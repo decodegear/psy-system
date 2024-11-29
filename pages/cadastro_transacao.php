@@ -29,7 +29,7 @@ if (empty($_SESSION['csrf_token'])) {
 <div class="container mt-5 mb-5">
     <h1 class="mb-4">Cadastro de <?= ucfirst($tipo); ?></h1>
 
-    <form action="..//actions/insert_transacao.php" method="post" class="row g-3 needs-validation" novalidate>
+    <form action="../actions/insert_transacao.php?tipo=<?= ucfirst($tipo); ?>" method="post" class="row g-3 needs-validation" novalidate>
     <!-- Token CSRF -->
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']); ?>">
     
@@ -92,7 +92,7 @@ if (empty($_SESSION['csrf_token'])) {
         <!-- Campo de Descrição (Linha Completa) -->
         <div class="col-12">
             <label for="descricao" class="form-label">Descrição:</label>
-            <textarea class="form-control" id="descricao" name="descricao" rows="4" style="resize: none;" required></textarea>
+            <textarea class="form-control" id="descricao" name="descricao" rows="4" style="resize: none;" ></textarea>
             <div class="invalid-feedback">Por favor, insira a descrição.</div>
         </div>
 
@@ -126,7 +126,7 @@ if (empty($_SESSION['csrf_token'])) {
         parcelasContainer.style.display = this.checked ? 'block' : 'none';
     });
 
-    // Validação de formulário com Bootstrap
+   /*  // Validação de formulário com Bootstrap
     (function () {
         'use strict';
         var forms = document.querySelectorAll('.needs-validation');
@@ -139,7 +139,31 @@ if (empty($_SESSION['csrf_token'])) {
                 form.classList.add('was-validated');
             }, false);
         });
-    })();
+    })(); */
+    // Validação de formulário com Bootstrap
+(function () {
+    'use strict';
+    var forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                // Se o formulário não for válido
+                event.preventDefault();
+                event.stopPropagation();
+                form.classList.add('was-validated');
+                
+                // Redirecionar para uma página de erro
+                window.location.href = '/erro.html'; // Substitua pelo caminho da sua página de erro
+            } else {
+                // Se o formulário for válido
+                form.classList.add('was-validated');
+                
+                // Redirecionar para uma página de sucesso
+                window.location.href = '/sucesso.html'; // Substitua pelo caminho da sua página de sucesso
+            }
+        }, false);
+    });
+})();
 </script>
 
 <?php 

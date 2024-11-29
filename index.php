@@ -9,7 +9,7 @@ if (isset($_SESSION['erro'])): ?>
     <?php unset($_SESSION['erro']); ?>
 <?php endif; ?>
 
-<h1>Bem-vindo ao Sistema Financeiro</h1>
+<h1>Página inicial</h1>
 <p>Gerencie suas finanças de forma eficiente com nosso sistema completo de controle de receitas, despesas e muito mais.</p>
 
 <div class="dashboard container">

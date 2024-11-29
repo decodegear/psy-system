@@ -8,14 +8,14 @@ if (!isset($_SESSION['admin_id'])) {
 include '../includes/header.php';
 include '../includes/db_connect.php';
 
-
-
 $id = null;
 $nome = '';
 $tipo = 'Receita';
 
 $filtro_receita = true;
 $filtro_despesa = true;
+
+$mensagem = ""; // Variável para armazenar a mensagem de sucesso/erro
 
 // Verificar se há solicitação de edição
 if (isset($_GET['edit'])) {
@@ -29,8 +29,7 @@ if (isset($_GET['edit'])) {
         $nome = $categoria['nome'];
         $tipo = $categoria['tipo'];
     } else {
-        echo "Categoria não encontrada.";
-        exit;
+        $mensagem = "Categoria não encontrada.";
     }
 }
 
@@ -48,31 +47,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nome'])) {
 
     if ($existe_categoria > 0 && !$id) {
         // Caso seja uma duplicação no cadastro de uma nova categoria
-        echo "Esta categoria já está cadastrada!";
-       
+        $mensagem = "Esta categoria já está cadastrada!";
     } elseif ($id) {
         // Atualizar categoria existente
         $sql = "UPDATE categorias SET nome = ?, tipo = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$nome, $tipo, $id]);
-        echo "Categoria atualizada com sucesso!";
-        
+        $mensagem = "Categoria atualizada com sucesso!";
     } else {
         // Inserir nova categoria
         $sql = "INSERT INTO categorias (nome, tipo) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$nome, $tipo]);
-        echo "Categoria cadastrada com sucesso!";
-        
+        $mensagem = "Categoria cadastrada com sucesso!";
     }
 }
-
 
 // Verificar se há solicitação de exclusão
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
-    $sql_check = "SELECT COUNT(*) AS total FROM receitas WHERE categoria_id = ? UNION ALL SELECT COUNT(*) AS total FROM despesas WHERE categoria_id = ?";
+    $sql_check = "SELECT COUNT(*) AS total FROM transacoes WHERE categoria_id = ? UNION ALL SELECT COUNT(*) AS total FROM transacoes WHERE categoria_id = ?";
     $stmt_check = $conn->prepare($sql_check);
     $stmt_check->execute([$id, $id]);
     $usos = $stmt_check->fetchAll(PDO::FETCH_COLUMN);
@@ -81,13 +76,12 @@ if (isset($_GET['delete'])) {
     $usos_despesa = isset($usos[1]) ? $usos[1] : 0;
 
     if ($usos_receita > 0 || $usos_despesa > 0) {
-        $erro_exclusao = true;
+        $mensagem = "Não é possível excluir a categoria, pois está sendo utilizada.";
     } else {
         $sql = "DELETE FROM categorias WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$id]);
-        echo "Categoria excluída com sucesso!";
-        
+        $mensagem = "Categoria excluída com sucesso!";
     }
 }
 
@@ -163,4 +157,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <p>Nenhuma categoria encontrada.</p>
 <?php endif; ?>
 
-
+<?php if ($mensagem): ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        alert("<?= $mensagem; ?>");
+        window.location.href = "cadastrar_categoria.php";
+    });
+</script>
+<?php endif; ?>

@@ -3,7 +3,6 @@
 // Inclui o cabeçalho com o menu de navegação
 include '../includes/header.php'; 
 // Iniciar a sessão e verificar se o usuário é administrador
-//session_start();
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 
 // Conectar ao banco de dados
@@ -37,8 +36,8 @@ try {
                 <th>CPF</th>
                 <th>CNH</th>
                 <th>Data de Nascimento</th>
-                 <!-- Exibir a coluna Ações somente para administradores -->
-                 <?php if ($isAdmin): ?>
+                <!-- Exibir a coluna Ações somente para administradores -->
+                <?php if ($isAdmin): ?>
                     <th>Ações</th>
                 <?php endif; ?>
             </tr>
@@ -47,23 +46,22 @@ try {
             <?php if (!empty($pessoas)): ?>
                 <?php foreach ($pessoas as $pessoa): ?>
                     <tr>
-                        <td><?= htmlspecialchars($pessoa['nome']) ?></td>
-                        <td><?= htmlspecialchars($pessoa['genero']) ?></td>
-                        <td><?= htmlspecialchars($pessoa['idade']) ?></td>
-                        <td><?= htmlspecialchars($pessoa['peso']) ?></td>
-                        <td><?= htmlspecialchars($pessoa['altura']) ?></td>
-                        <td><?= htmlspecialchars($pessoa['etnia']) ?></td>
-                        <td><?= htmlspecialchars($pessoa['rg']) ?></td>
-                        <td><?= htmlspecialchars($pessoa['cpf']) ?></td>
-                        <td><?= htmlspecialchars($pessoa['cnh']) ?></td>
-                        <td><?= htmlspecialchars((new DateTime($pessoa['data_nasc']))->format('d/m/Y')) ?></td>
+                        <td><?= htmlspecialchars($pessoa['nome'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($pessoa['genero'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($pessoa['idade'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($pessoa['peso'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($pessoa['altura'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($pessoa['etnia'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($pessoa['rg'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($pessoa['cpf'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($pessoa['cnh'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= !empty($pessoa['data_nasc']) ? htmlspecialchars((new DateTime($pessoa['data_nasc']))->format('d/m/Y')) : '' ?></td>
                         <?php if ($isAdmin): ?>
                             <td>
-                            <a href="../pages/editar_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php ?>
-                            <a href="../actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a><?php ?>
+                                <a href="../pages/editar_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-warning btn-sm">Alterar</a>
+                                <a href="../actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a>
                             </td>
                         <?php endif; ?>
-                        
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>

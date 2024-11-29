@@ -1,6 +1,4 @@
 <?php
-// includes/db_connect.php
-
 // Configuração de banco de dados usando variáveis de ambiente ou valores padrão
 $servername = getenv('DB_SERVER') ?: 'localhost';
 $username = getenv('DB_USERNAME') ?: 'u599484558_psy';

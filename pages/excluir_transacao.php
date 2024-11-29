@@ -13,9 +13,9 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
-    header("Location: ../pages/visualizar_transacao.php?tipo=");
+    header("Location: visualizar_transacao.php");
 } catch (PDOException $e) {
     error_log("Erro ao excluir despesa: " . $e->getMessage());
-    header("Location: ../pages/visualizar_transacao.php?status=error");
+    header("Location: visualizar_transacao.php?status=error");
 }
 ?>

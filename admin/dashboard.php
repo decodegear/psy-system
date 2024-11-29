@@ -40,30 +40,34 @@ $_SESSION['last_activity'] = time();
     <h1 class="text-left">Olá, <?= htmlspecialchars($_SESSION['admin_nome']) ?></h1>
     
     <div class="row mt-4">
-        <!-- Coluna para os cadastros -->
+             <!-- Coluna para os cadastros -->
         <div class="col-md-4">
-            <h2 class="text-black">Cadastrar / Alterar</h2>
+            <h2 class="text-black">Calendário</h2>
             <ul class="dashboard-list">
-                <li><a href="../pages/cadastrar_categoria.php">Cad Categorias</a></li>
+            <li><a href="../pages/visualizar_transacao.php?tipo=receitas">Agendamentos</a></li>
+            Sua agenda diária aparecerá aqui.
+            <!-- <li><a href="../pages/cadastrar_categoria.php">Cad Categorias</a></li>
                 <li><a href="../pages/cadastrar_conta.php">Cad Contas</a></li>
                 <li><a href="../pages/cadastrar_usuario.php">Cad Usuários</a></li>
                 <li><a href="../pages/cadastro_transacao.php?tipo=despesa">Cadastro Despesas</a></li>
-                <li><a href="../pages/cadastro_transacao.php?tipo=receitas">Cadastro Receitas</a></li>
+                <li><a href="../pages/cadastro_transacao.php?tipo=receitas">Cadast ro Receitas</a></li>-->
             </ul>
         </div>
 
         <!-- Coluna para relatórios -->
-        <div class="col-md-4">
-            <h2 class="text-black">Relatórios</h2>
+        <div class="col-md-4 ">
+            <h2 class="text-black">Débitos</h2>
             <ul class="dashboard-list">
-                <li><a href="relatorio.php">Relatório Financeiro</a></li>
+                <li><a href="../pages/visualizar_transacao.php?tipo=despesa">À Pagar</a></li>
+                Uma lista de contas à pagar aparecerá aqui.
             </ul>
         </div>
         <!-- Coluna para relatórios -->
         <div class="col-md-4">
-            <h2 class="text-black">Visualizar</h2>
+            <h2 class="text-black">Receitas</h2>
             <ul class="dashboard-list">
-                <li><a href="relatorio.php">Relatório Financeiro</a></li>
+                <li><a href="../pages/visualizar_transacao.php?tipo=receitas">Receber</a></li>
+                Uma lista de contas à receber aparecerá aqui.
             </ul>
         </div>
     </div>

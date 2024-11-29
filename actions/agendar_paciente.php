@@ -1,4 +1,10 @@
 <?php
+session_start();
+// Verificar se o administrador está logado
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../admin/login.php");
+    exit;
+}
 include '../includes/db_connect.php';
 
 // Sanitização e validação de entrada

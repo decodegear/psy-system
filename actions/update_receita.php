@@ -1,27 +1,36 @@
 <?php
+// Inclui a conexão com o banco de dados
 include '../includes/db_connect.php';
-
+$tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'receita';
+// Coletar os dados do formulário
 $id = $_POST['id'];
-$nome = filter_var($_POST['nome'], FILTER_SANITIZE_STRING);
-$descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_STRING);
-$valor = (float)$_POST['valor'];
+$nome = $_POST['nome'];
+$descricao = $_POST['descricao'];
+$valor = $_POST['valor'];
 $data_vencimento = $_POST['data_vencimento'];
 $situacao = $_POST['situacao'];
-$parcelado = isset($_POST['parcelado']) ? true : false;
-$qtd_parcelas = $parcelado ? (int)$_POST['qtd_parcelas'] : 1;
+$parcelado = isset($_POST['parcelado']) ? 1 : 0;
+$qtd_parcelas = $parcelado ? $_POST['qtd_parcelas'] : null;
+$categoria_id = $_POST['categoria_id'];
+$conta_id = $_POST['conta_id'];
 
 try {
-    // Atualizar receita principal
-    $sql = "UPDATE receitas SET nome = ?, descricao = ?, valor = ?, data_vencimento = ?, situacao = ?, parcelado = ?, qtd_parcelas = ? WHERE id = ?";
+    // Atualizar a despesa no banco de dados
+    $sql = "UPDATE transacoes 
+            SET nome = ?, descricao = ?, valor = ?, data_vencimento = ?, situacao = ?, parcelado = ?, qtd_parcelas = ?, categoria_id = ?, conta_id = ?
+            WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$nome, $descricao, $valor, $data_vencimento, $situacao, $parcelado, $qtd_parcelas, $id]);
+    $stmt->execute([$nome, $descricao, $valor, $data_vencimento, $situacao, $parcelado, $qtd_parcelas, $categoria_id, $conta_id, $id]);
 
-    // Opcional: Atualizar parcelas se necessário...
-
-    header("Location: ..//pages/visualizar_receitas.php?status=updated");
+    echo "Despesa atualizada com sucesso!";
+    // Redirecionar ou exibir mensagem de sucesso
+    header("Location: /pages/visualizar_transacao.php?tipo=$tipo");
+    exit;
 } catch (PDOException $e) {
-    error_log("Erro ao atualizar receita: " . $e->getMessage());
-    header("Location: ..//pages/editar_receita.php?id=$id&status=error");
+    error_log("Erro ao atualizar despesa: " . $e->getMessage());
+    echo "Erro ao atualizar despesa.";
 }
-?>
 
+// Fechar a conexão com o banco de dados
+$conn = null;
+?>
