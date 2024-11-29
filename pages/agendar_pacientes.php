@@ -1,4 +1,10 @@
 <?php 
+session_start();
+// Verificar se o administrador está logado
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../admin/login.php");
+    exit;
+}
 // Inclui o cabeçalho com o menu de navegação
 include '../includes/header.php'; 
 ?>

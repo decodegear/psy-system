@@ -45,27 +45,27 @@ try {
     <!-- Outros campos (Idade, Peso, Altura, etc.) continuam da mesma forma -->
     <!-- Idade -->
     <label for="idade">Idade:</label>
-    <input type="number" id="idade" name="idade" value="<?= htmlspecialchars($pessoa['idade']) ?>" required>
+    <input type="number" id="idade" name="idade" value="<?= htmlspecialchars($pessoa['idade']) ?>" >
     
     <!-- Peso -->
     <label for="peso">Peso (kg):</label>
-    <input type="number" id="peso" name="peso" step="0.1" value="<?= htmlspecialchars($pessoa['peso']) ?>" required>
+    <input type="number" id="peso" name="peso" step="0.1" value="<?= htmlspecialchars($pessoa['peso']) ?>" >
     
     <!-- Altura -->
     <label for="altura">Altura (cm):</label>
-    <input type="number" id="altura" name="altura" value="<?= htmlspecialchars($pessoa['altura']) ?>" required>
+    <input type="number" id="altura" name="altura" value="<?= htmlspecialchars($pessoa['altura']) ?>" >
     
     <!-- Etnia -->
     <label for="etnia">Etnia:</label>
-    <input type="text" id="etnia" name="etnia" value="<?= htmlspecialchars($pessoa['etnia']) ?>" required>
+    <input type="text" id="etnia" name="etnia" value="<?= htmlspecialchars($pessoa['etnia']) ?>" >
     
     <!-- RG -->
     <label for="rg">RG:</label>
-    <input type="text" id="rg" name="rg" value="<?= htmlspecialchars($pessoa['rg']) ?>" required>
+    <input type="text" id="rg" name="rg" value="<?= htmlspecialchars($pessoa['rg']) ?>" >
     
     <!-- CPF -->
     <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($pessoa['cpf']) ?>" required>
+    <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($pessoa['cpf']) ?>" >
     
     <!-- CNH -->
     <label for="cnh">CNH:</label>

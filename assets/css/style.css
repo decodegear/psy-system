@@ -1,6 +1,5 @@
 /* Reset básico para remover margens e paddings padrão */
 * {
-    
     margin-top: 5px;
     padding: 0;
     box-sizing: border-box;
@@ -8,47 +7,55 @@
 
 /* Estilo geral do corpo */
 body altura {
-    
     font-family: Arial, sans-serif;
     font-size: 14px;
     line-height: 1.6;
     background-color: #f4f4f9;
     color: #333;
     padding: 20px;
-    
 }
 
 /* Estilos para o cabeçalho e menus */
 header {
-    background-color: #333;
+    background-color: rgba(221, 233, 233, 0.57);
     color: #fff;
     padding: 15px 0;
     text-align: center;
     margin-bottom: 20px;
 }
+
 /* Remover o estilo global de margin-top que afeta a navbar */
 header * {
     margin-top: 0 !important;
 }
+
 /* Ajustes para o texto da navbar */
 .navbar-text {
-    color: #fff !important; /* Garantir que o texto fique branco */
+    color: #fff !important;
+
+    /* Garantir que o texto fique branco */
     margin-right: 15px;
-    font-size: 16px; /* Tamanho da fonte ajustado */
+    font-size: 16px;
+
+    /* Tamanho da fonte ajustado */
 }
 
 /* Garantir que o link de logout e o nome do usuário fiquem alinhados corretamente */
 .navbar-nav .nav-item .nav-link {
-    color: #fff !important; /* Forçar o texto a ficar branco */
+    color: #fff !important;
+
+    /* Forçar o texto a ficar branco */
 }
 
 .navbar-nav .nav-item .nav-link:hover {
-    background-color: #555; /* Cor ao passar o mouse */
+    background-color: #555;
+
+    /* Cor ao passar o mouse */
 }
 
 nav {
     /* Remova o display flex para evitar que o layout quebre */
-    background-color: #333;
+    background-color: #333333;
     padding: 15px;
 }
 
@@ -69,14 +76,15 @@ nav ul li a {
     text-decoration: none;
 }
 
-
 nav ul li:hover > a {
     background-color: #555;
 }
 
 /* Estilo para os menus dropdown */
 nav ul li ul {
-    display: none; /* Esconde os submenus inicialmente */
+    display: none;
+
+    /* Esconde os submenus inicialmente */
     position: absolute;
     top: 100%;
     left: 0;
@@ -90,7 +98,9 @@ nav ul li ul {
 }
 
 nav ul li:hover ul {
-    display: block; /* Mostra o submenu ao passar o mouse */
+    display: block;
+
+    /* Mostra o submenu ao passar o mouse */
 }
 
 nav ul li ul li a {
@@ -109,14 +119,18 @@ footer {
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: relative; /* Corrigido para evitar sobreposição */
+    position: relative;
+
+    /* Corrigido para evitar sobreposição */
     width: 100%;
     bottom: 0;
 }
 
 /* Estilo para o conteúdo principal */
 main {
-    margin-bottom: 60px; /* Espaço para o rodapé */
+    margin-bottom: 60px;
+
+    /* Espaço para o rodapé */
 }
 
 /* Estilo para o painel de controle na página inicial */
@@ -161,7 +175,8 @@ main {
 }
 
 /* Estilos para botões e formulários */
-button, input[type="submit"] {
+button,
+input[type="submit"] {
     background-color: #5cb85c;
     color: #fff;
     border: none;
@@ -171,16 +186,21 @@ button, input[type="submit"] {
     transition: background-color 0.3s;
 }
 
-button:hover, input[type="submit"]:hover {
+button:hover,
+input[type="submit"]:hover {
     background-color: #4cae4c;
 }
 
 /* REMOVIDO o width: 100% para inputs e selects */
-input[type="text"], input[type="number"], input[type="date"], select {
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
     padding: 10px;
     margin: 10px 0 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
+
     /* O Bootstrap controlará o width com base no grid */
 }
 
@@ -191,7 +211,9 @@ table {
     margin-bottom: 20px;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
@@ -207,27 +229,47 @@ tr:nth-child(even) {
 
 /* Estilos para o modal */
 .modal {
-    display: block; /* Tornar visível quando for exibido */
-    position: fixed; /* Fixar o modal no meio da tela */
+    display: block;
+
+    /* Tornar visível quando for exibido */
+    position: fixed;
+
+    /* Fixar o modal no meio da tela */
     z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
-    animation: fadeIn 0.5s ease; /* Animação para o modal */
+    background-color: rgba(0, 0, 0, 0.5);
+
+    /* Fundo semitransparente */
+    animation: fadeIn 0.5s ease;
+
+    /* Animação para o modal */
 }
 
 .modal-content {
-    background-color: rgb(0, 110, 255); /* Fundo azul */
-    margin: auto; /* Centraliza horizontalmente */
+    background-color: rgb(0, 110, 255);
+
+    /* Fundo azul */
+    margin: auto;
+
+    /* Centraliza horizontalmente */
     padding: 20px;
     border: 1px solid #888;
     width: 30%;
-    position: relative; /* Permitir posicionamento absoluto dos elementos internos */
-    top: 50%; /* Centraliza verticalmente */
-    transform: translateY(-50%); /* Corrige o alinhamento vertical */
-    animation: slideIn 0.5s ease; /* Animação de deslizamento */
+    position: relative;
+
+    /* Permitir posicionamento absoluto dos elementos internos */
+    top: 50%;
+
+    /* Centraliza verticalmente */
+    transform: translateY(-50%);
+
+    /* Corrige o alinhamento vertical */
+    animation: slideIn 0.5s ease;
+
+    /* Animação de deslizamento */
 }
 
 .close {
@@ -238,7 +280,7 @@ tr:nth-child(even) {
 }
 
 .close:hover,
-.close:focus {
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -246,15 +288,28 @@ tr:nth-child(even) {
 
 /* Animação de desvanecimento para o modal */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Animação de deslizamento para o conteúdo do modal */
 @keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
+
 /* Estilos para a dashboard */
 .dashboard-list {
     list-style-type: none;
@@ -262,7 +317,9 @@ tr:nth-child(even) {
 }
 
 .dashboard-list li {
-    background-color: #333; /* Cor de fundo escuro, similar ao header */
+    background-color: #333;
+
+    /* Cor de fundo escuro, similar ao header */
     margin-bottom: 10px;
     padding: 15px;
     border-radius: 5px;
@@ -270,17 +327,24 @@ tr:nth-child(even) {
 }
 
 .dashboard-list li a {
-    color: #fff; /* Texto branco */
+    color: #fff;
+
+    /* Texto branco */
     text-decoration: none;
     font-weight: bold;
 }
 
 .dashboard-list li:hover {
-    background-color: #555; /* Muda para um tom mais claro ao passar o mouse */
+    background-color: #555;
+
+    /* Muda para um tom mais claro ao passar o mouse */
 }
 
-h1, h2 {
-    color: #fff; /* Títulos com texto branco */
+h1,
+h2 {
+    color: #fff;
+
+    /* Títulos com texto branco */
 }
 
 /* Espaçamento entre os elementos */

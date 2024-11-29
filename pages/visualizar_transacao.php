@@ -3,7 +3,7 @@
 // Inclui o cabeçalho com o menu de navegação
 include '../includes/header.php'; 
 // Iniciar a sessão e verificar se o usuário é administrador
-//session_start();
+
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 
 // Conectar ao banco de dados
@@ -69,8 +69,8 @@ try {
                         <td><?= $item['parcelado'] ? htmlspecialchars($item['qtd_parcelas']) : 'N/A' ?></td>
                         <?php if ($isAdmin): ?>
                             <td>
-                                <a href="../pages/editar_<?= $item['tipo'] ?>.php?id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php ?>
-                                <a href="../actions/excluir_<?= $item['tipo'] ?>.php?id=<?= $item['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a><?php ?>
+                                <a href="editar_<?= $item['tipo'] ?>.php?id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php ?>
+                                <a href="../actions/excluir_transacao.php?id=<?= $item['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a><?php ?>
                             </td>
                         <?php endif; ?>
                     </tr>

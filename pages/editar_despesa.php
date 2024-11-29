@@ -2,7 +2,7 @@
 // Inclui o cabeçalho com o menu de navegação
 include '../includes/header.php'; 
 include '../includes/db_connect.php';
-
+$tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'despesa';
 $id = $_GET['id'] ?? null;
 
 if (!$id) {
@@ -12,7 +12,7 @@ if (!$id) {
 try {
     // Buscar dados da despesa para edição
     $sql = "SELECT nome, descricao, valor, data_vencimento, situacao, parcelado, qtd_parcelas, categoria_id, conta_id 
-            FROM despesas 
+            FROM transacoes 
             WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
@@ -23,7 +23,7 @@ try {
     }
 
     // Buscar categorias de despesas
-    $sql_categorias = "SELECT id, nome FROM categorias WHERE tipo = 'Despesa'";
+    $sql_categorias = "SELECT id, nome FROM categorias WHERE tipo = 'despesa'";
     $result_categorias = $conn->query($sql_categorias);
 
     // Buscar contas
@@ -38,7 +38,7 @@ try {
 
 <h1>Editar Despesa</h1>
 
-<form action="..//actions/update_despesa.php" method="post">
+<form action="../actions/update_despesa.php" method="post">
     <input type="hidden" name="id" value="<?= $id ?>">
 
     <!-- Nome -->
