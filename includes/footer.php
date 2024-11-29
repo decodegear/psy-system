@@ -1,8 +1,3 @@
-Certo, vamos dar uma olhada no problema do menu mobile que está presente no seu `header.php`. Vou começar analisando possíveis problemas que poderiam causar esse comportamento no menu, como problemas de JavaScript, CSS ou de estrutura HTML.
-
-Aqui está o código que você forneceu para o `header.php`:
-
-```php
 <?php
 // Verifica se a sessão já foi iniciada
 if (session_status() === PHP_SESSION_NONE) { 
