@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "psy"
+		}
+	],
+	"settings": {
+		"todo-tree.tree.showCountsInTree": true
+	}
+}
