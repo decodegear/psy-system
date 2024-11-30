@@ -1,3 +1,4 @@
+
 <?php
 // Verifica se a sessão já foi iniciada
 if (session_status() === PHP_SESSION_NONE) { 
@@ -84,8 +85,8 @@ include 'db_connect.php';
 </nav>
 </header>
 
-<script>
-  // JavaScript para garantir que o menu mobile funcione corretamente
+<!-- <script>
+  // JavaScript simplificado para garantir que o menu mobile funcione corretamente
   document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuButton = document.querySelector('.navbar-toggler');
     mobileMenuButton.addEventListener('click', function() {
@@ -93,4 +94,4 @@ include 'db_connect.php';
       menu.classList.toggle('show');
     });
   });
-</script>
+</script> -->
