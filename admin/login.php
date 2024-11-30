@@ -1,7 +1,8 @@
 <?php 
 session_start();
-include '../includes/db_connect.php';
 
+include '../includes/header.php';
+include '../includes/db_connect.php';
 // Verificar se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -78,3 +79,4 @@ if ($usuario && password_verify($senha, $usuario['senha'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php include "./includes/footer.php" ?>

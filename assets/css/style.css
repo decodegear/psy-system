@@ -280,7 +280,8 @@ tr:nth-child(even) {
 }
 
 .close:hover,
-.close:focus {
+
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
