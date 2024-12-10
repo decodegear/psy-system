@@ -15,20 +15,20 @@ session_start();
     <section class="panel">
         <h2>Visão Geral</h2>
         <ul>
-            <li><a href="..//pages/visualizar_transacao.php?tipo=receita">Visualizar Receitas</a></li>
-            <li><a href="..//pages/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
-            <li><a href="..//pages/cadastro_transacao.php?tipo=receita">Cadastrar Nova Receita</a></li>
-            <li><a href="..//pages/cadastro_transacao.php?tipo=despesa">Cadastrar Nova Despesa</a></li>
+            <li><a href="../views/visualizar_transacao.php?tipo=receita">Visualizar Receitas</a></li>
+            <li><a href="../views/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
+            <li><a href="../pages/cadastro_transacao.php?tipo=receita">Cadastrar Nova Receita</a></li>
+            <li><a href="../pages/cadastro_transacao.php?tipo=despesa">Cadastrar Nova Despesa</a></li>
         </ul>
     </section>
 
     <section class="panel">
         <h2>Utilitários</h2>
         <ul>
-            <li><a href="..//pages/agendar_pacientes.php">Gerenciar Agenda</a></li>
-            <li><a href="..//pages/visualizar_agendamentos.php">Visualizar Agendamentos</a></li>
-            <li><a href="..//pages/cadastro_usuario.php">Cadastrar Novo Usuário</a></li>
-            <li><a href="..//pages/visualizar_pessoas.php">Visualizar Pessoas</a></li>
+            <li><a href="../pages/agendar_pacientes.php">Gerenciar Agenda</a></li>
+            <li><a href="../pages/visualizar_agendamentos.php">Visualizar Agendamentos</a></li>
+            <li><a href="../pages/cadastro_usuario.php">Cadastrar Novo Usuário</a></li>
+            <li><a href="../views/pessoa/visualizar_pessoas.php">Visualizar Pessoas</a></li>
         </ul>
     </section>
 </div>

@@ -2,6 +2,7 @@
 <?php 
 // Inclui o cabeçalho com o menu de navegação
 include '../includes/header.php'; 
+
 // Iniciar a sessão e verificar se o usuário é administrador
 //session_start();
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';

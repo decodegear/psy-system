@@ -159,7 +159,7 @@ if (empty($_SESSION['csrf_token'])) {
                 form.classList.add('was-validated');
                 
                 // Redirecionar para uma página de sucesso
-                window.location.href = '/sucesso.html'; // Substitua pelo caminho da sua página de sucesso
+                window.location.href = "../views/visualizar_transacao.php?tipo=<?= ucfirst($tipo); ?>" // Substitua pelo caminho da sua página de sucesso
             }
         }, false);
     });

@@ -16,7 +16,7 @@ $nasc = filter_input(INPUT_POST, 'nasc', FILTER_SANITIZE_STRING);
 
 if ($id === false) {
     // Verificar se o ID é inválido
-    header("Location: ../pages/visualizar_pessoa.php?status=invalid_id");
+    header("Location: ../views/pessoa/visualizar_pessoa.php?status=invalid_id");
     exit;
 }
 
@@ -44,13 +44,13 @@ try {
     ]);
 
     // Redirecionar para a página de visualização após o cadastro bem-sucedido
-    header("Location: ../pages/visualizar_pessoa.php?status=updated");
+    header("Location: ../views/pessoa/visualizar_pessoa.php?status=updated");
     exit;
 
 } catch (PDOException $e) {
     error_log("Erro ao atualizar pessoa: " . $e->getMessage());
     // Redirecionar para a página de edição com uma mensagem de erro
-    header("Location: ../pages/editar_pessoa.php?id=$id&status=error");
+    header("Location: ../actions/editar_pessoa.php?id=$id&status=error");
     exit;
 }
 ?>
