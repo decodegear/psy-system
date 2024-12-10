@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     // Redirecionar ou exibir mensagem de sucesso
-    header("Location: /pages/visualizar_transacao.php?tipo=$tipo");
+    header("Location: ../views/visualizar_transacao.php?tipo=$tipo");
     exit;
 }
 ?>

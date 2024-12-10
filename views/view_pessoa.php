@@ -48,6 +48,9 @@ try {
                 <input class="form-control me-2" type="search" name="search" placeholder="Pesquisar por nome" value="<?= htmlspecialchars($searchTerm ?? '') ?>" aria-label="Pesquisar">
                 <button class="btn btn-outline-success" type="submit">Pesquisar</button>
             </form>
+            <?php if ($isAdmin): ?>
+        <a href="../pages/cadastro_pessoa.php" class="btn btn-primary mb-3">Adicionar Novo Paciente</a><?php ?>
+    <?php endif; ?>
 
             <?php if (!empty($pessoas)): ?>
                 <div class="list-group mb-4">
@@ -135,4 +138,4 @@ try {
     </div>
 </div>
 
-<?php include '../includes/footer.php'; // Incluindo o rodapé ?>
+<?php include "../includes/footer.php"; // Incluindo o rodapé ?>

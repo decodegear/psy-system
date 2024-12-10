@@ -12,10 +12,11 @@ try {
     $sql = "DELETE FROM transacoes WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
-
-    header("Location: ../pages/visualizar_transacao.php?tipo=");
+    header("Location: ../views/visualizar_transacao.php?tipo=$tipo");
+    //header("Location: ../views/visualizar_transacao.php?tipo=.urlencode($tipo)");
 } catch (PDOException $e) {
     error_log("Erro ao excluir despesa: " . $e->getMessage());
-    header("Location: ../pages/visualizar_transacao.php?status=error");
+    header("Location: ../views/visualizar_transacao.php?tipo=$tipo");
+    //header("Location: ../views/visualizar_transacao.php?tipo=".urlencode($tipo));
 }
 ?>

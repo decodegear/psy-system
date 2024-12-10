@@ -25,7 +25,7 @@ if (isset($_SESSION['last_activity'])) {
     if ($inatividade > $session_timeout) {
         session_unset();  // Limpa as variáveis de sessão
         session_destroy();  // Destroi a sessão
-        header("Location: ../index.php");  // Redireciona para a página inicial
+        header("Location: login.php");  // Redireciona para a página inicial
         exit;
     }
 }
@@ -44,7 +44,7 @@ $_SESSION['last_activity'] = time();
         <div class="col-md-4">
             <h2 class="text-black">Calendário</h2>
             <ul class="dashboard-list">
-            <li><a href="../pages/visualizar_transacao.php?tipo=receitas">Agendamentos</a></li>
+            <li><a href="../views/visualizar_transacao.php?tipo=receitas">Agendamentos</a></li>
             Sua agenda diária aparecerá aqui.
             <!-- <li><a href="../pages/cadastrar_categoria.php">Cad Categorias</a></li>
                 <li><a href="../pages/cadastrar_conta.php">Cad Contas</a></li>
@@ -58,7 +58,7 @@ $_SESSION['last_activity'] = time();
         <div class="col-md-4 ">
             <h2 class="text-black">Débitos</h2>
             <ul class="dashboard-list">
-                <li><a href="../pages/visualizar_transacao.php?tipo=despesa">À Pagar</a></li>
+                <li><a href="../views/visualizar_transacao.php?tipo=despesa">À Pagar</a></li>
                 Uma lista de contas à pagar aparecerá aqui.
             </ul>
         </div>
@@ -66,7 +66,7 @@ $_SESSION['last_activity'] = time();
         <div class="col-md-4">
             <h2 class="text-black">Receitas</h2>
             <ul class="dashboard-list">
-                <li><a href="../pages/visualizar_transacao.php?tipo=receitas">Receber</a></li>
+                <li><a href="../views/visualizar_transacao.php?tipo=receitas">Receber</a></li>
                 Uma lista de contas à receber aparecerá aqui.
             </ul>
         </div>

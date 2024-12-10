@@ -19,7 +19,7 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nome, $genero, $idade, $peso, $altura, $etnia, $rg, $cpf, $cnh, $nasc]);
 
-    header("Location: ../pages/visualizar_pessoas.php?status=success");
+    header("Location: ..//views/pessoa/visualizar_pessoas.php?status=success");
 } catch (PDOException $e) {
     error_log("Erro ao inserir pessoa: " . $e->getMessage());
     header("Location: ../pages/cadastro_pessoa.php?status=error");

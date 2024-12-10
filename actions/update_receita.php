@@ -24,7 +24,7 @@ try {
 
     echo "Despesa atualizada com sucesso!";
     // Redirecionar ou exibir mensagem de sucesso
-    header("Location: /pages/visualizar_transacao.php?tipo=$tipo");
+    header("Location: ../views/visualizar_transacao.php?tipo=$tipo");
     exit;
 } catch (PDOException $e) {
     error_log("Erro ao atualizar despesa: " . $e->getMessage());
