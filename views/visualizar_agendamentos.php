@@ -1,7 +1,6 @@
-<?php session_start(); $isLoggedIn = isset($_SESSION['admin_id']); ?>
-<?php 
-// Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
+<?php session_start();
+$isLoggedIn = isset($_SESSION['admin_id']); ?>
+<?php
 
 // Conectar ao banco de dados
 include '../includes/db_connect.php';
@@ -16,6 +15,7 @@ try {
     error_log("Erro ao consultar agendamentos: " . $e->getMessage());
     echo "Erro ao carregar a lista de agendamentos.";
 }
+include '../includes/header.php';
 ?>
 
 <div class="container my-4">
@@ -40,8 +40,8 @@ try {
                         <td><?= htmlspecialchars($agendamento['hora_agendamento']) ?></td>
                         <td><?= htmlspecialchars($agendamento['observacoes']) ?></td>
                         <td>
-                            <?php if ($isLoggedIn) { ?><a href="../pages/editar_agendamento.php?id=<?= $agendamento['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php } ?>
-                            <a href="../actions/excluir_agendamento.php?id=<?= $agendamento['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');">Excluir</a><?php ?>
+                            <?php if ($isLoggedIn) { ?><a href="../actions/altera_agendamento.php?id=<?= $agendamento['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php } ?>
+                            <?php if ($isLoggedIn) { ?><a href="../actions/excluir_agendamento.php?id=<?= $agendamento['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');">Excluir</a><?php } ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -54,7 +54,7 @@ try {
     </table>
 </div>
 
-<?php 
+<?php
 // Inclui o rodapé
-include '../includes/footer.php'; 
+include '../includes/footer.php';
 ?>

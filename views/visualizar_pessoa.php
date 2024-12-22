@@ -1,7 +1,6 @@
-<?php session_start(); $isLoggedIn = isset($_SESSION['admin_id']); ?>
-<?php 
-// Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
+<?php session_start();
+$isLoggedIn = isset($_SESSION['admin_id']); ?>
+<?php
 // Iniciar a sessão e verificar se o usuário é administrador
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 
@@ -29,6 +28,7 @@ try {
     error_log("Erro ao consultar pessoas: " . $e->getMessage());
     echo "Erro ao carregar a lista de pessoas.";
 }
+include '../includes/header.php';
 ?>
 
 <div class="container my-4">
@@ -82,8 +82,8 @@ try {
                         <td><?= htmlspecialchars($pessoa['telefone'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                         <?php if ($isAdmin): ?>
                             <td>
-                                <a href="../pages/editar_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-warning btn-sm">Alterar</a>
-                                <a href="../actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a>
+                                <a href="<?= BASE_URL ?>/actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-warning btn-sm">Alterar</a>
+                                <a href="<?= BASE_URL ?>/actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -97,7 +97,7 @@ try {
     </table>
 </div>
 
-<?php 
+<?php
 // Inclui o rodapé
-include '../includes/footer.php'; 
+include '../includes/footer.php';
 ?>

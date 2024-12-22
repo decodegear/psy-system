@@ -1,11 +1,5 @@
 <?php
-// Verifica se a sessão já foi iniciada
-if (session_status() === PHP_SESSION_NONE) { 
-    session_start(); //TODO Inicia a sessão apenas se ela não estiver ativa 
-  }
-    
-// Inclui o arquivo de configuração
-include 'db_connect.php'; 
+include 'db_connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -22,10 +16,9 @@ include 'db_connect.php';
         <!-- Link para o Manifesto do PWA -->
     <link rel="manifest" href="../manifest.json">
     </head>
- 
+ <header>
 <body class="container">
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg bg">
     <a class="navbar-brand" href="../index.php">Psicologia </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

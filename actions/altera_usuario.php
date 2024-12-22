@@ -1,11 +1,11 @@
 <?php 
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../admin/login.php");
+    header("Location:<?= BASE_URL ?>/admin/login.php");
     exit;
 }
 // Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
+
 include '../includes/db_connect.php';
 
 $id = $_GET['id'] ?? null;
@@ -28,6 +28,7 @@ try {
     error_log("Erro ao buscar dados do usuário: " . $e->getMessage());
     echo "Erro ao carregar dados do usuário.";
 }
+include '../includes/header.php';
 ?>
 
 <h1>Editar Usuário</h1>

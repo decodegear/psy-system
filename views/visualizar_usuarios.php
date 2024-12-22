@@ -1,8 +1,5 @@
-<?php session_start(); $isLoggedIn = isset($_SESSION['admin_id']); ?>
-<?php 
-// Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
-
+<?php session_start();
+$isLoggedIn = isset($_SESSION['admin_id']);
 // Iniciar a sessão e verificar se o usuário é administrador
 //session_start();
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
@@ -20,6 +17,7 @@ try {
     error_log("Erro ao consultar usuários: " . $e->getMessage());
     echo "Erro ao carregar a lista de usuários.";
 }
+include '../includes/header.php';
 ?>
 
 <div class="container my-4">
@@ -50,13 +48,13 @@ try {
                     <tr>
                         <td><?= htmlspecialchars($usuario['nome']) ?></td>
                         <td><?= htmlspecialchars($usuario['telefone']) ?></td>
-                        <td><?= htmlspecialchars($usuario['cpf']) ?></td>                    
+                        <td><?= htmlspecialchars($usuario['cpf']) ?></td>
                         <td><?= htmlspecialchars($usuario['email']) ?></td>
                         <td><?= htmlspecialchars($usuario['role']) ?></td>
                         <!-- Exibir os botões de ação somente para administradores -->
                         <?php if ($isAdmin): ?>
                             <td>
-                                <a href="../pages/editar_usuario.php?id=<?= $usuario['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php ?>
+                                <a href="../actions/altera_usuario.php?id=<?= $usuario['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php ?>
                                 <a href="../actions/excluir_usuario.php?id=<?= $usuario['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a><?php ?>
                             </td>
                         <?php endif; ?>
@@ -71,7 +69,7 @@ try {
     </table>
 </div>
 
-<?php 
+<?php
 // Inclui o rodapé
-include '../includes/footer.php'; 
+include '../includes/footer.php';
 ?>
