@@ -1,12 +1,12 @@
-/* Reset Básico */
+/* Reset básico para remover margens e paddings padrão */
 * {
-    margin: 0;
+    margin-top: 5px;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Corpo Geral */
-body {
+/* Estilo geral do corpo */
+body altura {
     font-family: Arial, sans-serif;
     font-size: 14px;
     line-height: 1.6;
@@ -15,7 +15,7 @@ body {
     padding: 20px;
 }
 
-/* Cabeçalho */
+/* Estilos para o cabeçalho e menus */
 header {
     background-color: rgba(8, 127, 148, 0.57);
     color: #fff;
@@ -24,31 +24,47 @@ header {
     margin-bottom: 20px;
 }
 
+/* Remover o estilo global de margin-top que afeta a navbar */
 header * {
     margin-top: 0 !important;
 }
-
-/* Navbar */
-.navbar-text {
-    color: #f06e6e !important;
-    margin-right: 15px;
-    font-size: 16px;
+.bg{
+    --bs-bg-opacity: 1;
+    background-color: #5cb85c !important;
 }
 
+/* Ajustes para o texto da navbar */
+.navbar-text {
+    color: #f06e6e !important;
+
+    /* Garantir que o texto fique branco */
+    margin-right: 15px;
+    font-size: 16px;
+
+    /* Tamanho da fonte ajustado */
+}
+
+/* Garantir que o link de logout e o nome do usuário fiquem alinhados corretamente */
 .navbar-nav .nav-item .nav-link {
     color: #fff !important;
+
+    /* Forçar o texto a ficar branco */
 }
 
 .navbar-nav .nav-item .nav-link:hover {
     background-color: #555;
+
+    /* Cor ao passar o mouse */
 }
 
 nav {
-    background-color: #333;
+    /* Remova o display flex para evitar que o layout quebre */
+    background-color: #333333;
     padding: 15px;
 }
 
 nav ul {
+    /* Mantenha flex para os itens do menu */
     display: flex;
     list-style: none;
     margin: 0;
@@ -68,8 +84,11 @@ nav ul li:hover > a {
     background-color: #555;
 }
 
+/* Estilo para os menus dropdown */
 nav ul li ul {
     display: none;
+
+    /* Esconde os submenus inicialmente */
     position: absolute;
     top: 100%;
     left: 0;
@@ -84,34 +103,41 @@ nav ul li ul {
 
 nav ul li:hover ul {
     display: block;
+
+    /* Mostra o submenu ao passar o mouse */
 }
 
 nav ul li ul li a {
     padding: 10px 20px;
     color: #fff;
+    text-decoration: none;
 }
 
 nav ul li ul li a:hover {
     background-color: #555;
 }
 
-/* Rodapé */
+/* Estilo para o rodapé */
 footer {
     background-color: #333;
     color: #fff;
     text-align: center;
     padding: 10px 0;
     position: relative;
+
+    /* Corrigido para evitar sobreposição */
     width: 100%;
     bottom: 0;
 }
 
-/* Conteúdo Principal */
+/* Estilo para o conteúdo principal */
 main {
     margin-bottom: 60px;
+
+    /* Espaço para o rodapé */
 }
 
-/* Painel de Controle */
+/* Estilo para o painel de controle na página inicial */
 .dashboard {
     display: flex;
     flex-wrap: wrap;
@@ -152,111 +178,48 @@ main {
     text-decoration: underline;
 }
 
-/* Botões e Formulários */
-.standard-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.form-control {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.btn-primary {
-    background-color: #007bff;
+/* Estilos para botões e formulários */
+button,
+input[type="submit"] {
+    background-color: #5cb85c;
     color: #fff;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
     cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-/* Estilo Base para Botões */
-button,
-.btn,
-input[type="submit"] {
-    background-color: #007bff; /* Azul padrão */
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: inline-block; /* Evita esticar o botão */
-    width: auto; /* Garante tamanho automático */
+    transition: background-color 0.3s;
 }
 
-/* Estilo Hover para Botões */
 button:hover,
-.btn:hover,
 input[type="submit"]:hover {
-    background-color: #0056b3; /* Azul mais escuro no hover */
+    background-color: #4cae4c;
 }
 
-/* Botão Sucesso (verde) */
-button.success,
-input[type="submit"].success {
-    background-color: #5cb85c; /* Verde padrão */
-}
-
-button.success:hover,
-input[type="submit"].success:hover {
-    background-color: #4cae4c; /* Verde mais escuro no hover */
-}
-
-input,
-select,
-textarea {
+/* REMOVIDO o width: 100% para inputs e selects */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    border-radius: 10px;
+    margin-bottom: 25px;
     padding: 5px;
-    font-size: 14px;
-    border-radius: 5px;
+    margin: 10px 0 20px;
     border: 1px solid #ddd;
-    width: 100%;
+    width: 50%;    
+
+    /* O Bootstrap controlará o width com base no grid */
 }
 
-textarea {
-    resize: vertical;
-    height: 100px;
-}
-
-/* Tabelas */
+/* Estilos para tabelas */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
@@ -270,29 +233,49 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* Modal */
+/* Estilos para o modal */
 .modal {
     display: block;
+
+    /* Tornar visível quando for exibido */
     position: fixed;
+
+    /* Fixar o modal no meio da tela */
     z-index: 100;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+
+    /* Fundo semitransparente */
     animation: fadeIn 0.5s ease;
+
+    /* Animação para o modal */
 }
 
 .modal-content {
     background-color: rgb(0, 110, 255);
+
+    /* Fundo azul */
     margin: auto;
+
+    /* Centraliza horizontalmente */
     padding: 20px;
     border: 1px solid #888;
     width: 30%;
     position: relative;
+
+    /* Permitir posicionamento absoluto dos elementos internos */
     top: 50%;
+
+    /* Centraliza verticalmente */
     transform: translateY(-50%);
+
+    /* Corrige o alinhamento vertical */
     animation: slideIn 0.5s ease;
+
+    /* Animação de deslizamento */
 }
 
 .close {
@@ -303,55 +286,101 @@ tr:nth-child(even) {
 }
 
 .close:hover,
+
 .close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
 }
 
-/* Formulários */
+/* Ajuste do formulário */
 form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 80%;
-    margin: 0 auto;
+    grid-template-columns: 1fr 1fr; /* Divide em duas colunas */
+    gap: 20px; /* Espaçamento entre os campos */
+    width: 80%; /* 80% da largura da tela em desktops */
+    margin: 0 auto; /* Centraliza o formulário */
 }
 
 input[type="checkbox"] {
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    border: 1px solid #333;
-    border-radius: 3px;
-    outline: none;
-    cursor: pointer;
+    transform: scale(0.1); /* Reduz para 80% do tamanho original */
+    margin: 5px; /* Espaçamento opcional */
 }
 
+
+
+input[type="checkbox"] {
+    appearance: none; /* Remove o estilo padrão */
+    width: 15px; /* Largura desejada */
+    height: 15px; /* Altura desejada */
+    border: 1px solid #333; /* Borda do checkbox */
+    border-radius: 3px; /* Cantos arredondados */
+    outline: none;
+    cursor: pointer;
+    }
+
 input[type="checkbox"]:checked {
-    background-color: #007bff;
+    background-color: #007bff; /* Cor de fundo quando marcado */
     border-color: #007bff;
 }
 
 
-.form-group.full-width {
-    grid-column: span 2;
+.form-group {
+    display: flex;
+    flex-direction: column;
 }
 
+.form-group.full-width {
+    grid-column: span 2; /* Ocupa as duas colunas em desktops */
+}
 
-/* Animações */
+label {
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+input, select, textarea {
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%; /* Campos ocupam 100% da largura */
+}
+
+textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    height: 100px; /* Altura padrão do textarea */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Animação de deslizamento para o conteúdo do modal */
 @keyframes slideIn {
     from {
         transform: translateY(-50px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
     }
 }
 
-/* Dashboard */
+/* Estilos para a dashboard */
 .dashboard-list {
     list-style-type: none;
     padding: 0;
@@ -359,6 +388,8 @@ input[type="checkbox"]:checked {
 
 .dashboard-list li {
     background-color: #333;
+
+    /* Cor de fundo escuro, similar ao header */
     margin-bottom: 10px;
     padding: 15px;
     border-radius: 5px;
@@ -367,19 +398,26 @@ input[type="checkbox"]:checked {
 
 .dashboard-list li a {
     color: #fff;
+
+    /* Texto branco */
     text-decoration: none;
     font-weight: bold;
 }
 
 .dashboard-list li:hover {
     background-color: #555;
+
+    /* Muda para um tom mais claro ao passar o mouse */
 }
 
-h1, h2 {
+h1,
+h2 {
     color: #fff;
+
+    /* Títulos com texto branco */
 }
 
-/* Espaçamentos */
+/* Espaçamento entre os elementos */
 .mt-5 {
     margin-top: 3rem;
 }

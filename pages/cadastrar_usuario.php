@@ -4,8 +4,6 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: ../admin/login.php");
     exit;
 }
-
-include '../includes/header.php'; 
 include '../includes/db_connect.php';
 
 // Verificar se o formulário foi submetido
@@ -26,11 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute([$nome, $email, $cpf, $telefone, $senha_hash, $role]);
 
     echo "Usuário cadastrado com sucesso!";
+    header("Location: ../views/visualizar_usuarios.php?status=updated");
 }
+include '../includes/header.php';
 ?>
 
 <h1>Cadastrar Usuário</h1>
-<form method="post" action="cadastrar_usuario.php">
+<form method="post" action="../actions/insert_usuario.php">
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome" required>
 

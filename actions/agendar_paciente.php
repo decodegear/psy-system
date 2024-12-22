@@ -20,10 +20,10 @@ try {
     $stmt->execute([$nome_paciente, $data_agendamento, $hora_agendamento, $observacoes]);
 
     // Redireciona para a página de agendamento com status de sucesso
-    header("Location: ..//pages/visualizar_agendamentos.php?status=success");
+    header("Location: ../views/visualizar_agendamentos.php?status=success");
 } catch (PDOException $e) {
     // Log de erro e redirecionamento em caso de falha
     error_log("Erro ao inserir agendamento: " . $e->getMessage());
-    header("Location: ..//pages/agendar_pacientes.php?status=error");
+    header("Location: ../pages/agendar_pacientes.php?status=error");
 }
 ?>

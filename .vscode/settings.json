@@ -1,7 +1,6 @@
 {
-    "cSpell.language": "en,pt-BR",
-    "cSpell.words": [
-        "usuario",
-        "usuarios"
-    ]
+    "notebook.formatOnSave.enabled": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true
 }

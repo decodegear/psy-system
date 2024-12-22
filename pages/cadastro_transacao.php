@@ -1,41 +1,21 @@
-<?php 
-// Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
+<?php
 include '../includes/db_connect.php';
-
-
-// Definir tipo (despesa ou receita)
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'despesa';
 
-
-// Buscar categorias com prepared statements
-$sql_categorias = "SELECT id, nome FROM categorias WHERE tipo = :tipo";
-$stmt_categorias = $conn->prepare($sql_categorias);
+$stmt_categorias = $conn->prepare("SELECT id, nome FROM categorias WHERE tipo = :tipo");
 $stmt_categorias->execute([':tipo' => ucfirst($tipo)]);
 
-// Buscar contas
-$sql_contas = "SELECT id, nome FROM contas";
-$stmt_contas = $conn->prepare($sql_contas);
+$stmt_contas = $conn->prepare("SELECT id, nome FROM contas");
 $stmt_contas->execute();
-
-// Gerar token CSRF
-
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
+include '../functions/auth.php';
+include '../includes/header.php';
 ?>
 
 <div class="container mt-5 mb-5">
     <h1 class="mb-4">Cadastro de <?= ucfirst($tipo); ?></h1>
-
-    <form action="../actions/insert_transacao.php?tipo=<?= ucfirst($tipo); ?>" method="post" class="row g-3 needs-validation" novalidate>
-    <!-- Token CSRF -->
-    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']); ?>">
-    
-    <!-- Campo oculto para o tipo -->
-    <input type="hidden" name="tipo" value="<?= htmlspecialchars($tipo); ?>">
-
+    <form action="../actions/insert_transacao.php" method="post">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()); ?>">
+        <input type="hidden" name="tipo" value="<?= htmlspecialchars($tipo); ?>">
         <!-- Nome e Valor (Lado a Lado) -->
         <div class="col-md-6">
             <label for="nome" class="form-label">Nome:</label>
@@ -119,54 +99,6 @@ if (empty($_SESSION['csrf_token'])) {
     </form>
 </div>
 
-<script>
-    // Mostrar/esconder o campo de quantidade de parcelas com base na checkbox "Parcelado"
-    document.getElementById('parcelado').addEventListener('change', function() {
-        var parcelasContainer = document.getElementById('parcelas-container');
-        parcelasContainer.style.display = this.checked ? 'block' : 'none';
-    });
-
-   /*  // Validação de formulário com Bootstrap
-    (function () {
-        'use strict';
-        var forms = document.querySelectorAll('.needs-validation');
-        Array.prototype.slice.call(forms).forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    })(); */
-    // Validação de formulário com Bootstrap
-(function () {
-    'use strict';
-    var forms = document.querySelectorAll('.needs-validation');
-    Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-            if (!form.checkValidity()) {
-                // Se o formulário não for válido
-                event.preventDefault();
-                event.stopPropagation();
-                form.classList.add('was-validated');
-                
-                // Redirecionar para uma página de erro
-                window.location.href = '/erro.html'; // Substitua pelo caminho da sua página de erro
-            } else {
-                // Se o formulário for válido
-                form.classList.add('was-validated');
-                
-                // Redirecionar para uma página de sucesso
-                window.location.href = '/sucesso.html'; // Substitua pelo caminho da sua página de sucesso
-            }
-        }, false);
-    });
-})();
-</script>
-
 <?php 
-// Inclui o rodapé
 include '../includes/footer.php'; 
 ?>

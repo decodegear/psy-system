@@ -1,8 +1,7 @@
 <?php 
 session_start();
-
-include '../includes/header.php';
 include '../includes/db_connect.php';
+
 // Verificar se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -32,8 +31,8 @@ if ($usuario && password_verify($senha, $usuario['senha'])) {
 }
 
 }
+include '../includes/header.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -42,7 +41,7 @@ if ($usuario && password_verify($senha, $usuario['senha'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Administrador</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="..//assets/css/style.css"> 
+    <link rel="stylesheet" href="../assets/css/style.css"> 
 </head>
 <body style="background-color: #333; color: #fff;">
     <div class="container mt-5">
@@ -79,4 +78,3 @@ if ($usuario && password_verify($senha, $usuario['senha'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-<?php include '../includes/footer.php'; ?>

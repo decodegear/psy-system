@@ -14,7 +14,7 @@ try {
     $sql = "INSERT INTO usuarios (nome, senha, telefone, cpf, email, role) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nome, $senha, $telefone, $cpf, $email, $role]);
-
+echo "isert_user";
     header("Location: ../pages/visualizar_usuarios.php?status=success");
 } catch (PDOException $e) {
     error_log("Erro ao inserir usuário: " . $e->getMessage());

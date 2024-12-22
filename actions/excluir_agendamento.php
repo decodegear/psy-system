@@ -13,9 +13,9 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
-    header("Location: ..//pages/visualizar_agendamentos.php?status=deleted");
+    header("Location: ../views/visualizar_agendamentos.php?status=deleted");
 } catch (PDOException $e) {
     error_log("Erro ao excluir agendamento: " . $e->getMessage());
-    header("Location: ..//pages/visualizar_agendamentos.php?status=error");
+    header("Location: ../views/visualizar_agendamentos.php?status=error");
 }
 ?>

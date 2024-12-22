@@ -4,8 +4,6 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit;
 }
-
-include '../includes/header.php'; 
 include '../includes/db_connect.php';
 
 // Variáveis para armazenar os valores do formulário
@@ -66,6 +64,7 @@ if (isset($_GET['delete'])) {
 // Buscar todas as contas cadastradas
 $sql = "SELECT * FROM contas";
 $result = $conn->query($sql);
+include '../includes/header.php'; 
 ?>
 
 <h1>Gerenciar Contas</h1>

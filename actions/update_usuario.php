@@ -17,9 +17,9 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nome, $telefone, $cpf, $email, $senha_hash, $id]);
 
-    header("Location: ../pages/visualizar_usuarios.php?status=updated");
+    header("Location: ../views/visualizar_usuarios.php?status=updated");
 } catch (PDOException $e) {
     error_log("Erro ao atualizar usuário: " . $e->getMessage());
-    header("Location: ../pages/editar_usuario.php?id=$id&status=error");
+    header("Location: ../actions/update_usuario.php?id=$id&status=error");
 }
 ?>

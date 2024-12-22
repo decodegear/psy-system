@@ -13,10 +13,10 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nome_paciente, $data_agendamento, $hora_agendamento, $observacoes]);
 
-    header("Location: ..//pages/visualizar_agendadmentos.php?status=success");
+    header("Location:<?=BASE_URL?>/pages/visualizar_agendadmentos.php?status=success");
 } catch (PDOException $e) {
     error_log("Erro ao inserir agendamento: " . $e->getMessage());
-    header("Location: ..//pages/agendar_pacientes.php?status=error");
+    header("Location:<?=BASE_URL?>/pages/agendar_pacientes.php?status=error");
 }
 ?>
 

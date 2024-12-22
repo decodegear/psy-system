@@ -22,9 +22,9 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nome, $descricao, $valor, $data_vencimento, $situacao, $parcelado, $qtd_parcelas, $categoria_id, $conta_id, $id]);
 
-    echo "Despesa atualizada com sucesso!";
+    echo "despesa atualizada com sucesso!";
     // Redirecionar ou exibir mensagem de sucesso
-    header("Location: /pages/visualizar_transacao.php?tipo=$tipo");
+    header("Location: ../lizar_transacao.php?tipo=$tipo");
     exit;
 } catch (PDOException $e) {
     error_log("Erro ao atualizar despesa: " . $e->getMessage());

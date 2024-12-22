@@ -1,16 +1,14 @@
 <?php
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../admin/login.php");
+    header("Location:<?= BASE_URL ?>/admin/login.php");
     exit;
 }
-
-include '../includes/header.php';
 include '../includes/db_connect.php';
 
 $id = null;
 $nome = '';
-$tipo = 'Receita';
+$tipo = 'receita';
 
 $filtro_receita = true;
 $filtro_despesa = true;
@@ -93,9 +91,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['filtro_receita']) || 
 
 $filtro = '';
 if ($filtro_receita && !$filtro_despesa) {
-    $filtro = "WHERE tipo = 'Receita'";
+    $filtro = "WHERE tipo = 'receita'";
 } elseif (!$filtro_receita && $filtro_despesa) {
-    $filtro = "WHERE tipo = 'Despesa'";
+    $filtro = "WHERE tipo = 'despesa'";
 } elseif (!$filtro_receita && !$filtro_despesa) {
     $filtro = "WHERE 1=0";
 }
@@ -104,7 +102,7 @@ $sql = "SELECT * FROM categorias $filtro ORDER BY id DESC";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+include '/includes/header.php';
 ?>
 
 <h1>Gerenciar Categorias</h1>
@@ -115,8 +113,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <label for="tipo">Tipo:</label>
     <select id="tipo" name="tipo">
-        <option value="Receita" <?= $tipo == 'Receita' ? 'selected' : ''; ?>>Receita</option>
-        <option value="Despesa" <?= $tipo == 'Despesa' ? 'selected' : ''; ?>>Despesa</option>
+        <option value="receita" <?= $tipo == 'receita' ? 'selected' : ''; ?>>receita</option>
+        <option value="despesa" <?= $tipo == 'despesa' ? 'selected' : ''; ?>>despesa</option>
     </select>
 
     <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? ''); ?>">

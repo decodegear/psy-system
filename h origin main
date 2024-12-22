@@ -1,0 +1,22 @@
+[33m2f5b884[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: checkout: moving from develop to main
+[33m1493e56[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{1}: commit (merge): Resolvidos conflitos no merge do branch main
+[33m90530bc[m HEAD@{2}: commit: Arquivos visual
+[33m4642386[m[33m ([m[1;31morigin/develop[m[33m)[m HEAD@{3}: commit: Atualização develop
+[33m3bd6606[m HEAD@{4}: reset: moving to HEAD
+[33m3bd6606[m HEAD@{5}: commit: Inclusão do footer
+[33m23f2818[m HEAD@{6}: checkout: moving from main to develop
+[33m2f5b884[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{7}: commit: login-footer
+[33mb10f5cb[m HEAD@{8}: commit: footer
+[33meffc9ad[m HEAD@{9}: commit: afds
+[33m27e9930[m HEAD@{10}: commit (merge): Merge branch 'alpha'
+[33m53f1dd8[m HEAD@{11}: checkout: moving from alpha to main
+[33m42651d4[m[33m ([m[1;32malpha[m[33m)[m HEAD@{12}: commit: alpha
+[33m9f22139[m HEAD@{13}: checkout: moving from main to alpha
+[33m53f1dd8[m HEAD@{14}: checkout: moving from alpha to main
+[33m9f22139[m HEAD@{15}: commit: Commit das últimas alterações na branch alpha
+[33m4688e9d[m[33m ([m[1;31morigin/Alpha[m[33m, [m[1;32mdevolop[m[33m, [m[1;32mall[m[33m)[m HEAD@{16}: checkout: moving from 4688e9d82db96a6b6845fd222e211225815c1428 to alpha
+[33m4688e9d[m[33m ([m[1;31morigin/Alpha[m[33m, [m[1;32mdevolop[m[33m, [m[1;32mall[m[33m)[m HEAD@{17}: checkout: moving from devolop to 4688e9d82db96a6b6845fd222e211225815c1428
+[33m4688e9d[m[33m ([m[1;31morigin/Alpha[m[33m, [m[1;32mdevolop[m[33m, [m[1;32mall[m[33m)[m HEAD@{18}: commit: Renomear pasta PSY
+[33m601aa42[m HEAD@{19}: Branch: renamed refs/heads/master to refs/heads/devolop
+[33m601aa42[m HEAD@{21}: commit: 30-11-renomeando pasta spy
+[33m22d257f[m HEAD@{22}: commit (initial): Reconfiguração da pasta psy
