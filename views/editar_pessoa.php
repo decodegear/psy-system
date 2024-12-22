@@ -1,8 +1,6 @@
-<?php 
-ob_start(); // Iniciar o buffer de saída
+<?php
 session_start();
 include '../includes/db_connect.php';
-include '../includes/header.php'; // Incluindo cabeçalho
 
 // Captura do ID da pessoa a ser editada
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
@@ -59,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $allowedTypes = ['image/jpeg', 'image/png'];
 
         // Verificar se a pasta uploads/ existe, se não, criar a pasta
-        $uploadDir = '../uploads/';
+        $uploadDir = '<?= BASE_URL ?>//uploads/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
@@ -105,7 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Redirecionar para a página de visualização após a atualização bem-sucedida
         header("Location: ../views/view_pessoa.php?id=$id&status=updated");
         exit;
-
     } catch (PDOException $e) {
         error_log("Erro ao atualizar pessoa: " . $e->getMessage());
         echo "Erro ao atualizar a pessoa.";
@@ -114,35 +111,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-ob_end_flush(); // Encerra o buffer de saída e envia tudo ao navegador
+
+include '../includes/header.php'; // Incluindo cabeçalho
 ?>
 
 <div class="container my-4">
     <div class="d-flex justify-content-between align-items-start">
-        <h2>Editar Pessoa</h2>
-        
+        <h2>Editar Paciente</h2>
+
         <!-- <label for="foto">Foto:</label>
         <input type="file" id="foto" name="foto" class="form-control-file" accept="image/jpeg, image/png">
             <input type="file" id="foto" name="foto" class="form-control-file mt-2" accept="image/jpeg, image/png" style="display: none;"> -->
     </div>
 
-    <form action="editar_pessoa.php?id=<?= $pessoa['id'] ?>" method="post" enctype="multipart/form-data" class="form-group mt-4">
-    
-    <!-- Foto no canto superior direito com interatividade -->
-     
+    <form action="altera_pessoa.php?id=<?= $pessoa['id'] ?>" method="post" enctype="multipart/form-data" class="form-group mt-4">
+
+        <!-- Foto no canto superior direito com interatividade -->
+
         <div class="position-relative ms-4" style="width: 150px;">
-            <img id="previewImage" src="<?= htmlspecialchars($pessoa['foto'] ?? '../uploads/default.png') ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+            <img id="previewImage" src="<?= htmlspecialchars($pessoa['foto'] ?? '<?= BASE_URL ?>//uploads/default.png') ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="opacity: 0; transition: opacity 0.3s; background: rgba(0, 0, 0, 0.5);" id="alterar-overlay">
                 <span class="text-white fw-bold">Alterar Foto</span>
             </div>
-         </div>    
-         <input type="file" id="foto" name="foto" class="form-control-file" accept="image/jpeg, image/png" style="display: none;">
-    <label for="nome">Nome:</label>
+        </div>
+        <input type="file" id="foto" name="foto" class="form-control-file" accept="image/jpeg, image/png" style="display: none;">
+        <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" class="form-control" value="<?= htmlspecialchars($pessoa['nome'] ?? '') ?>" required>
 
         <!-- Outros campos continuam aqui... -->
-        
-        
+
+
         <!-- Gênero -->
         <label for="genero">Gênero:</label>
         <select id="genero" name="genero" class="form-control" required>
@@ -191,7 +189,7 @@ ob_end_flush(); // Encerra o buffer de saída e envia tudo ao navegador
         <label for="nasc">Data de Nascimento:</label>
         <input type="date" id="nasc" name="nasc" class="form-control" value="<?= htmlspecialchars($pessoa['data_nasc'] ?? '') ?>" required>
 
-       
+
 
         <!-- Botão de Submissão -->
         <button type="submit" class="btn btn-primary mt-3">Salvar Alterações</button>
@@ -199,23 +197,23 @@ ob_end_flush(); // Encerra o buffer de saída e envia tudo ao navegador
 </div>
 
 <script>
-    document.querySelector(".position-relative").addEventListener("mouseover", function () {
+    document.querySelector(".position-relative").addEventListener("mouseover", function() {
         document.getElementById("alterar-overlay").style.opacity = "1";
     });
 
-    document.querySelector(".position-relative").addEventListener("mouseout", function () {
+    document.querySelector(".position-relative").addEventListener("mouseout", function() {
         document.getElementById("alterar-overlay").style.opacity = "0";
     });
 
-    document.getElementById("alterar-overlay").addEventListener("click", function () {
+    document.getElementById("alterar-overlay").addEventListener("click", function() {
         document.getElementById("foto").click();
     });
 
     // Pré-visualização da imagem ao selecionar um novo arquivo
-    document.getElementById("foto").addEventListener("change", function (event) {
+    document.getElementById("foto").addEventListener("change", function(event) {
         if (event.target.files && event.target.files[0]) {
             var reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 document.getElementById("previewImage").src = e.target.result;
             };
             reader.readAsDataURL(event.target.files[0]);

@@ -1,7 +1,7 @@
-<?php session_start(); $isLoggedIn = isset($_SESSION['admin_id']); ?>
+<?php session_start();
+$isLoggedIn = isset($_SESSION['admin_id']); ?>
 <?php
 include '../includes/db_connect.php';
-include '../includes/header.php'; // Incluindo cabeçalho
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 // Captura do ID, se houver
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
@@ -38,6 +38,7 @@ try {
     include '../includes/footer.php';
     exit;
 }
+include '../includes/header.php'; // Incluindo cabeçalho
 ?>
 
 <div class="container my-4">
@@ -48,6 +49,9 @@ try {
                 <input class="form-control me-2" type="search" name="search" placeholder="Pesquisar por nome" value="<?= htmlspecialchars($searchTerm ?? '') ?>" aria-label="Pesquisar">
                 <button class="btn btn-outline-success" type="submit">Pesquisar</button>
             </form>
+            <?php if ($isAdmin): ?>
+                <a href="<?= BASE_URL ?>/pages/cadastro_pessoa.php" class="btn btn-primary mb-3">Adicionar Novo Paciente</a><?php ?>
+            <?php endif; ?>
 
             <?php if (!empty($pessoas)): ?>
                 <div class="list-group mb-4">
@@ -71,22 +75,22 @@ try {
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
                         <!-- Verificar e Exibir a Imagem da Pessoa -->
-                        <?php 
-                        $fotoPath = !empty($pessoa['foto']) ? htmlspecialchars($pessoa['foto']) : '../uploads/default.png';
+                        <?php
+                        $fotoPath = !empty($pessoa['foto']) ? htmlspecialchars($pessoa['foto']) : '<?= BASE_URL ?>/uploads/default.png';
                         ?>
                         <img src="<?= $fotoPath ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
                     </div>
                     <div class="dropdown">
                         <!-- Menu Sanduíche -->
                         <?php if ($isAdmin): ?>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-list"></i> <!-- Ícone de Menu Sanduíche do Bootstrap Icons -->
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="editar_pessoa.php?id=<?= $pessoa['id'] ?>">Alterar</a></li>
-                            <li><a class="dropdown-item" href="#">Imprimir</a></li>
-                            <li><a class="dropdown-item" href="#">Compartilhar</a></li>
-                        </ul>
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-list"></i> <!-- Ícone de Menu Sanduíche do Bootstrap Icons -->
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="../actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>">Alterar</a></li>
+                                <li><a class="dropdown-item" href="#">Imprimir</a></li>
+                                <li><a class="dropdown-item" href="#">Compartilhar</a></li>
+                            </ul>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -135,4 +139,5 @@ try {
     </div>
 </div>
 
-<?php include '../includes/footer.php'; // Incluindo o rodapé ?>
+<?php include "../includes/footer.php"; // Incluindo o rodapé 
+?>

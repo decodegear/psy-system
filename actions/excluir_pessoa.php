@@ -13,9 +13,9 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
-    header("Location: ../pages/visualizar_pessoa.php?status=deleted");
+    header("Location:<?= BASE_URL ?>//views/pessoa/visualizar_pessoa.php?status=deleted");
 } catch (PDOException $e) {
     error_log("Erro ao excluir pessoa: " . $e->getMessage());
-    header("Location: ../pages/visualizar_pessoa.php?status=error");
+    header("Location:<?= BASE_URL ?>//views/pessoa/visualizar_pessoa.php?status=error");
 }
 ?>

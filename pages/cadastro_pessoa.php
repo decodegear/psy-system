@@ -1,165 +1,111 @@
-<?php
-ob_start(); // Iniciar o buffer de saída
-session_start();
-// Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
-include '../includes/db_connect.php'; // Certifique-se de que esta linha inclui a conexão com o banco de dados
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validação de upload de imagem
-    $dest_path = null;
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['foto']['tmp_name'];
-        $fileName = $_FILES['foto']['name'];
-        $fileSize = $_FILES['foto']['size'];
-        $fileType = $_FILES['foto']['type'];
-        $allowedTypes = ['image/jpeg', 'image/png'];
-        
-        // Definir diretório de upload e usar caminho absoluto
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
-        if (!is_dir($uploadDir)) {
-            if (!mkdir($uploadDir, 0777, true)) {
-                // Se mkdir falhar, registrar o erro e mostrar mensagem apropriada
-                error_log("Falha ao criar o diretório de upload: $uploadDir");
-                echo "Erro ao criar diretório de upload.";
-                include '../includes/footer.php';
-                exit;
-            } else {
-                // Caso tenha sido criado, definir permissões adequadas
-                chmod($uploadDir, 0777);
-            }
-        }
-        /* if (in_array($fileType, $allowedTypes) && $fileSize < 2 * 1024 * 1024) {
-            $dest_path = '../uploads/' . $fileName;
-            move_uploaded_file($fileTmpPath, $dest_path);
-            echo "Foto enviada com sucesso!";
-        } else {
-            echo "Formato de arquivo inválido ou arquivo muito grande.";
-            exit;
-        } */
+<?php
+session_start();
+include '../includes/db_connect.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+    $idade = filter_input(INPUT_POST, 'idade', FILTER_VALIDATE_INT);
+    $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $genero = filter_input(INPUT_POST, 'genero', FILTER_SANITIZE_SPECIAL_CHARS);
+    $peso = filter_input(INPUT_POST, 'peso', FILTER_VALIDATE_FLOAT);
+    $altura = filter_input(INPUT_POST, 'altura', FILTER_VALIDATE_INT);
+    $etnia = filter_input(INPUT_POST, 'etnia', FILTER_SANITIZE_SPECIAL_CHARS);
+    $rg = filter_input(INPUT_POST, 'rg', FILTER_SANITIZE_SPECIAL_CHARS);
+    $cpf = filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_SPECIAL_CHARS);
+    $cnh = filter_input(INPUT_POST, 'cnh', FILTER_SANITIZE_SPECIAL_CHARS);
+    $nasc = filter_input(INPUT_POST, 'nasc', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    // Tratamento para valores vazios de peso e altura
+    $peso = ($peso !== false) ? $peso : null;
+    $altura = ($altura !== false) ? $altura : null;
+    $idade = ($idade !== false) ? $idade : null;
+
+    // Verificação para upload de foto
+    $foto = null;
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK) {
+        $foto = file_get_contents($_FILES['foto']['tmp_name']);
     }
 
-    // Preparar e executar a inserção no banco de dados
+    // Inserir no banco de dados
     try {
-        // Definir valores padrão para os campos que podem estar vazios
-        $idade = !empty($_POST['idade']) && is_numeric($_POST['idade']) ? $_POST['idade'] : null;
-        $peso = !empty($_POST['peso']) && is_numeric($_POST['peso']) ? $_POST['peso'] : null;
-        $altura = !empty($_POST['altura']) && is_numeric($_POST['altura']) ? $_POST['altura'] : null;
-
-        // Garantir que os outros campos de texto estejam sempre definidos
-        $nome = $_POST['nome'] ?? '';
-        $genero = $_POST['genero'] ?? '';
-        $etnia = $_POST['etnia'] ?? '';
-        $rg = $_POST['rg'] ?? '';
-        $cpf = $_POST['cpf'] ?? '';
-        $cnh = $_POST['cnh'] ?? '';
-        $data_nasc = !empty($_POST['nasc']) ? $_POST['nasc'] : null;
-
-        $sql = "INSERT INTO pessoas (nome, genero, idade, peso, altura, etnia, rg, cpf, cnh, data_nasc, foto) 
-                VALUES (:nome, :genero, :idade, :peso, :altura, :etnia, :rg, :cpf, :cnh, :data_nasc, :foto)";
+        $sql = "INSERT INTO pessoas (nome, idade, telefone, email, genero, peso, altura, etnia, rg, cpf, cnh, data_nasc, foto) 
+                VALUES (:nome, :idade, :telefone, :email, :genero, :peso, :altura, :etnia, :rg, :cpf, :cnh, :nasc, :foto)";
         $stmt = $conn->prepare($sql);
-        
-        // Passar os parâmetros
         $stmt->bindValue(':nome', $nome);
+        $stmt->bindValue(':idade', $idade);
+        $stmt->bindValue(':telefone', $telefone);
+        $stmt->bindValue(':email', $email);
         $stmt->bindValue(':genero', $genero);
-        
-        // Tratar valores nulos e numéricos
-        if ($idade === null) {
-            $stmt->bindValue(':idade', null, PDO::PARAM_NULL);
-        } else {
-            $stmt->bindValue(':idade', $idade, PDO::PARAM_INT);
-        }
-
-        if ($peso === null) {
-            $stmt->bindValue(':peso', null, PDO::PARAM_NULL);
-        } else {
-            $stmt->bindValue(':peso', $peso);
-        }
-
-        if ($altura === null) {
-            $stmt->bindValue(':altura', null, PDO::PARAM_NULL);
-        } else {
-            $stmt->bindValue(':altura', $altura);
-        }
-
+        $stmt->bindValue(':peso', $peso, $peso !== null ? PDO::PARAM_STR : PDO::PARAM_NULL);
+        $stmt->bindValue(':altura', $altura, $altura !== null ? PDO::PARAM_INT : PDO::PARAM_NULL);
         $stmt->bindValue(':etnia', $etnia);
         $stmt->bindValue(':rg', $rg);
         $stmt->bindValue(':cpf', $cpf);
         $stmt->bindValue(':cnh', $cnh);
-        if ($data_nasc === null) {
-            $stmt->bindValue(':data_nasc', null, PDO::PARAM_NULL);
-        } else {
-            $stmt->bindValue(':data_nasc', $data_nasc);
-        }
-        $stmt->bindValue(':foto', $dest_path);
-
-        // Executar a query
+        $stmt->bindValue(':nasc', $nasc);
+        $stmt->bindValue(':foto', $foto, PDO::PARAM_LOB);
         $stmt->execute();
-
-        // Redirecionar para a página de visualização após o cadastro bem-sucedido
-        header("Location: visualizar_pessoa.php");
-        exit;
         
+        //echo "Pessoa cadastrada com sucesso!";
+        header("Location: ../views/visualizar_pessoa.php?status=updated");
     } catch (PDOException $e) {
         echo "Erro ao cadastrar pessoa: " . $e->getMessage();
     }
 }
+include '../includes/header.php'; // Incluindo cabeçalho
 ?>
+
 <h1>Cadastro de Paciente</h1>
 <form action="cadastro_pessoa.php" method="post" enctype="multipart/form-data" class="form-group">
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome" class="form-control" required>
-    
-    <!-- Gênero -->
+
+    <label for="telefone">Telefone:</label>
+    <input type="text" id="telefone" name="telefone" class="form-control">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" class="form-control">
+
     <label for="genero">Gênero:</label>
-    <select id="genero" name="genero" required>
+    <select id="genero" name="genero" class="form-control" required>
         <option value="Masculino">Masculino</option>
         <option value="Feminino">Feminino</option>
         <option value="Outro">Outro</option>
     </select>
-    
-    <!-- Idade -->
+
     <label for="idade">Idade:</label>
-    <input type="number" id="idade" name="idade">
+    <input type="number" id="idade" name="idade" class="form-control">
 
-    <!-- Peso -->
     <label for="peso">Peso (kg):</label>
-    <input type="number" id="peso" name="peso" step="0.1">
+    <input type="number" id="peso" name="peso" step="0.1" class="form-control">
 
-    <!-- Altura -->
     <label for="altura">Altura (cm):</label>
-    <input type="number" id="altura" name="altura">
+    <input type="number" id="altura" name="altura" class="form-control">
 
-    <!-- Etnia -->
     <label for="etnia">Etnia:</label>
-    <input type="text" id="etnia" name="etnia">
+    <input type="text" id="etnia" name="etnia" class="form-control">
 
-    <!-- RG -->
     <label for="rg">RG:</label>
-    <input type="text" id="rg" name="rg">
+    <input type="text" id="rg" name="rg" class="form-control">
 
-    <!-- CPF -->
     <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf">
+    <input type="text" id="cpf" name="cpf" class="form-control">
 
-    <!-- CNH -->
     <label for="cnh">CNH:</label>
-    <input type="text" id="cnh" name="cnh">
+    <input type="text" id="cnh" name="cnh" class="form-control">
 
-    <!-- Data de Nascimento -->
     <label for="nasc">Data de Nascimento:</label>
-    <input type="date" id="nasc" name="nasc" required>
+    <input type="date" id="nasc" name="nasc" class="form-control" required>
 
-    <!-- Foto -->
     <label for="foto">Foto:</label>
     <input type="file" id="foto" name="foto" class="form-control-file" accept="image/jpeg, image/png">
     
-    <!-- Botão de Submissão -->
     <button type="submit" class="btn btn-primary mt-3">Cadastrar</button>
 </form>
 
 <?php 
 // Inclui o rodapé
 include '../includes/footer.php'; 
-ob_end_flush(); // Encerra o buffer de saída e envia tudo ao navegador
 ?>

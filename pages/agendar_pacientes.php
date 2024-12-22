@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 // Verificar se o administrador está logado
 if (!isset($_SESSION['admin_id'])) {
@@ -6,33 +6,42 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 // Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
+include '../includes/header.php';
 ?>
 
-<h1>Agendar Pacientes</h1>
-
-<form action="..//actions/agendar_paciente.php" method="post">
+<h1 class="form-title">Agendar Paciente</h1>
+<form action="../actions/agendar_paciente.php" method="post" class="standard-form">
     <!-- Nome do Paciente -->
-    <label for="nome_paciente">Nome do Paciente:</label>
-    <input type="text" id="nome_paciente" name="nome_paciente" required>
-    
+    <div class="form-group">
+        <label for="nome_paciente">Nome do Paciente</label>
+        <input type="text" id="nome_paciente" name="nome_paciente" class="form-control" required>
+    </div>
+
     <!-- Data do Agendamento -->
-    <label for="data_agendamento">Data do Agendamento:</label>
-    <input type="date" id="data_agendamento" name="data_agendamento" required>
-    
+    <div class="form-group">
+        <label for="data_agendamento">Data do Agendamento</label>
+        <input type="date" id="data_agendamento" name="data_agendamento" class="form-control" required>
+    </div>
+
     <!-- Hora do Agendamento -->
-    <label for="hora_agendamento">Hora do Agendamento:</label>
-    <input type="time" id="hora_agendamento" name="hora_agendamento" required>
-<br><br>
+    <div class="form-group">
+        <label for="hora_agendamento">Hora do Agendamento</label>
+        <input type="time" id="hora_agendamento" name="hora_agendamento" class="form-control" required>
+    </div>
+
     <!-- Observações -->
-    <label for="observacoes">Observações:<br></label>
-    <textarea id="observacoes" style="width: 534px;height: 120px;" name="observacoes"></textarea>
+    <div class="form-group">
+        <label for="descricao">Observações</label>
+        <textarea id="descricao" name="descricao" class="form-control" rows="4" style="resize: none;"></textarea>
+    </div>
 
     <!-- Botão de Submissão -->
-    <input type="submit" value="Agendar">
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </div>
 </form>
 
-<?php 
+<?php
 // Inclui o rodapé
-include '../includes/footer.php'; 
+include '../includes/footer.php';
 ?>
