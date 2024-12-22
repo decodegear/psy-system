@@ -13,9 +13,8 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nome_paciente, $data_agendamento, $hora_agendamento, $observacoes, $id]);
 
-    header("Location: ..//pages/visualizar_agendamentos.php?status=updated");
+    header("Location:../views/visualizar_agendamentos.php?status=updated");
 } catch (PDOException $e) {
     error_log("Erro ao atualizar agendamento: " . $e->getMessage());
-    header("Location: ..//pages/editar_agendamento.php?id=$id&status=error");
+    header("Location:../actions/altera_agendamento.php?id=$id&status=error");
 }
-?>

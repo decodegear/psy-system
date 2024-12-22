@@ -2,7 +2,6 @@
 <?php
 session_start();
 include '../includes/db_connect.php';
-include '../includes/header.php'; // Incluindo cabeçalho
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -49,11 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindValue(':foto', $foto, PDO::PARAM_LOB);
         $stmt->execute();
         
-        echo "Pessoa cadastrada com sucesso!";
+        //echo "Pessoa cadastrada com sucesso!";
+        header("Location: ../views/visualizar_pessoa.php?status=updated");
     } catch (PDOException $e) {
         echo "Erro ao cadastrar pessoa: " . $e->getMessage();
     }
 }
+include '../includes/header.php'; // Incluindo cabeçalho
 ?>
 
 <h1>Cadastro de Paciente</h1>

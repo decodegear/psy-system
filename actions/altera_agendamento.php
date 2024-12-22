@@ -1,6 +1,5 @@
 <?php 
 // Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
 include '../includes/db_connect.php';
 
 $id = $_GET['id'] ?? null;
@@ -23,11 +22,12 @@ try {
     error_log("Erro ao buscar dados do agendamento: " . $e->getMessage());
     echo "Erro ao carregar dados do agendamento.";
 }
+include '../includes/header.php'; 
 ?>
 
 <h1>Editar Agendamento</h1>
 
-<form action="/actions/update_agendamento.php" method="post">
+<form action="../actions/update_agendamento.php" method="post">
     <input type="hidden" name="id" value="<?= $id ?>">
 
     <!-- Nome do Paciente -->

@@ -1,42 +1,23 @@
-<?php session_start(); $isLoggedIn = isset($_SESSION['admin_id']); ?>
-<?php 
-// Inclui o cabeçalho com o menu de navegação
-include '../includes/header.php'; 
-// Iniciar a sessão e verificar se o usuário é administrador
-
-$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
-
-// Conectar ao banco de dados
-include '../includes/db_connect.php';
-
-// Verifica se o tipo foi passado via GET (URL)
-$tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'despesas'; // Padrão 'despesas' se não for passado
-
-try {
-    // Consulta com base no tipo
-    if ($tipo === 'despesa') {
-        $sql = "SELECT id, nome, descricao, valor, data_vencimento, data_inclusao, situacao, parcelado, qtd_parcelas, 'despesa' AS tipo FROM transacoes WHERE tipo = 'despesa' ORDER BY data_vencimento DESC";
-    } elseif ($tipo === 'receita') {
-        $sql = "SELECT id, nome, descricao, valor, data_vencimento, data_inclusao, situacao, parcelado, qtd_parcelas, 'receita' AS tipo FROM transacoes WHERE tipo = 'receita' ORDER BY data_vencimento DESC";
-    } else { // Caso 'ambos'
-        $sql = "SELECT id, nome, descricao, valor, data_vencimento, data_inclusao, situacao, parcelado, qtd_parcelas, tipo FROM transacoes ORDER BY data_vencimento DESC";
-    }
-
-    // Executa a consulta
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao consultar: " . $e->getMessage());
-    echo "Erro ao carregar a lista.";
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+include '../includes/db_connect.php';
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+$tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'despesa';
+
+$stmt = $conn->prepare("SELECT * FROM transacoes WHERE tipo = :tipo ORDER BY data_vencimento DESC");
+$stmt->execute([':tipo' => $tipo]);
+$resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+include '../includes/header.php';
 ?>
 
 <div class="container my-4">
-    
-<h1>Visualizar <?= ucfirst($tipo) ?></h1>
-<?php if ($isAdmin): ?>
-        <a href="../pages/cadastro_transacao.php?tipo=<?= ucfirst($tipo) ?>" class="btn btn-primary mb-3">Nova <?= ucfirst($tipo) ?></a>
+    <h1>Visualizar <?=$tipo?></h1>
+     
+    <?php if ($isAdmin): ?>
+        <a href="../pages/cadastro_transacao.php?tipo=<?=$tipo;?>" class="btn btn-primary mb-3">Nova <?= $tipo;?></a>
     <?php endif; ?>
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
@@ -55,11 +36,12 @@ try {
                 <?php endif; ?>
             </tr>
         </thead>
+        
         <tbody>
             <?php if (!empty($resultados)): ?>
-                <?php foreach ($resultados as $item): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($item['tipo']) ?></td>
+            <?php foreach ($resultados as $item): ?>
+                <tr>
+                <td><?= htmlspecialchars($item['tipo']) ?></td>
                         <td><?= htmlspecialchars($item['nome']) ?></td>
                         <td><?= htmlspecialchars($item['descricao']) ?></td>
                         <td><?= htmlspecialchars(number_format($item['valor'], 2, ',', '.')) ?></td>
@@ -70,7 +52,7 @@ try {
                         <td><?= $item['parcelado'] ? htmlspecialchars($item['qtd_parcelas']) : 'N/A' ?></td>
                         <?php if ($isAdmin): ?>
                             <td>
-                            <a href="../actions/altera_transacao.php?id=<?= $item['id']; ?>&tipo=<?= urlencode($item['tipo']); ?>" class="btn btn-warning btn-sm">Alterar</a>
+                            <a href="../actions/altera_transacao.php?id=<?= $item['id']; ?>&tipo=<?= urlencode($tipo); ?>" class="btn btn-warning btn-sm">Alterar</a>
                                 <a href="../actions/excluir_transacao.php?id=<?= $item['id'];?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a><?php ?>
                             </td>
                         <?php endif; ?>
@@ -85,7 +67,4 @@ try {
     </table>
 </div>
 
-<?php 
-// Inclui o rodapé
-include '../includes/footer.php'; 
-?>
+<?php include '../includes/footer.php'; ?>

@@ -24,7 +24,7 @@ include 'db_connect.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     <!-- Link para o Bootstrap -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
     
     <!-- Link para o estilo CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@ include 'db_connect.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Link para o Manifesto do PWA -->
-    <link rel="manifest" href="../manifest.json">
+    <link rel="manifest" href="<?= BASE_URL ?>/manifest.json">
     
     <!--Base url -->
     <base href="" >
