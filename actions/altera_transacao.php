@@ -15,7 +15,8 @@ $action = $_GET['action'] ?? 'edit';
 if (!$id) {
     die("ID inválido.");
 }
-    include($_SERVER['DOCUMENT_ROOT'] . '../includes/db_connect.php');
+    //TODO teste include($_SERVER['DOCUMENT_ROOT'] . '../includes/db_connect.php');
+    include '../includes/db_connect.php';
     include '../functions/validation.php';
 
 
