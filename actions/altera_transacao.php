@@ -18,6 +18,7 @@ if (!$id) {
     include($_SERVER['DOCUMENT_ROOT'] . '../includes/db_connect.php');
     include '../functions/validation.php';
 
+
 try {
     // Buscar transação
     $sql = "SELECT * FROM transacoes WHERE id = ?";
@@ -28,7 +29,7 @@ try {
     if (!$transacao) {
         die("Transação não encontrada.");
     }
-
+    
     // Atualizar o tipo com base nos dados encontrados
     $tipo = $transacao['tipo'] ?? $tipo;
 
@@ -71,16 +72,15 @@ try {
 
         // Redirecionar após a atualização
         header("Location: ../views/visualizar_transacao.php?tipo=" . urlencode($tipo) . "&status=updated");
-        //exit;
-       exit;
+        exit;
+       //TODO TESTE exit;
     }
+    include '../includes/header.php';
 } catch (PDOException $e) {
     error_log("Erro ao processar transação: " . $e->getMessage());
     echo "Erro ao processar transação: " . htmlspecialchars($e->getMessage());
     exit;
 }
-
-include '../includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

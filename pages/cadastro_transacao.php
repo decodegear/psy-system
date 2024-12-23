@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../includes/db_connect.php';
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'despesa';
 
@@ -7,8 +8,8 @@ $stmt_categorias->execute([':tipo' => ucfirst($tipo)]);
 
 $stmt_contas = $conn->prepare("SELECT id, nome FROM contas");
 $stmt_contas->execute();
-include '../functions/auth.php';
 include '../includes/header.php';
+include '../functions/auth.php';
 ?>
 
 <div class="container mt-5 mb-5">
