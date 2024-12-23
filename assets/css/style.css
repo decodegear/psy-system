@@ -213,7 +213,8 @@ input[type="submit"] {
     cursor: pointer;
     transition: background-color 0.3s ease;
     display: inline-block; /* Evita esticar o botão */
-    width: auto; /* Garante tamanho automático */
+    width: 150px; /* Garante tamanho automático */
+    margin-bottom: 2rem; /* Espaçamento abaixo do botão */
 }
 
 /* Estilo Hover para Botões */
@@ -317,7 +318,11 @@ form {
     width: 80%;
     margin: 0 auto;
 }
-
+.form-flex {
+    display: flex;
+    flex-direction: column; /* Organização em coluna */
+    gap: 1.5rem; /* Espaço entre os elementos do formulário */
+}
 input[type="checkbox"] {
     appearance: none;
     width: 15px;
@@ -339,7 +344,7 @@ input[type="checkbox"]:checked {
 }
 
 
-/* Animações */
+/* TODO Animações */
 @keyframes slideIn {
     from {
         transform: translateY(-50px);
@@ -377,6 +382,7 @@ input[type="checkbox"]:checked {
 
 h1, h2 {
     color: #fff;
+    margin-bottom: 3rem; /* Espaço equivalente a 3 linhas */
 }
 
 /* Espaçamentos */

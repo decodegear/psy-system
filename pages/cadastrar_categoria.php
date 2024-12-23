@@ -102,64 +102,65 @@ $sql = "SELECT * FROM categorias $filtro ORDER BY id DESC";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-include '/includes/header.php';
+include '../includes/header.php';
 ?>
 
-<h1>Gerenciar Categorias</h1>
+<h2>Gerenciar Categorias</h2>
+<div class="container mt-5 mb-5">
+    <form method="post" action="cadastrar_categoria.php">
+        <label for="nome">Nome da Categoria:</label>
+        <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome ?? ''); ?>" required>
 
-<form method="post" action="cadastrar_categoria.php">
-    <label for="nome">Nome da Categoria:</label>
-    <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome ?? ''); ?>" required>
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo">
+            <option value="receita" <?= $tipo == 'receita' ? 'selected' : ''; ?>>receita</option>
+            <option value="despesa" <?= $tipo == 'despesa' ? 'selected' : ''; ?>>despesa</option>
+        </select>
 
-    <label for="tipo">Tipo:</label>
-    <select id="tipo" name="tipo">
-        <option value="receita" <?= $tipo == 'receita' ? 'selected' : ''; ?>>receita</option>
-        <option value="despesa" <?= $tipo == 'despesa' ? 'selected' : ''; ?>>despesa</option>
-    </select>
+        <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? ''); ?>">
+        <input type="submit" class="btn-primary" value="Salvar Categoria">
+    </form>
+    <div class="container m1 m1">
+        <h2>Filtrar Categorias</h2>
+        <form method="post" action="cadastrar_categoria.php">
+            <label><input type="checkbox" name="filtro_receita" <?= $filtro_receita ? 'checked' : ''; ?>> Receitas</label>
+            <label><input type="checkbox" name="filtro_despesa" <?= $filtro_despesa ? 'checked' : ''; ?>> Despesas</label>
+            <input type="submit" value="Filtrar">
+        </form>
 
-    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? ''); ?>">
-    <input type="submit" value="Salvar Categoria">
-</form>
+        <h2>Categorias Cadastradas</h2>
+        <?php if (!empty($result)): ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($result as $row): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['nome']); ?></td>
+                            <td><?= htmlspecialchars($row['tipo']); ?></td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" href="cadastrar_categoria.php?edit=<?= $row['id']; ?>">Alterar</a>
+                                <a class="btn btn-danger btn-sm" href="cadastrar_categoria.php?delete=<?= $row['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">Excluir</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>Nenhuma categoria encontrada.</p>
+        <?php endif; ?>
 
-<h2>Filtrar Categorias</h2>
-<form method="post" action="cadastrar_categoria.php">
-    <label><input type="checkbox" name="filtro_receita" <?= $filtro_receita ? 'checked' : ''; ?>> Receitas</label>
-    <label><input type="checkbox" name="filtro_despesa" <?= $filtro_despesa ? 'checked' : ''; ?>> Despesas</label>
-    <input type="submit" value="Filtrar">
-</form>
-
-<h2>Categorias Cadastradas</h2>
-<?php if (!empty($result)): ?>
-<table>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Tipo</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($result as $row): ?>
-            <tr>
-                <td><?= htmlspecialchars($row['nome']); ?></td>
-                <td><?= htmlspecialchars($row['tipo']); ?></td>
-                <td>
-                    <a class="btn btn-warning btn-sm" href="cadastrar_categoria.php?edit=<?= $row['id']; ?>">Alterar</a>
-                    <a class="btn btn-danger btn-sm" href="cadastrar_categoria.php?delete=<?= $row['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">Excluir</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-<?php else: ?>
-    <p>Nenhuma categoria encontrada.</p>
-<?php endif; ?>
-
-<?php if ($mensagem): ?>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        alert("<?= $mensagem; ?>");
-        window.location.href = "cadastrar_categoria.php";
-    });
-</script>
-<?php endif; ?>
+        <?php if ($mensagem): ?>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    alert("<?= $mensagem; ?>");
+                    window.location.href = "cadastrar_categoria.php";
+                });
+            </script>
+        <?php endif; ?>
+    </div>
