@@ -1,4 +1,8 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -71,8 +75,12 @@ try {
         $stmt = $conn->prepare($sql);
         $stmt->execute([$nome, $valor, $data_vencimento, $situacao, $categoria_id, $conta_id, $descricao, $parcelado, $qtd_parcelas, $id]);
 
+        if (headers_sent()) {
+            die("Headers já foram enviados.");
+        }
+
         // Redirecionar após a atualização
-        header("Location: ../views/visualizar_transacao.php?tipo=" . urlencode($tipo) . "&status=updated");
+                header("Location: ../views/visualizar_transacao.php?tipo=" . urlencode($tipo) . "&status=updated");
         exit;
        //TODO TESTE exit;
     }
