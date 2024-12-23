@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '../includes/db_connect.php');
+include '../includes/db_connect.php';
 
 $id = $_GET['id'] ?? null;
 $tipo = $_GET['tipo'] ?? null; // Capturar o tipo da transação
