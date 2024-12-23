@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '../includes/db_connect.php');
+include '../includes/db_connect.php';
 
 $id = $_POST['id'];
 $nome_paciente = filter_var($_POST['nome_paciente'], FILTER_SANITIZE_STRING);
