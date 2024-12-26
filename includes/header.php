@@ -3,26 +3,24 @@ include 'db_connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png">
     <link rel="manifest" href="../assets/icons/site.webmanifest">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexandre Batista | Psicólogo</title>
-    <!-- Link para o Bootstrap -->
-    <link rel="stylesheet" href="../assets/css/style.css"> <!-- Link para o estilo CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Link para o Manifesto do PWA -->
-    <link rel="manifest" href="../manifest.json">
+        <!-- Link para o Bootstrap -->
+        <link rel="stylesheet" href="../assets/css/style.css"> <!-- Link para o estilo CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Link para o Manifesto do PWA -->
+        <link rel="manifest" href="../manifest.json">
 </head>
 <header>
-
     <body class="container">
         <nav class="navbar navbar-expand-lg bg">
             <a class="navbar-brand" href="../index.php">Psicologia </a>
@@ -33,7 +31,7 @@ include 'db_connect.php';
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Visualizar</a><!-- id="navbarDropdown2" -->
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Visualizar</a><!-- id="navbarDropdown2" -->
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                             <li><a class="dropdown-item" href="../views/visualizar_transacao.php?tipo=receita">Visualizar Receitas</a></li>
                             <li><a class="dropdown-item" href="../views/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
@@ -56,7 +54,8 @@ include 'db_connect.php';
                     <?php endif; ?>
                     <?php if (isset($_SESSION['admin_id'])): ?>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Agenda</a><!-- id="navbarDropdown2" -->
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Agenda</a>
+                            <!-- id="navbarDropdown2" -->
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                 <li><a class="dropdown-item" href="../pages/agendar_pacientes.php">Agendar Paciente</a></li>
                                 <li><a class="dropdown-item" href="../views/visualizar_agendamentos.php">Ver Agenda</a></li>

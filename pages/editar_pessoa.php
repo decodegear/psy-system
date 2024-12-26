@@ -19,6 +19,10 @@ try {
     if (!$pessoa) {
         die("Pessoa não encontrada.");
     }
+    /* else{
+        header("location: ../views/view_pessoa.php");
+
+    }; */
 } catch (PDOException $e) {
     error_log("Erro ao buscar dados da pessoa: " . $e->getMessage());
     echo "Erro ao carregar dados da pessoa.";

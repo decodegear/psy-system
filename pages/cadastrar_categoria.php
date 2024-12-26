@@ -106,6 +106,7 @@ include '../includes/header.php';
 ?>
 
 <h2>Gerenciar Categorias</h2>
+<h3>Nova Categoria</h3>
 <div class="container mt-5 mb-5">
     <form method="post" action="cadastrar_categoria.php">
         <label for="nome">Nome da Categoria:</label>
