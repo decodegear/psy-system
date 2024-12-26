@@ -8,7 +8,7 @@ if (isset($_SESSION['erro'])): ?>
     <?php unset($_SESSION['erro']); ?>
 <?php endif; ?>
 
-<h2> Gestão Psicológica 1.0</h2>
+<h2> Gestão Psicológica</h2>
 <p>Gerencie seus atendimentos, sessões, prontuários, receitas e finanças de forma eficiente com nosso sistema completo de controle de receitas, despesas e muito mais.</p>
 
 <div class="dashboard container">
