@@ -30,12 +30,15 @@ header * {
 
 /* Navbar */
 .navbar-toggler {
-  z-index: 9999;
+  z-index: 999;
 }
 .navbar-text {
     color: #f06e6e !important;
     margin-right: 15px;
     font-size: 16px;
+}
+.navbar {
+color: #fff;
 }
 
 .navbar-nav .nav-item .nav-link {
