@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include '../includes/header.php';
+
 include '../includes/db_connect.php';
 // Verificar se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
