@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 include 'includes/header.php';
@@ -20,6 +20,7 @@ if (isset($_SESSION['erro'])): ?>
             <li class="list-group-item"><a href="/views/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
             <li class="list-group-item"><a href="/pages/cadastro_transacao.php?tipo=receita">Cadastrar Nova Receita</a></li>
             <li class="list-group-item"><a href="/pages/cadastro_transacao.php?tipo=despesa">Cadastrar Nova despesa</a></li>
+            <li class="list-group-item"><a href="../views/view_relatorio.php">Relatório Financeiro</a></li>
         </ul>
     </section>
 
@@ -34,7 +35,7 @@ if (isset($_SESSION['erro'])): ?>
     </section>
 </div>
 
-<?php 
+<?php
 // Inclui o rodapé
-include 'includes/footer.php'; 
+include 'includes/footer.php';
 ?>

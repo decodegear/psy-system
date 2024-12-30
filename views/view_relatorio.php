@@ -34,8 +34,8 @@ $data_fim_padrao = date('Y-m-t');  // Último dia do mês atual
     </select>
 
     <!-- Caixas de seleção para receitas/despesas -->
-    <label><input type="checkbox" name="tipo[]" value="Receita" <?= (isset($_POST['tipo']) && in_array('Receita', $_POST['tipo'])) ? 'checked' : ''; ?>> Receitas</label>
-    <label><input type="checkbox" name="tipo[]" value="Despesa" <?= (isset($_POST['tipo']) && in_array('Despesa', $_POST['tipo'])) ? 'checked' : ''; ?>> Despesas</label>
+    <label><input type="checkbox" name="tipo[]" value="Receita" <?= (isset($_POST['tipo']) && in_array('Receita', $_POST['tipo'])) ? 'checked' : 'checked'; ?>> Receitas</label>
+    <label><input type="checkbox" name="tipo[]" value="Despesa" <?= (isset($_POST['tipo']) && in_array('Despesa', $_POST['tipo'])) ? 'checked' : 'checked'; ?>> Despesas</label>
 
     <!-- Botão para gerar o relatório -->
     <input type="submit" value="Gerar Relatório">
