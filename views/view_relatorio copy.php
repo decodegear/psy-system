@@ -1,9 +1,12 @@
 <?php
+
 session_start();
+
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../admin/login.php");
     exit;
 }
+
 include '../includes/header.php';
 
 // Definir o mês atual por padrão
@@ -14,9 +17,6 @@ $data_fim_padrao = date('Y-m-t');  // Último dia do mês atual
 <h1>Relatório de Receitas e Despesas por Período</h1>
 
 <form method="post" action="view_relatorio.php">
-    <!-- Campo para pesquisa por expressão -->
-    <label for="pesquisa">Pesquisa:</label>
-    <input type="text" id="pesquisa" name="pesquisa" placeholder="Opcional" value="<?= isset($_POST['pesquisa']) ? htmlspecialchars($_POST['pesquisa']) : ''; ?>">
     <!-- Selecionar data de início -->
     <label for="data_inicio">Data de Início:</label>
     <input type="date" id="data_inicio" name="data_inicio" value="<?= isset($_POST['data_inicio']) ? $_POST['data_inicio'] : $data_inicio_padrao; ?>" required>
@@ -33,11 +33,9 @@ $data_fim_padrao = date('Y-m-t');  // Último dia do mês atual
         <option value="A pagar" <?= (isset($_POST['situacao']) && $_POST['situacao'] == 'A pagar') ? 'selected' : ''; ?>>A Pagar</option>
     </select>
 
-
-
     <!-- Caixas de seleção para receitas/despesas -->
-    <label><input type="checkbox" name="tipo[]" value="Receita" checked <?= (isset($_POST['tipo']) && in_array('Receita', $_POST['tipo'])) ? 'checked' : ''; ?>> Receitas</label>
-    <label><input type="checkbox" name="tipo[]" value="Despesa" checked <?= (isset($_POST['tipo']) && in_array('Despesa', $_POST['tipo'])) ? 'checked' : ''; ?>> Despesas</label>
+    <label><input type="checkbox" name="tipo[]" value="Receita" <?= (isset($_POST['tipo']) && in_array('Receita', $_POST['tipo'])) ? 'checked' : 'checked'; ?>> Receitas</label>
+    <label><input type="checkbox" name="tipo[]" value="Despesa" <?= (isset($_POST['tipo']) && in_array('Despesa', $_POST['tipo'])) ? 'checked' : 'checked'; ?>> Despesas</label>
 
     <!-- Botão para gerar o relatório -->
     <input type="submit" value="Gerar Relatório">
@@ -45,11 +43,12 @@ $data_fim_padrao = date('Y-m-t');  // Último dia do mês atual
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Capturar as entradas do formulário
+    // Capturar as datas selecionadas
     $data_inicio = $_POST['data_inicio'];
     $data_fim = $_POST['data_fim'];
-    $situacao = $_POST['situacao'];
-    $pesquisa = isset($_POST['pesquisa']) ? trim($_POST['pesquisa']) : "";
+    $situacao = $_POST['situacao']; // Situação: Pagas / A Pagar / Todas
+
+    // Verificar os tipos selecionados
     $tipos = isset($_POST['tipo']) ? $_POST['tipo'] : [];
 
     // Validar as datas
@@ -67,6 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Incluir a conexão com o banco de dados
     include '../includes/db_connect.php';
 
+    // Arrays para armazenar receitas e despesas
+    $receitas = [];
+    $despesas = [];
+
     // Filtro de situação
     $filtro_situacao = "";
     if ($situacao == 'Pago') {
@@ -75,39 +78,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $filtro_situacao = " AND situacao = 'A Pagar'";
     }
 
-    // Filtro de pesquisa
-    $filtro_pesquisa = "";
-    if (!empty($pesquisa)) {
-        $filtro_pesquisa = " AND (nome LIKE ? OR descricao LIKE ?)";
-    }
-
-    // Arrays para armazenar receitas e despesas
-    $receitas = [];
-    $despesas = [];
+    // Exibir o filtro para depuração
+    //echo "<pre>Filtro de Situação: $filtro_situacao</pre>";
 
     // Se o usuário selecionou "Receitas"
     if (in_array('Receita', $tipos)) {
-        $sql_receitas = "SELECT tipo, nome, descricao, valor, data_vencimento, situacao FROM transacoes WHERE data_vencimento BETWEEN ? AND ? AND tipo = 'Receita'" . $filtro_situacao . $filtro_pesquisa;
+        // Buscar as receitas no período
+        $sql_receitas = "SELECT tipo, nome, descricao, valor, data_vencimento, situacao FROM transacoes WHERE data_vencimento BETWEEN ? AND ? AND tipo = 'Receita'" . $filtro_situacao;
         $stmt_receitas = $conn->prepare($sql_receitas);
-        $params = [$data_inicio, $data_fim];
-        if (!empty($pesquisa)) {
-            $params[] = "%$pesquisa%";
-            $params[] = "%$pesquisa%";
-        }
-        $stmt_receitas->execute($params);
+        $stmt_receitas->execute([$data_inicio, $data_fim]);
         $receitas = $stmt_receitas->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Se o usuário selecionou "Despesas"
     if (in_array('Despesa', $tipos)) {
-        $sql_despesas = "SELECT tipo, nome, descricao, valor, data_vencimento, situacao FROM transacoes WHERE data_vencimento BETWEEN ? AND ? AND tipo = 'Despesa'" . $filtro_situacao . $filtro_pesquisa;
+        // Buscar as despesas no período
+        $sql_despesas = "SELECT tipo, nome, descricao, valor, data_vencimento, situacao FROM transacoes WHERE data_vencimento BETWEEN ? AND ? AND tipo = 'Despesa'" . $filtro_situacao;
         $stmt_despesas = $conn->prepare($sql_despesas);
-        $params = [$data_inicio, $data_fim];
-        if (!empty($pesquisa)) {
-            $params[] = "%$pesquisa%";
-            $params[] = "%$pesquisa%";
-        }
-        $stmt_despesas->execute($params);
+        $stmt_despesas->execute([$data_inicio, $data_fim]);
         $despesas = $stmt_despesas->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -125,7 +113,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Calcular o saldo final (receitas - despesas)
     $saldo = $total_receitas - $total_despesas;
-    
 ?>
 
     <!-- Exibir o relatório -->
@@ -191,8 +178,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <p>Total de Receitas: <strong>R$ <?= number_format($total_receitas, 2, ',', '.'); ?></strong></p>
     <p>Total de Despesas: <strong>R$ <?= number_format($total_despesas, 2, ',', '.'); ?></strong></p>
     <p>Saldo Final: <strong>R$ <?= number_format($saldo, 2, ',', '.'); ?></strong></p>
+
 <?php
 }
-echo "<br>";
+?>
+
+<?php
 include '../includes/footer.php';
 ?>
