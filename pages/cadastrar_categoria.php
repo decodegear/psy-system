@@ -102,7 +102,7 @@ $sql = "SELECT * FROM categorias $filtro ORDER BY id DESC";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-include '/includes/header.php';
+include '../includes/header.php';
 ?>
 
 <h1>Gerenciar Categorias</h1>
@@ -163,3 +163,4 @@ include '/includes/header.php';
     });
 </script>
 <?php endif; ?>
+<?php include '../includes/footer.php'; ?>
