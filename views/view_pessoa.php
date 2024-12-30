@@ -50,7 +50,7 @@ include '../includes/header.php'; // Incluindo cabeçalho
                 <button class="btn btn-outline-success" type="submit">Pesquisar</button>
             </form>
             <?php if ($isAdmin): ?>
-                <a href="<?= BASE_URL ?>/pages/cadastro_pessoa.php" class="btn btn-primary mb-3">Cadastrar Paciente</a><?php ?>
+                <a href="<?= BASE_URL ?>/pages/cadastro_pessoa.php" class="btn btn-primary mb-3">Adicionar Novo Paciente</a><?php ?>
             <?php endif; ?>
 
             <?php if (!empty($pessoas)): ?>

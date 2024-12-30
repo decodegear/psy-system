@@ -1,5 +1,5 @@
 <?php
-   if (session_status() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -15,10 +15,8 @@ $action = $_GET['action'] ?? 'edit';
 if (!$id) {
     die("ID inválido.");
 }
-    //TODO teste include($_SERVER['DOCUMENT_ROOT'] . '../includes/db_connect.php');
-    include '../includes/db_connect.php';
+    include($_SERVER['DOCUMENT_ROOT'] . '../includes/db_connect.php');
     include '../functions/validation.php';
-
 
 try {
     // Buscar transação
@@ -30,7 +28,7 @@ try {
     if (!$transacao) {
         die("Transação não encontrada.");
     }
-    
+
     // Atualizar o tipo com base nos dados encontrados
     $tipo = $transacao['tipo'] ?? $tipo;
 
@@ -71,21 +69,18 @@ try {
         $stmt = $conn->prepare($sql);
         $stmt->execute([$nome, $valor, $data_vencimento, $situacao, $categoria_id, $conta_id, $descricao, $parcelado, $qtd_parcelas, $id]);
 
-        if (headers_sent()) {
-            die("Headers já foram enviados.");
-        }
-
         // Redirecionar após a atualização
-                header("Location: ../views/visualizar_transacao.php?tipo=" . urlencode($tipo) . "&status=updated");
-        exit;
-       //TODO TESTE exit;
+        header("Location: ../views/visualizar_transacao.php?tipo=" . urlencode($tipo) . "&status=updated");
+        //exit;
+       exit;
     }
-    include '../includes/header.php';
 } catch (PDOException $e) {
     error_log("Erro ao processar transação: " . $e->getMessage());
     echo "Erro ao processar transação: " . htmlspecialchars($e->getMessage());
     exit;
 }
+
+include '../includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

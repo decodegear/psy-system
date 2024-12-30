@@ -38,8 +38,9 @@ try {
 }
 include '../includes/header.php';
 ?>
- <div class="container my-4">
-    <h2 class="text-center mb-4">Editar Paciente</h2>
+
+<div class="container my-4">
+    <h2 class="text-center mb-4">Editar Pessoa</h2>
     <form action="altera_pessoa.php?id=<?= $pessoa['id'] ?>" method="post" enctype="multipart/form-data">
         <div class="row g-4">
             <!-- Foto e campo para alterar -->
