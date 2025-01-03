@@ -1,4 +1,4 @@
-const CACHE_NAME = "psy-cache-v1";
+const CACHE_NAME = "psy-cache-v2";  // Alterado para forçar atualização
 const urlsToCache = [
     "/index.php",
     "/admin/dashboard.php",
@@ -44,13 +44,17 @@ self.addEventListener("activate", event => {
 
 // Interceptação de requisições para fornecer arquivos do cache
 self.addEventListener("fetch", event => {
+    if (event.request.method !== "GET") return; // Evita cache de requisições POST, PUT, DELETE
+
     event.respondWith(
-        caches.match(event.request)
+        fetch(event.request)
             .then(response => {
-                return response || fetch(event.request);
+                // Atualiza o cache com a versão mais recente do arquivo
+                return caches.open(CACHE_NAME).then(cache => {
+                    cache.put(event.request, response.clone());
+                    return response;
+                });
             })
-            .catch(() => {
-                return caches.match("/index.php");
-            })
+            .catch(() => caches.match(event.request)) // Se offline, tenta pegar do cache
     );
 });
