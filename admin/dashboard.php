@@ -37,7 +37,7 @@ include '../includes/header.php';
         <div class="col-md-4">
 
             <ul class="dashboard-list">
-                <li><a href="../views/visualizar_transacao.php?tipo=receita">Agendamentos</a></li>
+                <li><a href="../views/visualizar_agendamentos.php">Agendamentos</a></li>
                 <?php
 
                 try {
