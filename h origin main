@@ -1,22 +1,75 @@
-[33m2f5b884[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: checkout: moving from develop to main
-[33m1493e56[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{1}: commit (merge): Resolvidos conflitos no merge do branch main
-[33m90530bc[m HEAD@{2}: commit: Arquivos visual
-[33m4642386[m[33m ([m[1;31morigin/develop[m[33m)[m HEAD@{3}: commit: Atualização develop
-[33m3bd6606[m HEAD@{4}: reset: moving to HEAD
-[33m3bd6606[m HEAD@{5}: commit: Inclusão do footer
-[33m23f2818[m HEAD@{6}: checkout: moving from main to develop
-[33m2f5b884[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{7}: commit: login-footer
-[33mb10f5cb[m HEAD@{8}: commit: footer
-[33meffc9ad[m HEAD@{9}: commit: afds
-[33m27e9930[m HEAD@{10}: commit (merge): Merge branch 'alpha'
-[33m53f1dd8[m HEAD@{11}: checkout: moving from alpha to main
-[33m42651d4[m[33m ([m[1;32malpha[m[33m)[m HEAD@{12}: commit: alpha
-[33m9f22139[m HEAD@{13}: checkout: moving from main to alpha
-[33m53f1dd8[m HEAD@{14}: checkout: moving from alpha to main
-[33m9f22139[m HEAD@{15}: commit: Commit das últimas alterações na branch alpha
-[33m4688e9d[m[33m ([m[1;31morigin/Alpha[m[33m, [m[1;32mdevolop[m[33m, [m[1;32mall[m[33m)[m HEAD@{16}: checkout: moving from 4688e9d82db96a6b6845fd222e211225815c1428 to alpha
-[33m4688e9d[m[33m ([m[1;31morigin/Alpha[m[33m, [m[1;32mdevolop[m[33m, [m[1;32mall[m[33m)[m HEAD@{17}: checkout: moving from devolop to 4688e9d82db96a6b6845fd222e211225815c1428
-[33m4688e9d[m[33m ([m[1;31morigin/Alpha[m[33m, [m[1;32mdevolop[m[33m, [m[1;32mall[m[33m)[m HEAD@{18}: commit: Renomear pasta PSY
-[33m601aa42[m HEAD@{19}: Branch: renamed refs/heads/master to refs/heads/devolop
-[33m601aa42[m HEAD@{21}: commit: 30-11-renomeando pasta spy
-[33m22d257f[m HEAD@{22}: commit (initial): Reconfiguração da pasta psy
+[33m279ce97[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m ops
+[33m10c50f0[m correçoes
+[33m7a18458[m erro serv.wor.
+[33m5a5118a[m ..
+[33mf88eaf0[m atualização PWA
+[33m27e310b[m organizando
+[33m538433c[m v0.88
+[33mf7832a6[m Alteração Dashboard
+[33m8679c03[m add pesquisa em relatorio
+[33m27920b7[m add Relatorio - index
+[33me408a9d[m add Relatorio
+[33mb764741[m 0.86
+[33m49a6394[m categorias
+[33m1043891[m OK
+[33m68e7e50[m tt
+[33md46880e[m Merge branch 'develop' into 'main' - aceitando alterações de develop
+[33md2b5ac7[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m tmp
+[33mfb6a50a[m toggleMenu
+[33m0612b55[m Merge branch 'develop' of https://github.com/decodegear/psy-system into develop
+[33m7210124[m functions atualizados
+[33m9f519f5[m teste css
+[33mae36f34[m main-z-ind
+[33mce1c815[m functions atualizados
+[33m91da72c[m v0.85
+[33m084fe43[m alteração da label do botão add paciente
+[33m4c1390b[m altera agend.
+[33m11dc6e1[m excluir trans
+[33m20ee64b[m 1
+[33m2df94f2[m Altera_transacao
+[33m144216b[m css+visualizar_transacao-alteracao
+[33mdbf7922[m Arquivos visual
+[33m1493e56[m Resolvidos conflitos no merge do branch main
+[33m90530bc[m Arquivos visual
+[33m4642386[m Atualização develop
+[33m3bd6606[m Inclusão do footer
+[33m2f5b884[m login-footer
+[33mb10f5cb[m footer
+[33meffc9ad[m afds
+[33m27e9930[m Merge branch 'alpha'
+[33m42651d4[m[33m ([m[1;32malpha[m[33m)[m alpha
+[33m9f22139[m Commit das últimas alterações na branch alpha
+[33m4688e9d[m[33m ([m[1;31morigin/Alpha[m[33m, [m[1;32mdevolop[m[33m, [m[1;32mall[m[33m)[m Renomear pasta PSY
+[33m601aa42[m 30-11-renomeando pasta spy
+[33m22d257f[m Reconfiguração da pasta psy
+[33m53f1dd8[m Merge pull request #1 from decodegear/develop
+[33m23f2818[m Delete .gitignore
+[33m8d92f99[m Delete .gitignore
+[33md4a9cc3[m delete teste
+[33m8571beb[m teste.php
+[33mb1847b1[m Delete includes/footer.php
+[33md5bfc88[m TMP
+[33m4f3963c[m tmp
+[33mf7fcded[m PG
+[33m93df0d5[m PG
+[33md5ae76c[m asdfasf
+[33m198ea4b[m remove PG
+[33m26f87e2[m removendo _pg
+[33m3994749[m Removendo projeto_psy
+[33m4f528e0[m Merge branch 'main' of https://github.com/decodegear/psy-system
+[33m2f51908[m gitIgnore
+[33m83b14e1[m Delete .vscode directory
+[33m7479db7[m Delete .tmp.driveupload directory
+[33m487ecbd[m Exclusão da pasta
+[33m58e9ebc[m Exclusão da pasta .TMP
+[33m1c8ec62[m Exclusão da pasta .tmp
+[33m2b50018[m .tmp
+[33m7fa9994[m tentando excluir .tmp
+[33m6a74037[m Merge branch 'main' of https://github.com/decodegear/psy-system
+[33m711fc9a[m Tentativa main
+[33m95583e5[m teste
+[33m6b31a50[m remover cadastro admin
+[33mffc6abb[m Correção do menu mobile no header.php
+[33m4964a1a[m Teste de implementação
+[33ma0e2c73[m remover cadastro admin
+[33m2bc42a7[m Primeiro Commit
