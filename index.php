@@ -21,7 +21,7 @@ if (isset($_SESSION['erro'])): ?>
     }
 </script>
 
-<h2> Gestão Psicológica</h2>
+<h2> Alexandre Batista - Psicológo</h2>
 <p>Gerencie seus atendimentos, sessões, prontuários, receitas e finanças de forma eficiente com nosso sistema completo de controle de receitas, despesas e muito mais.</p>
 
 <div class="dashboard container">

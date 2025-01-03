@@ -14,6 +14,8 @@ include 'db_connect.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+
     <title>Alexandre Batista</title>
     <!-- Link para o Bootstrap -->
     <link rel="stylesheet" href="../assets/css/style.css"> <!-- Link para o estilo CSS -->

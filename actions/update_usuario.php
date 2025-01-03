@@ -13,9 +13,9 @@ $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 try {
     // Atualizar usuário
     
-    $sql = "UPDATE usuarios SET nome = ?, telefone = ?, cpf = ?, email = ?, senha = ? WHERE id = ?";
+    $sql = "UPDATE usuarios SET nome = ?, telefone = ?, cpf = ?, email = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$nome, $telefone, $cpf, $email, $senha_hash, $id]);
+    $stmt->execute([$nome, $telefone, $cpf, $email, $id]);
 
     header("Location: ../views/visualizar_usuarios.php?status=updated");
 } catch (PDOException $e) {
