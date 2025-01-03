@@ -7,6 +7,19 @@ if (isset($_SESSION['erro'])): ?>
     <p style="color:red">Ocorreu um erro. Tente novamente ou contate o suporte.</p>
     <?php unset($_SESSION['erro']); ?>
 <?php endif; ?>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log("Service Worker registrado com sucesso:", registration.scope);
+                })
+                .catch(error => {
+                    console.error("Falha ao registrar o Service Worker:", error);
+                });
+        });
+    }
+</script>
 
 <h2> Gestão Psicológica</h2>
 <p>Gerencie seus atendimentos, sessões, prontuários, receitas e finanças de forma eficiente com nosso sistema completo de controle de receitas, despesas e muito mais.</p>
