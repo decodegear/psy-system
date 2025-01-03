@@ -26,11 +26,13 @@ include 'db_connect.php';
     <link rel="manifest" href="../manifest.json">
 </head>
 <header>
+    <div class="container">
+    </div>
 
-    <body class="container">
+    <body>
         <nav class="navbar navbar-expand-lg bg">
-            <a class="navbar-brand" href="../index.php">Psicologia </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="../index.php"><h1>Psicologia</h1> </a>
+            <button  data-bs-toggle="collapse" data-bs-target="#navbarNav"   aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -86,4 +88,5 @@ include 'db_connect.php';
             </div>
 
         </nav>
+
 </header>
