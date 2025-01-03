@@ -26,9 +26,12 @@ include 'db_connect.php';
     <link rel="manifest" href="../manifest.json">
 </head>
 <header>
-    <div class="container">
-   
-    <body>
+<!-- Esse -->    
+<div class="container"> 
+        
+    </div>
+
+    <body class="container">
         <nav class="navbar navbar-expand-lg bg">
             <a class="navbar-brand" href="../index.php">Psicologia </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,5 +90,4 @@ include 'db_connect.php';
             </div>
 
         </nav>
-                
 </header>
