@@ -1,6 +1,4 @@
 <?php
-require_once 'cpf_email_validation.php';
-
 include '../includes/db_connect.php';
 
 // Sanitização e validação de entrada
