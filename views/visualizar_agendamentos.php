@@ -17,6 +17,7 @@ try {
 }
 include '../includes/header.php';
 ?>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <div class="container my-4">
     <h1>Visualizar Agendamentos</h1>
@@ -24,8 +25,8 @@ include '../includes/header.php';
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
             <tr>
-                <th>Nome do Paciente</th>
                 <th>Data do Agendamento</th>
+                <th>Nome do Paciente</th>
                 <th>Hora do Agendamento</th>
                 <th>Observações</th>
                 <th>Ações</th>
@@ -35,8 +36,8 @@ include '../includes/header.php';
             <?php if (!empty($agendamentos)): ?>
                 <?php foreach ($agendamentos as $agendamento): ?>
                     <tr>
+                        <td><?php echo date('d/m/Y', strtotime($agendamento['data_agendamento'])); ?></td>
                         <td><?= htmlspecialchars($agendamento['nome_paciente']) ?></td>
-                        <td><?= htmlspecialchars($agendamento['data_agendamento']) ?></td>
                         <td><?= htmlspecialchars($agendamento['hora_agendamento']) ?></td>
                         <td><?= htmlspecialchars($agendamento['observacoes']) ?></td>
                         <td>

@@ -96,15 +96,14 @@ nav ul li ul li a:hover {
 }
 
 /* Rodapé */
-footer {
+ footer {
   background-color: #333;
   color: #fff;
   text-align: center;
   padding: 10px 0;
-  position: relative;
-  width: 100%;
+  position:relative ;
   bottom: 0;
-}
+  } 
 
 /* Conteúdo Principal */
 main {
