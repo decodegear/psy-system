@@ -29,7 +29,7 @@ if (isset($_SESSION['erro'])): ?>
     <section class="panel row">
         <h2>Visão Geral</h2>
         <ul class="list-group">
-            <li class="list-group-item"><a href="<?= BASE_URL ?>//views/visualizar_transacao.php?tipo=receita">Visualizar Receitas</a></li>
+            <li class="list-group-item"><a href="../views/visualizar_transacao.php?tipo=receita">Visualizar Receitas</a></li>
             <li class="list-group-item"><a href="/views/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
             <li class="list-group-item"><a href="/pages/cadastro_transacao.php?tipo=receita">Cadastrar Nova Receita</a></li>
             <li class="list-group-item"><a href="/pages/cadastro_transacao.php?tipo=despesa">Cadastrar Nova despesa</a></li>
