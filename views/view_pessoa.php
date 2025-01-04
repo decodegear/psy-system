@@ -50,7 +50,7 @@ include '../includes/header.php'; // Incluindo cabeçalho
                 <button class="btn btn-outline-success" type="submit">Pesquisar</button>
             </form>
             <?php if ($isAdmin): ?>
-                <a href="<?= BASE_URL ?>/pages/cadastro_pessoa.php" class="btn btn-primary mb-3">Adicionar Novo Paciente</a><?php ?>
+                <a href="../pages/cadastro_pessoa.php" class="btn btn-primary mb-3">Adicionar Novo Paciente</a><?php ?>
             <?php endif; ?>
 
             <?php if (!empty($pessoas)): ?>
@@ -139,5 +139,4 @@ include '../includes/header.php'; // Incluindo cabeçalho
     </div>
 </div>
 
-<?php include "../includes/footer.php"; // Incluindo o rodapé 
-?>
+<?php include "../includes/footer.php";?>
