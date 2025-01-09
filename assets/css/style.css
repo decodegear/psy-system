@@ -295,42 +295,45 @@ td {
 }
 
 th {
-  background-color: #f4f4f9;
+  background-color: #c6eff6;
 }
-
+thead {
+  background-color: #c6eff6;
+  color: #287c2f;
+  
+}
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 /* Agenda Dashboard*/
 
-                    .dashboard-bloco {
-                        margin: 20px;
-                        padding: 20px;
-                        border: 1px solid #ccc;
-                        border-radius: 5px;
-                        background-color: #f9f9f9;
-                    }
+.dashboard-bloco {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+.dashboard-bloco h2 {
+  margin-top: 0;
+}
 
-                    .dashboard-bloco h2 {
-                        margin-top: 0;
-                    }
+.dashboard-bloco table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-                    .dashboard-bloco table {
-                        width: 100%;
-                        border-collapse: collapse;
-                    }
+.dashboard-bloco table th,
+.dashboard-bloco table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
 
-                    .dashboard-bloco table th,
-                    .dashboard-bloco table td {
-                        border: 1px solid #ddd;
-                        padding: 8px;
-                        text-align: left;
-                    }
-
-                    .dashboard-bloco table th {
-                        background-color: #f2f2f2;
-                        font-weight: bold;
-                    }
+.dashboard-bloco table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
 /* Modal */
 .modal {
   display: block;

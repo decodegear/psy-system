@@ -29,7 +29,7 @@ include '../includes/header.php';
     <?php endif; ?>
 
     <table class="table table-striped table-bordered">
-        <thead class="table-dark">
+        <thead >
             <tr>
                 <th>Nome</th>
                 <th>Telefone</th>

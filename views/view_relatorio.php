@@ -133,8 +133,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php if (!empty($receitas)): ?>
         <h3>Receitas</h3>
-        <table>
-            <thead>
+        <table >
+            <thead >
                 <tr>
                     <th>Tipo</th>
                     <th>Nome</th>

@@ -42,7 +42,7 @@ include '../includes/header.php';
     </form>
 
     <table class="table table-striped table-bordered">
-        <thead class="table-dark">
+        <thead >
             <tr>
                 <th>Id</th>
                 <th>Nome</th>
