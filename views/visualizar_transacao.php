@@ -23,7 +23,7 @@ include '../includes/header.php';
             <?php endif; ?>
 
             <table class="table table-striped table-bordered">
-                <thead class="table-dark">
+                <thead>
                     <tr>
                         <th>Tipo</th>
                         <th>Nome</th>

@@ -23,7 +23,7 @@ include '../includes/header.php';
     <h1>Visualizar Agendamentos</h1>
 
     <table class="table table-striped table-bordered">
-        <thead class="table-dark">
+        <thead >
             <tr>
                 <th>Data do Agendamento</th>
                 <th>Nome do Paciente</th>
