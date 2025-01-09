@@ -24,16 +24,19 @@ include 'db_connect.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Link para o Manifesto do PWA -->
     <link rel="manifest" href="../manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap" rel="stylesheet">
 </head>
 <header>
-<!-- Esse -->    
-<div class="container"> 
-        
+    <!-- Esse -->
+    <div class="container">
+
     </div>
 
     <body class="container">
         <nav class="navbar navbar-expand-lg bg">
-            <a class="navbar-brand" href="../index.php">Psicologia </a>
+            <a class="montserrat-text navbar-brand " href="../index.php">Alexandre Batista </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
