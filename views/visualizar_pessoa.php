@@ -82,8 +82,8 @@ include '../includes/header.php';
                         <td><?= htmlspecialchars($pessoa['telefone'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                         <?php if ($isAdmin): ?>
                             <td>
-                                <a href="<?= BASE_URL ?>/actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-warning btn-sm">Alterar</a>
-                                <a href="<?= BASE_URL ?>/actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a>
+                                <a href="../actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-warning btn-sm">Alterar</a>
+                                <a href="../actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a>
                             </td>
                         <?php endif; ?>
                     </tr>

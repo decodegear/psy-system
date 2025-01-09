@@ -7,6 +7,9 @@
 
 /* Corpo Geral */
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: Arial, sans-serif;
   font-size: 14px;
   line-height: 1.6;
@@ -14,10 +17,12 @@ body {
   color: #333;
   padding: 20px;
 }
-
+.main-content {
+  flex: 1; /* Ocupa o espaço restante */
+}
 /* Cabeçalho */
 header {
-  background-color: rgba(8, 127, 148, 0.57);
+  background-color: rgba(155, 227, 240, 0.57);
   color: #fff;
   padding: 15px 0;
   text-align: center;
@@ -27,25 +32,39 @@ header {
 header * {
   margin-top: 0 !important;
 }
+/*Logo*/
+.montserrat-text {
+  font-family: "Montserrat", serif;
+  font-optical-sizing:auto;
+  font-weight: 350;
+  font-style: normal;
+  color:#31811c
+}
 
 /* Navbar */
+.navbar navbar-expand-lg {
+  z-index: 1000;
+
+}
 .navbar-text {
-  color: #f06e6e !important;
+  color: #dd0909 ;
   margin-right: 15px;
   font-size: 16px;
 }
 
 .navbar-nav .nav-item .nav-link {
-  color: #fff !important;
+  color: #287c2f !important;
 }
 
 .navbar-nav .nav-item .nav-link:hover {
-  background-color: #555;
+  background-color: #17beca;
+  border-radius: 10px 0 10px 0;
 }
 
 nav {
-  background-color: #333;
+  background-color: #ffffff;
   padding: 15px;
+  border-radius: 10px;
 }
 
 nav ul {
@@ -60,12 +79,15 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #fff;
+  color: #bbfa96;
   text-decoration: none;
+  border-radius: 10px 0 10px 0;
 }
 
 nav ul li:hover > a {
-  background-color: #555;
+  background-color: #bbfa96;
+  width:fit-content;
+  border-radius: 10px 0 10px 0;
 }
 
 nav ul li ul {
@@ -73,11 +95,11 @@ nav ul li ul {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #333;
+  background-color: #d31a1a;
   padding: 10px 0;
   list-style: none;
   min-width: 200px;
-  z-index: 1000;
+  /* z-index: 1000; */
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(224, 37, 37, 0.2);
 }
@@ -96,14 +118,21 @@ nav ul li ul li a:hover {
 }
 
 /* Rodapé */
+
  footer {
-  background-color: #333;
-  color: #fff;
+  background-color: rgba(155, 227, 240, 0.57);
+  color: #000000;
   text-align: center;
   padding: 10px 0;
   position:relative ;
   bottom: 0;
+  margin-top:10px;
   } 
+  .footer-p{
+ min-height:0px;
+ transform:translatex(0px) translatey(0px);
+
+}
 
 /* Conteúdo Principal */
 main {
@@ -403,11 +432,9 @@ input[type="checkbox"]:checked {
   background-color: #555;
 }
 
-h1,
 h2 {
   color: #fff;
-}
-
+  }
 /* Espaçamentos */
 .mt-5 {
   margin-top: 3rem;

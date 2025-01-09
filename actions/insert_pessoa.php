@@ -1,30 +1,38 @@
 <?php
 require_once 'cpf_email_validation.php';
 
-include '../includes/db_connect.php';
-
-// Sanitização e validação de entrada
-$nome = filter_var($_POST['nome'], FILTER_SANITIZE_STRING);
-$genero = $_POST['genero'];
-$idade = (int)$_POST['idade'];
-$peso = (float)$_POST['peso'];
-$altura = (int)$_POST['altura'];
-$etnia = filter_var($_POST['etnia'], FILTER_SANITIZE_STRING);
-$rg = filter_var($_POST['rg'], FILTER_SANITIZE_STRING);
-$cpf = filter_var($_POST['cpf'], FILTER_SANITIZE_STRING);
-$cnh = filter_var($_POST['cnh'], FILTER_SANITIZE_STRING);
-$nasc = $_POST['nasc'];
-
+require_once '../includes/db_connect.php';
 try {
-    // Inserir pessoa
-    $sql = "INSERT INTO pessoas (nome, genero, idade, peso, altura, etnia, rg, cpf, cnh, data_nasc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$nome, $genero, $idade, $peso, $altura, $etnia, $rg, $cpf, $cnh, $nasc]);
+    $pdo = new PDO($dsn, $db_user, $db_pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
 
-    header("Location:<?= BASE_URL ?>/views/pessoa/visualizar_pessoas.php?status=success");
+    // Preparando a query
+    $sql = "INSERT INTO pessoas (nome, genero, idade, peso, altura, etnia, rg, cpf, cnh, nasc) 
+            VALUES (:nome, :genero, :idade, :peso, :altura, :etnia, :rg, :cpf, :cnh, :nasc)";
+
+    $stmt = $pdo->prepare($sql);
+
+    // Associando os valores com bindParam/bindValue
+    $stmt->bindValue(':nome', trim($_POST['nome']), PDO::PARAM_STR);
+    $stmt->bindValue(':genero', trim($_POST['genero']), PDO::PARAM_STR);
+    $stmt->bindValue(':idade', (int)$_POST['idade'], PDO::PARAM_INT);
+    $stmt->bindValue(':peso', (float)$_POST['peso'], PDO::PARAM_STR);
+    $stmt->bindValue(':altura', (int)$_POST['altura'], PDO::PARAM_INT);
+    $stmt->bindValue(':etnia', trim($_POST['etnia']), PDO::PARAM_STR);
+    $stmt->bindValue(':rg', trim($_POST['rg']), PDO::PARAM_STR);
+    $stmt->bindValue(':cpf', trim($_POST['cpf']), PDO::PARAM_STR);
+    $stmt->bindValue(':cnh', trim($_POST['cnh']), PDO::PARAM_STR);
+    $stmt->bindValue(':nasc', trim($_POST['nasc']), PDO::PARAM_STR);
+
+    // Executando a query
+    $stmt->execute();
+
+    header("Location:../views/pessoa/visualizar_pessoas.php?status=success");
 } catch (PDOException $e) {
     error_log("Erro ao inserir pessoa: " . $e->getMessage());
-    header("Location:<?= BASE_URL ?>/pages/cadastro_pessoa.php?status=error");
+    header("Location:../pages/cadastro_pessoa.php?status=error");
 }
 
 ?>
