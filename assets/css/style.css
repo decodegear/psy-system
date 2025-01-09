@@ -38,7 +38,7 @@ header * {
   font-optical-sizing:auto;
   font-weight: 350;
   font-style: normal;
-  color:#31811c
+  color:#054169
 }
 
 /* Navbar */
@@ -139,7 +139,7 @@ main {
   margin-bottom: 60px;
 }
 
-/* Painel de Controle */
+/* Dashboard */
 .dashboard {
   display: flex;
   flex-wrap: wrap;
@@ -179,7 +179,9 @@ main {
 .panel ul li a:hover {
   text-decoration: underline;
 }
-
+.table-item{
+  background-color:#fff ;
+}
 /* Botões e Formulários */
 .standard-form {
   max-width: 600px;
@@ -415,7 +417,7 @@ input[type="checkbox"]:checked {
 }
 
 .dashboard-list li {
-  background-color: #333;
+  background-color: #2ec1db;
   margin-bottom: 10px;
   padding: 15px;
   border-radius: 5px;
@@ -429,7 +431,7 @@ input[type="checkbox"]:checked {
 }
 
 .dashboard-list li:hover {
-  background-color: #555;
+  background-color: #054169;
 }
 
 h2 {
