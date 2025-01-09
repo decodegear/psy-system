@@ -30,7 +30,7 @@ include '../includes/header.php';
 ?>
 
 <div class="container mt-5">
-    <h1 class="text-left">Olá, <?= htmlspecialchars($_SESSION['admin_nome']) ?></h1>
+    <h1 class="text-left montserrat-text">Olá, <?= htmlspecialchars($_SESSION['admin_nome']) ?></h1>
 
     <div class="row mt-4">
         <!-- Coluna para os cadastros -->
@@ -55,7 +55,7 @@ include '../includes/header.php';
                 <?php if (count($agendamentos) > 0): ?>
                     <div class="container my-4">
                         <table class="table table-striped table-bordered">
-                            <thead class="table-dark">
+                            <thead class="table-item">
                                 <tr>
                                     <th>Paciente</th>
                                     <th>Data</th>
@@ -99,8 +99,8 @@ include '../includes/header.php';
                 ?>
 
                 <div class="container my-4">
-                    <table class="table table-striped table-bordered">
-                        <thead class="table-dark">
+                    <table class="table ">
+                        <thead class="table-item">
                             <tr>
                                 <th>Vencimento</th>
                                 <th>Nome</th>
@@ -163,7 +163,7 @@ include '../includes/header.php';
                 <div class="container my-4">
 
                     <table class="table table-striped table-bordered">
-                        <thead class="table-dark">
+                        <thead class="table-item">
                             <tr>
                                 <th>Vencimento</th>
                                 <th>Nome</th>
