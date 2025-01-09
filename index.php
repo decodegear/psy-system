@@ -19,7 +19,25 @@ if (isset($_SESSION['erro'])): ?>
                 });
         });
     }
+   if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js")
+            .then(registration => {
+                console.log("Service Worker registrado:", registration.scope);
+
+                registration.addEventListener("updatefound", () => {
+                    const newSW = registration.installing;
+                    newSW.addEventListener("statechange", () => {
+                        if (newSW.state === "installed" && navigator.serviceWorker.controller) {
+                            console.log("Nova versão disponível! Atualizando...");
+                            location.reload();
+                        }
+                    });
+                });
+            })
+            .catch(error => console.error("Erro ao registrar o Service Worker:", error));
+    }
 </script>
+
 
 <h2 class=montserrat-text> Alexandre Batista - Psicológo</h2>
 <p>Gerencie seus atendimentos, sessões, prontuários, receitas e finanças de forma eficiente com nosso sistema completo de controle de receitas, despesas e muito mais.</p>

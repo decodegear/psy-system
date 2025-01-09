@@ -1,4 +1,4 @@
-const CACHE_NAME = "psy-cache-v2";  // Alterado para forçar atualização
+const CACHE_NAME = "psy-cache-v3"; // Mudar sempre que houver atualização
 const urlsToCache = [
     "/index.php",
     "/admin/dashboard.php",
@@ -13,12 +13,12 @@ const urlsToCache = [
     "/views/visualizar_transacao.php"
 ];
 
-// Instalação do Service Worker e cache dos arquivos necessários
+// Instalação e cache inicial
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                console.log("[Service Worker] Caching files");
+                console.log("[Service Worker] Caching new files");
                 return cache.addAll(urlsToCache);
             })
             .then(() => self.skipWaiting())
@@ -42,19 +42,34 @@ self.addEventListener("activate", event => {
     return self.clients.claim();
 });
 
-// Interceptação de requisições para fornecer arquivos do cache
+// Interceptação de requisições para buscar sempre a versão mais recente do servidor
 self.addEventListener("fetch", event => {
-    if (event.request.method !== "GET") return; // Evita cache de requisições POST, PUT, DELETE
-
     event.respondWith(
         fetch(event.request)
             .then(response => {
-                // Atualiza o cache com a versão mais recente do arquivo
                 return caches.open(CACHE_NAME).then(cache => {
                     cache.put(event.request, response.clone());
                     return response;
                 });
             })
-            .catch(() => caches.match(event.request)) // Se offline, tenta pegar do cache
+            .catch(() => caches.match(event.request))
     );
+});
+
+// Verificação periódica para atualização
+self.addEventListener("periodicsync", event => {
+    if (event.tag === "update-sw") {
+        event.waitUntil(
+            caches.keys().then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cache => {
+                        if (cache !== CACHE_NAME) {
+                            console.log("[Service Worker] Deleting old cache:", cache);
+                            return caches.delete(cache);
+                        }
+                    })
+                );
+            })
+        );
+    }
 });
