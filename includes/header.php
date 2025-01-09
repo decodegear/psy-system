@@ -27,6 +27,40 @@ include 'db_connect.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap" rel="stylesheet">
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js")
+                .then(registration => {
+                    console.log("Service Worker registrado:", registration.scope);
+
+                    registration.addEventListener("updatefound", () => {
+                        const newSW = registration.installing;
+                        newSW.addEventListener("statechange", () => {
+                            if (newSW.state === "installed" && navigator.serviceWorker.controller) {
+                                let updateButton = document.createElement("button");
+                                updateButton.textContent = "Nova versão disponível! Clique para atualizar.";
+                                updateButton.style.position = "fixed";
+                                updateButton.style.bottom = "10px";
+                                updateButton.style.right = "10px";
+                                updateButton.style.backgroundColor = "#007bff";
+                                updateButton.style.color = "#fff";
+                                updateButton.style.padding = "10px";
+                                updateButton.style.border = "none";
+                                updateButton.style.cursor = "pointer";
+
+                                updateButton.addEventListener("click", () => {
+                                    location.reload();
+                                });
+
+                                document.body.appendChild(updateButton);
+                            }
+                        });
+                    });
+                })
+                .catch(error => console.error("Erro ao registrar o Service Worker:", error));
+        }
+    </script>
+
 </head>
 <header>
     <!-- Esse -->
