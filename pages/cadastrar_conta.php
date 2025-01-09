@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
@@ -64,7 +64,7 @@ if (isset($_GET['delete'])) {
 // Buscar todas as contas cadastradas
 $sql = "SELECT * FROM contas";
 $result = $conn->query($sql);
-include '../includes/header.php'; 
+include '../includes/header.php';
 ?>
 
 <h1>Gerenciar Contas</h1>
@@ -96,14 +96,14 @@ include '../includes/header.php';
                 <td><?= htmlspecialchars($row['nome']); ?></td>
                 <td><?= htmlspecialchars($row['saldo_inicial']); ?></td>
                 <td>
-                    <a href="cadastrar_conta.php?edit=<?= $row['id']; ?>">Editar</a>
-                    <a href="cadastrar_conta.php?delete=<?= $row['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">Excluir</a>
+                    <a href="cadastrar_conta.php?edit=<?= $row['id']; ?>" class=" btn btn-warning btn-sm">Editar</a>
+                    <a href="cadastrar_conta.php?delete=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">Excluir</a>
                 </td>
             </tr>
         <?php endwhile; ?>
     </tbody>
 </table>
 
-<?php 
-include '../includes/footer.php'; 
+<?php
+include '../includes/footer.php';
 ?>
