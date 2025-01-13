@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../admin/login.php");
+    exit;
+}
 include '../includes/db_connect.php';
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'despesa';
 
