@@ -42,15 +42,17 @@ header * {
 }
 
 /* Navbar */
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
 .navbar navbar-expand-lg {
   z-index: 1000;
 
 }
-.navbar-text {
-  color: #dd0909 ;
-  margin-right: 15px;
-  font-size: 16px;
-}
+
+
 
 .navbar-nav .nav-item .nav-link {
   color: #287c2f !important;
@@ -59,6 +61,7 @@ header * {
 .navbar-nav .nav-item .nav-link:hover {
   background-color: #17beca;
   border-radius: 10px 0 10px 0;
+  
 }
 
 nav {
@@ -250,7 +253,7 @@ input[type="submit"] {
 button:hover,
 .btn:hover,
 input[type="submit"]:hover {
-  background-color: #0056b3; /* Azul mais escuro no hover */
+  background-color: #c6eff6; /* Azul mais escuro no hover */
 }
 
 /* Botão Sucesso (verde) */
