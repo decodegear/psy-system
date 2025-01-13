@@ -1,6 +1,10 @@
 
 <?php
 session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../admin/login.php");
+    exit;
+}
 include '../includes/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
