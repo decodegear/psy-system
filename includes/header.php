@@ -91,7 +91,7 @@ include 'db_connect.php';
                     <?php if (isset($_SESSION['admin_id'])): ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Novo</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <ul class="dropdown-menu" >
                                 <li><a class="dropdown-item" href="../pages/cadastro_transacao.php?tipo=receita">Entradas</a></li>
                                 <li><a class="dropdown-item" href="../pages/cadastro_transacao.php?tipo=despesa">Saidas</a></li>
                                 <li><a class="dropdown-item" href="../pages/cadastro_pessoa.php">Pacientes</a></li>
