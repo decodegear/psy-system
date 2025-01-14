@@ -21,6 +21,7 @@ body {
   flex: 1; /* Ocupa o espaço restante */
 }
 /* Cabeçalho */
+
 header {
   background-color: rgba(155, 227, 240, 0.57);
   color: #fff;
@@ -46,18 +47,20 @@ header * {
 .navbar-toggler:active {
   outline: none !important;
   box-shadow: none !important;
+  background-color: #c6eff6 !important;
 }
 .navbar navbar-expand-lg {
   z-index: 1000;
 
 }
 
-
-
-.navbar-nav .nav-item .nav-link {
+.navbar-nav .nav-item {
   color: #287c2f !important;
 }
-
+/*Dropdown toggle*/
+.dropdown-item:hover {
+  background-color: #c6eff6 !important;
+}
 .navbar-nav .nav-item .nav-link:hover {
   background-color: #17beca;
   border-radius: 10px 0 10px 0;
@@ -75,6 +78,7 @@ nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  width: auto !important;
 }
 
 nav ul li {
@@ -88,8 +92,8 @@ nav ul li a {
 }
 
 nav ul li:hover > a {
-  background-color: #bbfa96;
-  width:fit-content;
+  background-color: #c6eff6;
+  width:auto;
   border-radius: 10px 0 10px 0;
 }
 
@@ -104,7 +108,7 @@ nav ul li ul {
   min-width: 200px;
   /* z-index: 1000; */
   border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(224, 37, 37, 0.2);
+  box-shadow: 0 2px 5px rgba(43, 224, 37, 0.2);
 }
 
 nav ul li:hover ul {
@@ -117,7 +121,7 @@ nav ul li ul li a {
 }
 
 nav ul li ul li a:hover {
-  background-color: #555;
+  background-color: #ff0000;
 }
 
 /* Rodapé */
@@ -450,4 +454,12 @@ h2 {
 
 .mt-4 {
   margin-top: 1.5rem;
+}
+@media (max-width: 991px) {
+  .navbar-collapse {
+    width: auto;
+    
+  }
+
+  
 }

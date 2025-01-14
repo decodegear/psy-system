@@ -1,7 +1,5 @@
 <?php 
 session_start();
-include '../includes/header.php';
-
 include '../includes/db_connect.php';
 // Verificar se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -32,7 +30,7 @@ if ($usuario && password_verify($senha, $usuario['senha'])) {
 }
 
 }
-
+include '../includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
