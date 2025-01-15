@@ -15,18 +15,16 @@ include '../includes/header.php';
 
 <body>
     <div class="montserrat-text main-content">
-        <h1>Visualizar <?= htmlspecialchars($tipo) ?></h1>
-
+        <h1>Visualizar <?= htmlspecialchars(ucwords($tipo)) ?></h1>
         <?php if ($isAdmin): ?>
             <a href="../pages/cadastro_transacao.php?tipo=<?= htmlspecialchars($tipo); ?>" class="btn btn-primary mb-3">Nova <?= htmlspecialchars($tipo); ?></a>
         <?php endif; ?>
-
         <div class="list-group mb-4">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <!-- <th class="col-tipo">Tipo</th> -->
-                        <th class="col-data-vencimento"><strong>Data de Vencimento</th>
+                        <th class="col-data-vencimento">Data de Vencimento</th>
                         <th class="col-nome">Nome</th>
                         <th class="col-descricao">Descrição</th>
                         <th class="col-valor">Valor</th>
