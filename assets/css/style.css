@@ -1,25 +1,40 @@
 /* Reset Básico */
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+} */
+/*Teste footer final*/
+html,
+body {
+  display: flex;
+  
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  flex-direction: column;
 }
 
+.main-content {
+  flex: 1;
+  min-height: calc(85vh - 75px);
+  padding-bottom: 20px;
+}
+/*fIM TESTE*/
 /* Corpo Geral */
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   font-family: Arial, sans-serif;
   font-size: 14px;
   line-height: 1.6;
   background-color: #f4f4f9;
   color: #333;
-  padding: 20px;
+  padding: 10px;
 }
-.main-content {
-  flex: 1; /* Ocupa o espaço restante */
-}
+
 /* Cabeçalho */
 
 header {
@@ -28,6 +43,7 @@ header {
   padding: 15px 0;
   text-align: center;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 header * {
@@ -124,23 +140,14 @@ nav ul li ul li a:hover {
   background-color: #ff0000;
 }
 
-/* Rodapé */
-
- footer {
-  background-color: rgba(155, 227, 240, 0.57);
-  color: #000000;
-  text-align: center;
-  padding: 10px 0;
-  position:relative ;
-  bottom: 0;
-  margin-top:10px;
-  } 
-  .footer-p{
- min-height:0px;
- transform:translatex(0px) translatey(0px);
-
+/*Visualizações Relatórios*/
+.container {
+  .container {
+      width: 100%;
+      max-width: none;
+      /* Se estiver com limite, remova */
+    }
 }
-
 /* Conteúdo Principal */
 main {
   margin-bottom: 60px;
@@ -407,7 +414,24 @@ input[type="checkbox"]:checked {
 .form-group.full-width {
   grid-column: span 2;
 }
+/* Rodapé */
 
+footer {
+  background-color: rgba(155, 227, 240, 0.57);
+  color: #000000;
+  text-align: center;
+  padding: 10px 0 0 0;
+  position: relative;
+  bottom: 5px;
+  margin-top: auto;
+  width: 100%;
+}
+
+.footer-p {
+  min-height: 0px;
+  transform: translatex(0px) translatey(0px);
+
+}
 /* Animações */
 @keyframes slideIn {
   from {
@@ -460,6 +484,30 @@ h2 {
     width: auto;
     
   }
+}
+/* Estilo padrão */
+th,
+td {
+  text-align: left;
+  vertical-align: middle;
+}
 
-  
+/* Modo mobile (telas menores que 768px) */
+@media (max-width: 768px) {
+
+  .col-tipo,
+  .col-descricao,
+  .col-data-inclusao,
+  .col-situacao,
+  .col-parcelado,
+  .col-parcelas,
+  .col-acoes {
+    display: none;
+    /* Esconde as colunas desnecessárias */
+  }
+
+  .table {
+    font-size: 14px;
+    /* Ajuste opcional para melhorar legibilidade */
+  }
 }
