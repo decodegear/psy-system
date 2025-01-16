@@ -19,23 +19,21 @@ try {
 }
 include '../includes/header.php';
 ?>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="container my-4">
     <h1>Visualizar Usuários</h1>
-
     <!-- Botão para adicionar novo usuário (somente visível para administradores) -->
     <?php if ($isAdmin): ?>
         <a href="../pages/cadastrar_usuario.php" class="btn btn-primary mb-3">Adicionar Novo Usuário</a><?php ?>
     <?php endif; ?>
-
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Nome</th>
                 <th>Telefone</th>
-                <th>CPF</th>
+                <th class="col-cpf">CPF</th>
                 <th>Email</th>
-                <th>Permissões</th>
+                <th class="col-permissoes">Permissões</th>
                 <!-- Exibir a coluna Ações somente para administradores -->
                 <?php if ($isAdmin): ?>
                     <th>Ações</th>
@@ -48,9 +46,9 @@ include '../includes/header.php';
                     <tr>
                         <td><?= htmlspecialchars($usuario['nome']) ?></td>
                         <td><?= htmlspecialchars($usuario['telefone']) ?></td>
-                        <td><?= htmlspecialchars($usuario['cpf']) ?></td>
+                        <td class="col-cpf"><?= htmlspecialchars($usuario['cpf']) ?></td>
                         <td><?= htmlspecialchars($usuario['email']) ?></td>
-                        <td><?= htmlspecialchars($usuario['role']) ?></td>
+                        <td class="col-permissoes"><?= htmlspecialchars($usuario['role']) ?></td>
                         <!-- Exibir os botões de ação somente para administradores -->
                         <?php if ($isAdmin): ?>
                             <td>

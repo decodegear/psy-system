@@ -18,9 +18,7 @@ try {
 include '../includes/header.php';
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <div class="container my-4">
-
     <h1>Visualizar Agendamentos</h1>
 
     <table class="table table-striped table-bordered">

@@ -1,9 +1,9 @@
 /* Reset Básico */
-/* * {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-} */
+}
 /*Teste footer final*/
 html,
 body {
@@ -18,7 +18,7 @@ body {
 
 .main-content {
   flex: 1;
-  min-height: calc(85vh - 75px);
+  /* min-height: calc(85vh - 75px); */
   padding-bottom: 20px;
 }
 /*fIM TESTE*/
@@ -388,11 +388,13 @@ tr:nth-child(even) {
 }
 
 /* Formulários */
+
 form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  width: 80%;
+  
+  /*TODO Form 1 em baixo do outro - grid-template-columns: 1fr 1fr; */
+  gap: 10px;
+  width: 50%;
   margin: 0 auto;
 }
 
@@ -494,7 +496,9 @@ td {
 
 /* Modo mobile (telas menores que 768px) */
 @media (max-width: 768px) {
-
+.navbar-collapse {
+    width: auto;
+}
   .col-tipo,
   .col-descricao,
   .col-data-inclusao,
@@ -502,6 +506,8 @@ td {
   .col-parcelado,
   .col-parcelas,
   .col-observacoes,
+  .col-cpf,
+  .col-permissoes,
   .col-acoes {
     display: none;
     /* Esconde as colunas desnecessárias */
