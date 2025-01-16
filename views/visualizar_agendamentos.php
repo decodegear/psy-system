@@ -41,11 +41,11 @@ include '../includes/header.php';
                         <td><?= htmlspecialchars($agendamento['nome_paciente']) ?></td>
                         <td><?= htmlspecialchars($agendamento['hora_agendamento']) ?></td>
                         <td class="col-observacoes"><?= htmlspecialchars($agendamento['observacoes']) ?></td>
-
-                        <th <?php if ($isLoggedIn) { ?><a href="../actions/altera_agendamento.php?id=<?= $agendamento['id'] ?>" class="bi bi-pencil-square" style="color: orange;"> <?php } ?>
-                        <?php if ($isLoggedIn) { ?><a href="../actions/excluir_agendamento.php?id=<?= $agendamento['id'] ?>" class="bi bi-trash3" style="color: red;" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');"></a><?php } ?>
-                        </th>
-                        
+                        <td>
+                            <?php if ($isLoggedIn) { ?><a href="../actions/altera_agendamento.php?id=<?= $agendamento['id'] ?>" class="bi bi-pencil-square" style="color: orange;"></a> <?php } ?>
+                            <?php if ($isLoggedIn) { ?><a href="../actions/excluir_agendamento.php?id=<?= $agendamento['id'] ?>" class="bi bi-trash3" style="color: red;" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');"></a><?php } ?>
+                        </td>
+                    
 
                     </tr>
                 <?php endforeach; ?>

@@ -52,90 +52,90 @@ include '../includes/header.php'; // Incluindo cabeçalho
             <h2>Visualização de Paciente</h2>
             <?php if ($isAdmin): ?>
                 <a href="../pages/cadastro_pessoa.php" class="btn btn-primary mb-3">Adicionar Novo Paciente</a>
-                <?php endif; ?>
+            <?php endif; ?>
 
-                <?php if (!empty($pessoas)): ?>
-                    <div class="list-group mb-4">
-                        <?php foreach ($pessoas as $pessoaItem): ?>
-                            <a href="view_pessoa.php?id=<?= $pessoaItem['id'] ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>Nome:</strong> <?= htmlspecialchars($pessoaItem['nome'] ?? '') ?><br>
-                                    <strong>Idade:</strong> <?= htmlspecialchars($pessoaItem['idade'] ?? 'Não informado') ?> anos<br>
-                                    <strong>Telefone:</strong> <?= htmlspecialchars($pessoaItem['telefone'] ?? 'Não informado') ?>
-                                </div>
-                                <i class="bi bi-arrow-right-circle"></i> <!-- Ícone para indicar mais informações -->
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                <?php else: ?>
-                    <p class="text-center">Nenhuma pessoa encontrada.</p>
-                <?php endif; ?>
+            <?php if (!empty($pessoas)): ?>
+                <div class="list-group mb-4">
+                    <?php foreach ($pessoas as $pessoaItem): ?>
+                        <a href="view_pessoa.php?id=<?= $pessoaItem['id'] ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Nome:</strong> <?= htmlspecialchars($pessoaItem['nome'] ?? '') ?><br>
+                                <strong>Idade:</strong> <?= htmlspecialchars($pessoaItem['idade'] ?? 'Não informado') ?> anos<br>
+                                <strong>Telefone:</strong> <?= htmlspecialchars($pessoaItem['telefone'] ?? 'Não informado') ?>
+                            </div>
+                            <i class="bi bi-arrow-right-circle"></i> <!-- Ícone para indicar mais informações -->
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            <?php else: ?>
+                <p class="text-center">Nenhuma pessoa encontrada.</p>
+            <?php endif; ?>
 
-                <?php if ($pessoa): ?>
-                    <!-- Informações detalhadas da pessoa selecionada -->
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <!-- Verificar e Exibir a Imagem da Pessoa -->
-                            <?php
-                            $fotoPath = !empty($pessoa['foto']) ? htmlspecialchars($pessoa['foto']) : '../uploads/default.png';
-                            ?>
-                            <img src="<?= $fotoPath ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
-                        </div>
-                        <div class="dropdown">
-                            <!-- Menu Sanduíche -->
-                            <?php if ($isAdmin): ?>
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-list"></i> <!-- Ícone de Menu Sanduíche do Bootstrap Icons -->
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="../actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>">Alterar</a></li>
-                                    <li><a class="dropdown-item" href="#">Imprimir</a></li>
-                                    <li><a class="dropdown-item" href="#">Compartilhar</a></li>
-                                </ul>
-                            <?php endif; ?>
-                        </div>
+            <?php if ($pessoa): ?>
+                <!-- Informações detalhadas da pessoa selecionada -->
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <!-- Verificar e Exibir a Imagem da Pessoa -->
+                        <?php
+                        $fotoPath = !empty($pessoa['foto']) ? htmlspecialchars($pessoa['foto']) : '../uploads/default.png';
+                        ?>
+                        <img src="<?= $fotoPath ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
                     </div>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h2 class="card-title"><?= htmlspecialchars($pessoa['nome'] ?? '') ?></h2>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <strong>Gênero:</strong> <?= htmlspecialchars($pessoa['genero'] ?? 'Não informado') ?>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Idade:</strong> <?= htmlspecialchars($pessoa['idade'] ?? 'Não informado') ?>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Peso:</strong> <?= htmlspecialchars($pessoa['peso'] ?? 'Não informado') ?> kg
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Altura:</strong> <?= htmlspecialchars($pessoa['altura'] ?? 'Não informado') ?> cm
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Etnia:</strong> <?= htmlspecialchars($pessoa['etnia'] ?? 'Não informado') ?>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>RG:</strong> <?= htmlspecialchars($pessoa['rg'] ?? 'Não informado') ?>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>CPF:</strong> <?= htmlspecialchars($pessoa['cpf'] ?? 'Não informado') ?>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>CNH:</strong> <?= htmlspecialchars($pessoa['cnh'] ?? 'Não informado') ?>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Telefone:</strong> <?= htmlspecialchars($pessoa['telefone'] ?? 'Não informado') ?>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Email:</strong> <?= htmlspecialchars($pessoa['email'] ?? 'Não informado') ?>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Data de Nascimento:</strong> <?= !empty($pessoa['data_nasc']) ? htmlspecialchars((new DateTime($pessoa['data_nasc']))->format('d/m/Y')) : 'Não informado' ?>
-                                </div>
+                    <div class="dropdown">
+                        <!-- Menu Sanduíche -->
+                        <?php if ($isAdmin): ?>
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-list"></i> <!-- Ícone de Menu Sanduíche do Bootstrap Icons -->
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item bi bi-pencil-square" style="color: orange;" href="../actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>"></a></li>
+                                <li><a class="dropdown-item" href="#">Imprimir</a></li>
+                                <li><a class="dropdown-item" href="#">Compartilhar</a></li>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h2 class="card-title"><?= htmlspecialchars($pessoa['nome'] ?? '') ?></h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <strong>Gênero:</strong> <?= htmlspecialchars($pessoa['genero'] ?? 'Não informado') ?>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>Idade:</strong> <?= htmlspecialchars($pessoa['idade'] ?? 'Não informado') ?>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>Peso:</strong> <?= htmlspecialchars($pessoa['peso'] ?? 'Não informado') ?> kg
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>Altura:</strong> <?= htmlspecialchars($pessoa['altura'] ?? 'Não informado') ?> cm
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>Etnia:</strong> <?= htmlspecialchars($pessoa['etnia'] ?? 'Não informado') ?>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>RG:</strong> <?= htmlspecialchars($pessoa['rg'] ?? 'Não informado') ?>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>CPF:</strong> <?= htmlspecialchars($pessoa['cpf'] ?? 'Não informado') ?>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>CNH:</strong> <?= htmlspecialchars($pessoa['cnh'] ?? 'Não informado') ?>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>Telefone:</strong> <?= htmlspecialchars($pessoa['telefone'] ?? 'Não informado') ?>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>Email:</strong> <?= htmlspecialchars($pessoa['email'] ?? 'Não informado') ?>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>Data de Nascimento:</strong> <?= !empty($pessoa['data_nasc']) ? htmlspecialchars((new DateTime($pessoa['data_nasc']))->format('d/m/Y')) : 'Não informado' ?>
                             </div>
                         </div>
                     </div>
-                <?php endif; ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
