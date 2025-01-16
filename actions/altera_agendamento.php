@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Inclui o cabeçalho com o menu de navegação
 include '../includes/db_connect.php';
 
@@ -14,7 +14,7 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
     $agendamento = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     if (!$agendamento) {
         die("Agendamento não encontrado.");
     }
@@ -22,36 +22,36 @@ try {
     error_log("Erro ao buscar dados do agendamento: " . $e->getMessage());
     echo "Erro ao carregar dados do agendamento.";
 }
-include '../includes/header.php'; 
+include '../includes/header.php';
 ?>
 
 <h1>Editar Agendamento</h1>
+<div class="container mt-10 mb-4">
+    <form action="../actions/update_agendamento.php" method="post">
+        <input type="hidden" name="id" value="<?= $id ?>">
 
-<form action="../actions/update_agendamento.php" method="post">
-    <input type="hidden" name="id" value="<?= $id ?>">
+        <!-- Nome do Paciente -->
+        <label for="nome_paciente">Nome do Paciente:</label>
+        <input type="text" id="nome_paciente" name="nome_paciente" value="<?= htmlspecialchars($agendamento['nome_paciente']) ?>" required>
 
-    <!-- Nome do Paciente -->
-    <label for="nome_paciente">Nome do Paciente:</label>
-    <input type="text" id="nome_paciente" name="nome_paciente" value="<?= htmlspecialchars($agendamento['nome_paciente']) ?>" required>
-    
-    <!-- Data do Agendamento -->
-    <label for="data_agendamento">Data do Agendamento:</label>
-    <input type="date" id="data_agendamento" name="data_agendamento" value="<?= htmlspecialchars($agendamento['data_agendamento']) ?>" required>
-    
-    <!-- Hora do Agendamento -->
-    <label for="hora_agendamento">Hora do Agendamento:</label>
-    <input type="time" id="hora_agendamento" name="hora_agendamento" value="<?= htmlspecialchars($agendamento['hora_agendamento']) ?>" required>
+        <!-- Data do Agendamento -->
+        <label for="data_agendamento">Data do Agendamento:</label>
+        <input type="date" id="data_agendamento" name="data_agendamento" value="<?= htmlspecialchars($agendamento['data_agendamento']) ?>" required>
 
-    <!-- Observações -->
-    <label for="observacoes">Observações:</label>
-    <textarea id="observacoes" name="observacoes"><?= htmlspecialchars($agendamento['observacoes']) ?></textarea>
+        <!-- Hora do Agendamento -->
+        <label for="hora_agendamento">Hora do Agendamento:</label>
+        <input type="time" id="hora_agendamento" name="hora_agendamento" value="<?= htmlspecialchars($agendamento['hora_agendamento']) ?>" required>
 
-    <!-- Botão de Submissão -->
-    <input type="submit" value="Atualizar Agendamento">
-</form>
+        <!-- Observações -->
+        <label for="observacoes">Observações:</label>
+        <textarea id="observacoes" name="observacoes"><?= htmlspecialchars($agendamento['observacoes']) ?></textarea>
 
-<?php 
+        <!-- Botão de Submissão -->
+        <input type="submit" value="Atualizar Agendamento">
+    </form>
+</div>
+
+<?php
 // Inclui o rodapé
-include '../includes/footer.php'; 
+include '../includes/footer.php';
 ?>
-
