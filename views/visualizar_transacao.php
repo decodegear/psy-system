@@ -51,8 +51,8 @@ include '../includes/header.php';
                                 <td class="col-parcelas"><?= $item['parcelado'] ? htmlspecialchars($item['qtd_parcelas']) : 'N/A' ?></td>
                                 <?php if ($isAdmin): ?>
                                     <td class="col-acoes">
-                                        <a href="../actions/altera_transacao.php?id=<?= $item['id']; ?>&tipo=<?= urlencode($tipo); ?>" class="btn btn-warning btn-sm">Alterar</a>
-                                        <a href="../actions/excluir_transacao.php?id=<?= $item['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta transação?');">Excluir</a>
+                                        <a href="../actions/altera_transacao.php?id=<?= $item['id']; ?>&tipo=<?= urlencode($tipo); ?>" class="bi bi-pencil-square" style="color: orange"></a>
+                                        <a href="../actions/excluir_transacao.php?id=<?= $item['id']; ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir esta transação?');"></a>
                                     </td>
                                 <?php endif; ?>
                             </tr>

@@ -96,8 +96,8 @@ include '../includes/header.php';
                 <td><?= htmlspecialchars($row['nome']); ?></td>
                 <td><?= htmlspecialchars($row['saldo_inicial']); ?></td>
                 <td>
-                    <a href="cadastrar_conta.php?edit=<?= $row['id']; ?>" class=" btn btn-warning btn-sm">Editar</a>
-                    <a href="cadastrar_conta.php?delete=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">Excluir</a>
+                    <a href="cadastrar_conta.php?edit=<?= $row['id']; ?>" class="bi bi-pencil-square" style="color: orange;"></a>
+                    <a href="cadastrar_conta.php?delete=<?= $row['id']; ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir esta conta?');"></a>
                 </td>
             </tr>
         <?php endwhile; ?>

@@ -42,7 +42,7 @@ include '../includes/header.php';
     </form>
 
     <table class="table table-striped table-bordered">
-        <thead >
+        <thead>
             <tr>
                 <th>Id</th>
                 <th>Nome</th>
@@ -82,8 +82,8 @@ include '../includes/header.php';
                         <td><?= htmlspecialchars($pessoa['telefone'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                         <?php if ($isAdmin): ?>
                             <td>
-                                <a href="../actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-warning btn-sm">Alterar</a>
-                                <a href="../actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a>
+                                <a href="../actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>" class="bi bi-pencil-square" style="color: orange;"></a>
+                                <a href="../actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir este usuário?');"></a>
                             </td>
                         <?php endif; ?>
                     </tr>

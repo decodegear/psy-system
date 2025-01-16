@@ -130,37 +130,37 @@ include '../includes/header.php';
 
 <h2>Categorias Cadastradas</h2>
 <?php if (!empty($result)): ?>
-<table>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Tipo</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($result as $row): ?>
+    <table>
+        <thead>
             <tr>
-                <td><?= htmlspecialchars($row['nome']); ?></td>
-                <td><?= htmlspecialchars($row['tipo']); ?></td>
-                <td>
-                    <a class="btn btn-warning btn-sm" href="cadastrar_categoria.php?edit=<?= $row['id']; ?>">Alterar</a>
-                    <a class="btn btn-danger btn-sm" href="cadastrar_categoria.php?delete=<?= $row['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">Excluir</a>
-                </td>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Ações</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php foreach ($result as $row): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['nome']); ?></td>
+                    <td><?= htmlspecialchars($row['tipo']); ?></td>
+                    <td>
+                        <a class="bi bi-pencil-square" style="color: orange" href="cadastrar_categoria.php?edit=<?= $row['id']; ?>"></a>
+                        <a class="bi bi-trash3" style="color: red;" href="cadastrar_categoria.php?delete=<?= $row['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');"></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 <?php else: ?>
     <p>Nenhuma categoria encontrada.</p>
 <?php endif; ?>
 
 <?php if ($mensagem): ?>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        alert("<?= $mensagem; ?>");
-        window.location.href = "cadastrar_categoria.php";
-    });
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            alert("<?= $mensagem; ?>");
+            window.location.href = "cadastrar_categoria.php";
+        });
+    </script>
 <?php endif; ?>
 <?php include '../includes/footer.php'; ?>

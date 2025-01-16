@@ -29,7 +29,7 @@ include '../includes/header.php';
     <?php endif; ?>
 
     <table class="table table-striped table-bordered">
-        <thead >
+        <thead>
             <tr>
                 <th>Nome</th>
                 <th>Telefone</th>
@@ -54,8 +54,8 @@ include '../includes/header.php';
                         <!-- Exibir os botões de ação somente para administradores -->
                         <?php if ($isAdmin): ?>
                             <td>
-                                <a href="../actions/altera_usuario.php?id=<?= $usuario['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php ?>
-                                <a href="../actions/excluir_usuario.php?id=<?= $usuario['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</a><?php ?>
+                                <a href="../actions/altera_usuario.php?id=<?= $usuario['id'] ?>" class="bi bi-pencil-square" style="color: orange;"></a><?php ?>
+                                <a href="../actions/excluir_usuario.php?id=<?= $usuario['id'] ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir este usuário?');"></a><?php ?>
                             </td>
                         <?php endif; ?>
                     </tr>
