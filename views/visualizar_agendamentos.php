@@ -20,15 +20,16 @@ include '../includes/header.php';
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <div class="container my-4">
+
     <h1>Visualizar Agendamentos</h1>
 
     <table class="table table-striped table-bordered">
-        <thead >
+        <thead>
             <tr>
-                <th>Data do Agendamento</th>
-                <th>Nome do Paciente</th>
-                <th>Hora do Agendamento</th>
-                <th>Observações</th>
+                <th>Data</th>
+                <th>Paciente</th>
+                <th>Horário</th>
+                <th class="col-observacoes">Observações</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -39,11 +40,13 @@ include '../includes/header.php';
                         <td><?php echo date('d/m/Y', strtotime($agendamento['data_agendamento'])); ?></td>
                         <td><?= htmlspecialchars($agendamento['nome_paciente']) ?></td>
                         <td><?= htmlspecialchars($agendamento['hora_agendamento']) ?></td>
-                        <td><?= htmlspecialchars($agendamento['observacoes']) ?></td>
-                        <td>
-                            <?php if ($isLoggedIn) { ?><a href="../actions/altera_agendamento.php?id=<?= $agendamento['id'] ?>" class="btn btn-warning btn-sm">Alterar</a><?php } ?>
-                            <?php if ($isLoggedIn) { ?><a href="../actions/excluir_agendamento.php?id=<?= $agendamento['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');">Excluir</a><?php } ?>
-                        </td>
+                        <td class="col-observacoes"><?= htmlspecialchars($agendamento['observacoes']) ?></td>
+
+                        <th <?php if ($isLoggedIn) { ?><a href="../actions/altera_agendamento.php?id=<?= $agendamento['id'] ?>" class="bi bi-pencil-square" style="color: orange;"> <?php } ?>
+                        <?php if ($isLoggedIn) { ?><a href="../actions/excluir_agendamento.php?id=<?= $agendamento['id'] ?>" class="bi bi-trash3" style="color: red;" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');"></a><?php } ?>
+                        </th>
+                        
+
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -53,6 +56,7 @@ include '../includes/header.php';
             <?php endif; ?>
         </tbody>
     </table>
+
 </div>
 
 <?php

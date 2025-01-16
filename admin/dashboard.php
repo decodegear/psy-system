@@ -57,8 +57,8 @@ include '../includes/header.php';
                         <table class="table table-striped table-bordered">
                             <thead class="table-item">
                                 <tr>
-                                    <th>Paciente</th>
                                     <th>Data</th>
+                                    <th>Paciente</th>
                                     <th>Hora</th>
                                 </tr>
                             </thead>
