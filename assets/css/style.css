@@ -501,6 +501,7 @@ td {
   .col-situacao,
   .col-parcelado,
   .col-parcelas,
+  .col-observacoes,
   .col-acoes {
     display: none;
     /* Esconde as colunas desnecessárias */

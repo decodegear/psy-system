@@ -28,7 +28,7 @@ include '../includes/header.php';
                         <th class="col-nome">Nome</th>
                         <th class="col-descricao">Descrição</th>
                         <th class="col-valor">Valor</th>
-                        <th class="col-data-inclusao">Data de Inclusão</th>
+                        <!-- <th class="col-data-inclusao">Data de Inclusão</th> -->
                         <th class="col-situacao">Situação</th>
                         <th class="col-parcelado">Parcelado</th>
                         <th class="col-parcelas">Parcelas</th>
@@ -45,7 +45,7 @@ include '../includes/header.php';
                                 <td class="col-nome"><?= htmlspecialchars($item['nome']) ?></td>
                                 <td class="col-descricao"><?= htmlspecialchars($item['descricao']) ?></td>
                                 <td class="col-valor"><?= htmlspecialchars(number_format($item['valor'], 2, ',', '.')) ?></td>
-                                <td class="col-data-inclusao"><?= htmlspecialchars($item['data_inclusao']) ?></td>
+                                <!-- <td class="col-data-inclusao"><?= htmlspecialchars($item['data_inclusao']) ?></td> -->
                                 <td class="col-situacao"><?= htmlspecialchars($item['situacao']) ?></td>
                                 <td class="col-parcelado"><?= $item['parcelado'] ? 'Sim' : 'Não' ?></td>
                                 <td class="col-parcelas"><?= $item['parcelado'] ? htmlspecialchars($item['qtd_parcelas']) : 'N/A' ?></td>
