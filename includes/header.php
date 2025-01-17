@@ -96,8 +96,8 @@ include 'db_connect.php';
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Novo</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../pages/cadastro_transacao.php?tipo=receita">Entradas</a></li>
-                                <li><a class="dropdown-item" href="../pages/cadastro_transacao.php?tipo=despesa">Saidas</a></li>
+                                <li><a class="dropdown-item" href="../pages/cadastro_transacao.php?tipo=receita">Receitas</a></li>
+                                <li><a class="dropdown-item" href="../pages/cadastro_transacao.php?tipo=despesa">Despesas</a></li>
                                 <li><a class="dropdown-item" href="../pages/cadastro_pessoa.php">Pacientes</a></li>
                                 <li><a class="dropdown-item" href="../pages/cadastrar_usuario.php">Usuários</a></li>
                                 <li><a class="dropdown-item" href="../pages/cadastrar_conta.php">Bancos</a></li>
