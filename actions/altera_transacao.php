@@ -15,8 +15,8 @@ $action = $_GET['action'] ?? 'edit';
 if (!$id) {
     die("ID inválido.");
 }
-    include'../includes/db_connect.php';
-    include '../functions/validation.php';
+include '../includes/db_connect.php';
+include '../functions/validation.php';
 
 try {
     // Buscar transação
@@ -61,7 +61,7 @@ try {
         if (!$nome || !$valor || !$data_vencimento || !$situacao || !$categoria_id || !$conta_id) {
             die("Por favor, preencha todos os campos obrigatórios.");
         }
-    
+
         // Atualizar no banco
         $sql = "UPDATE transacoes 
                 SET nome = ?, valor = ?, data_vencimento = ?, situacao = ?, categoria_id = ?, conta_id = ?, descricao = ?, parcelado = ?, qtd_parcelas = ? 
@@ -72,7 +72,7 @@ try {
         // Redirecionar após a atualização
         header("Location: ../views/visualizar_transacao.php?tipo=" . urlencode($tipo) . "&status=updated");
         //exit;
-       exit;
+        exit;
     }
 } catch (PDOException $e) {
     error_log("Erro ao processar transação: " . $e->getMessage());
@@ -84,12 +84,14 @@ include '../includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Transação</title>
-    
+
 </head>
+
 <body class="container">
     <h1>Alterar <?= $tipo ?></h1>
     <?php if ($action === 'edit' && isset($transacao)): ?>
@@ -133,13 +135,21 @@ include '../includes/header.php';
                 <label for="descricao">Descrição:</label>
                 <textarea name="descricao" id="descricao" class=" full-width textarea-group"><?= htmlspecialchars($transacao['descricao'] ?? ''); ?></textarea>
 
-                <label for="parcelado">Parcelado:</label>
+                <!-- <label for="parcelado">Parcelado:</label>
                 <input type="checkbox" name="parcelado" id="parcelado" value="1" <?= ($transacao['parcelado'] ?? 0) ? 'checked' : ''; ?>>
 
                 <label for="qtd_parcelas">Quantidade de Parcelas:</label>
                 <input type="number" name="qtd_parcelas" id="qtd_parcelas" value="<?= htmlspecialchars($transacao['qtd_parcelas'] ?? '1'); ?>" class="form-control item ">
-
-                <button type="submit" class="btn-primary mt-3">Salvar Alteração em <?= $tipo ?></button>
+ -->
+                <table style="border:0">
+                    <tr>
+                        <td><button type="submit" class="btn-primary mt-3">Salvar Alteração</button></td>
+                        
+                        <td>
+                            <a href="excluir_transacao.php?id=<?= htmlspecialchars($id); ?>" type="button" class=" btn-primary mt-3" onclick=" return confirm('Tem certeza que deseja excluir esta transação?');">Excluir</a>
+                        </td>
+                    </tr>
+                </table>
         </div>
         </form>
 
@@ -150,3 +160,4 @@ include '../includes/header.php';
 </body>
 
 </html>
+<?php include "../includes/footer.php"; ?>

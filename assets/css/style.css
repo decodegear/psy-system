@@ -57,6 +57,32 @@ header * {
   font-style: normal;
   color:#054169
 }
+/*Bloquear*/
+.block {
+  pointer-events:painted;
+  /* Desabilita a interação do mouse */
+  cursor: not-allowed;
+  /* Mostra o ícone de "não permitido" */
+  color: rgb(179, 174, 174) !important;
+  /* Muda a cor para indicar que está desabilitado */
+  text-decoration: none;
+  /* Remove sublinhado (opcional) */
+  
+}
+
+
+/* Visualizar transacao Nome hover */
+.nome-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.nome-link:hover {
+  font-weight: bold;
+  color: #054169;
+}
+/*Fim vizualizar trasacao*/
 
 /* Navbar */
 .navbar-toggler:focus,
@@ -148,6 +174,10 @@ nav ul li ul li a:hover {
       /* Se estiver com limite, remova */
     }
 }
+
+/*Visualização de Transações*/
+
+
 /* Conteúdo Principal */
 main {
   margin-bottom: 60px;
@@ -258,6 +288,7 @@ input[type="submit"] {
   transition: background-color 0.3s ease;
   display: inline-block; /* Evita esticar o botão */
   width: auto; /* Garante tamanho automático */
+  
 }
 
 /* Estilo Hover para Botões */
