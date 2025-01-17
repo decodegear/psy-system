@@ -82,12 +82,12 @@ include '../includes/header.php';
         </div>
 
         <!-- Parcelamento -->
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="parcelado" name="parcelado" value="1">
                 <label class="form-check-label" for="parcelado">Parcelado</label>
             </div>
-        </div>
+        </div> -->
 
         <div id="parcelas-container" class="col-md-6" style="display:none;">
             <label for="qtd_parcelas" class="form-label">Quantidade de Parcelas:</label>
