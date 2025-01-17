@@ -1,0 +1,19 @@
+
+/* Reset Básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Nome hover */
+.nome-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.nome-link:hover {
+  font-weight: bold;
+  color: #054169;
+}

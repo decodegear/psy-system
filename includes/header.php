@@ -90,7 +90,7 @@ include 'db_connect.php';
                     </li>
                     <?php if (isset($_SESSION['admin_id'])): ?>
                         <li>
-                            <a class="nav-link" href="#">Prontuário</a>
+                            <a class="nav-link block" href="#"><strong>Prontuário</strong></a>
                         </li>
                         </li>
                         <li class="nav-item dropdown">
