@@ -144,9 +144,9 @@ include '../includes/header.php';
                 <table style="border:0">
                     <tr>
                         <td><button type="submit" class="btn-primary mt-3">Salvar Alteração</button></td>
-                        
+
                         <td>
-                            <a href="excluir_transacao.php?id=<?= htmlspecialchars($id); ?>" type="button" class=" btn-primary mt-3" onclick=" return confirm('Tem certeza que deseja excluir esta transação?');">Excluir</a>
+                            <a style="text-decoration:none" href="excluir_transacao.php?id=<?= htmlspecialchars($id); ?>" type="button" class=" btn-primary mt-3" onclick=" return confirm('Tem certeza que deseja excluir esta transação?');">Excluir</a>
                         </td>
                     </tr>
                 </table>
