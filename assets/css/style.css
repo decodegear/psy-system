@@ -351,6 +351,9 @@ tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 /* Agenda Dashboard*/
+.row mt-4 {
+  width: auto;
+}
 
 .dashboard-bloco {
   margin: 20px;
@@ -478,6 +481,7 @@ footer {
 }
 
 /* Dashboard */
+
 .dashboard-list {
   list-style-type: none;
   padding: 0;
@@ -512,6 +516,23 @@ h2 {
 .mt-4 {
   margin-top: 1.5rem;
 }
+/*TODO larugura total header e footer */
+@media (min-width: 1400px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    min-width: 100%;
+  }
+    .col-md-4 {
+      flex: 0 0 auto;
+      min-width: 100%;
+    }
+}
+
 @media (max-width: 991px) {
   .navbar-collapse {
     width: auto;
