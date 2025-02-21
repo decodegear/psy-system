@@ -1,0 +1,108 @@
+/* Reset básico */
+/* Remover qualquer espaço invisível */
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Garantir que o <header> não tenha margem extra */
+/* header {
+    background-color: rgba(155, 227, 240, 0.57) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    position: relative;
+}
+ */
+/* Ajusta o navbar do Bootstrap */
+.navbar {
+    /* margin: 0 !important; */
+    padding: 10px;
+    border-radius: 15;
+    /* Remove bordas arredondadas */
+}
+
+/* Remove qualquer espaçamento do container do Bootstrap */
+.container {
+    max-width: 100%;
+    /* padding: 0 !important; */
+    margin: 0 auto;
+}
+/* Estilização do formulário */
+.form-evento {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-evento input,
+.form-evento textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-evento button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-evento button:hover {
+    background: #0056b3;
+}
+
+/* Filtros de eventos */
+.filtros {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.filtros .btn {
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 5px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.filtros .btn:hover {
+    background: #218838;
+}
+
+/* Lista de eventos */
+.lista-eventos {
+    list-style: none;
+}
+
+.evento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.btn-excluir {
+    background: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-excluir:hover {
+    background: #c82333;
+}
