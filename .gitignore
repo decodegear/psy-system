@@ -1158,3 +1158,6 @@
 client_secret_*.json
 /google_calendar/token.json
 google_calendar/config_google.php
+.env
+vendor/
+node_modules/
