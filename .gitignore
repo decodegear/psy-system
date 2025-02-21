@@ -1156,8 +1156,10 @@
 .tmp.driveupload/36696
 .tmp.driveupload/36698
 client_secret_*.json
-/google_calendar/token.json
-google_calendar/config_google.php
 .env
 vendor/
 node_modules/
+callback.php
+composer.json
+composer.lock
+google_calendar/
