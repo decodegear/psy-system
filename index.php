@@ -7,65 +7,54 @@ if (isset($_SESSION['erro'])): ?>
     <p style="color:red">Ocorreu um erro. Tente novamente ou contate o suporte.</p>
     <?php unset($_SESSION['erro']); ?>
 <?php endif; ?>
-<script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log("Service Worker registrado com sucesso:", registration.scope);
-                })
-                .catch(error => {
-                    console.error("Falha ao registrar o Service Worker:", error);
-                });
-        });
-    }
-   if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js")
-            .then(registration => {
-                console.log("Service Worker registrado:", registration.scope);
-
-                registration.addEventListener("updatefound", () => {
-                    const newSW = registration.installing;
-                    newSW.addEventListener("statechange", () => {
-                        if (newSW.state === "installed" && navigator.serviceWorker.controller) {
-                            console.log("Nova versão disponível! Atualizando...");
-                            location.reload();
-                        }
-                    });
-                });
-            })
-            .catch(error => console.error("Erro ao registrar o Service Worker:", error));
-    }
-</script>
 
 
-<h2 class=montserrat-text> Alexandre Batista - Psicológo</h2>
-<p>Gerencie seus atendimentos, sessões, prontuários, receitas e finanças de forma eficiente com nosso sistema completo de controle de receitas, despesas e muito mais.</p>
-
-<div class="dashboard container">
-    <!-- Exemplo de um painel de controle simples, agora com classes Bootstrap -->
-    <section class="panel row">
-        <h2>Visão Geral</h2>
-        <ul class="list-group">
-            <li class="list-group-item"><a href="../views/visualizar_transacao.php?tipo=receita">Visualizar Receitas</a></li>
-            <li class="list-group-item"><a href="/views/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
-            <li class="list-group-item"><a href="/pages/cadastro_transacao.php?tipo=receita">Cadastrar Nova Receita</a></li>
-            <li class="list-group-item"><a href="/pages/cadastro_transacao.php?tipo=despesa">Cadastrar Nova despesa</a></li>
-            <li class="list-group-item"><a href="../views/view_relatorio.php">Relatório Financeiro</a></li>
-        </ul>
+<main class="home-page">
+    <section class="dashboard-hero home-hero">
+        <div>
+            <p class="dashboard-eyebrow">Sistema de gest&atilde;o</p>
+            <h1 class="montserrat-text">Alexandre Batista - Psic&oacute;logo</h1>
+            <p class="dashboard-subtitle">Gerencie atendimentos, sess&otilde;es, prontu&aacute;rios, receitas e finan&ccedil;as com uma vis&atilde;o clara do consult&oacute;rio.</p>
+        </div>
+        <div class="dashboard-actions">
+            <a class="btn btn-primary" href="/views/visualizar_transacao.php?tipo=receita">Ver receitas</a>
+            <a class="btn btn-outline-primary" href="/pages/agendar_pacientes.php">Agendar paciente</a>
+        </div>
     </section>
 
-    <section class="panel row">
-        <h2>Utilitários</h2>
-        <ul class="list-group">
-            <li class="list-group-item"><a href="/pages/agendar_pacientes.php">Gerenciar Agenda</a></li>
-            <li class="list-group-item"><a href="/views/visualizar_agendamentos.php">Visualizar Agendamentos</a></li>
-            <li class="list-group-item"><a href="/pages/cadastrar_usuario.php">Cadastrar Novo Usuário</a></li>
-            <li class="list-group-item"><a href="/views/visualizar_pessoa.php">Visualizar Pessoas</a></li>
-        </ul>
-    </section>
-</div>
+    <section class="home-grid">
+        <div class="home-card">
+            <header class="dashboard-card-header">
+                <div>
+                    <h2>Vis&atilde;o geral</h2>
+                    <p>Finan&ccedil;as e relat&oacute;rios.</p>
+                </div>
+            </header>
+            <ul class="home-links">
+                <li><a href="/views/visualizar_transacao.php?tipo=receita">Visualizar receitas</a></li>
+                <li><a href="/views/visualizar_transacao.php?tipo=despesa">Visualizar despesas</a></li>
+                <li><a href="/pages/cadastro_transacao.php?tipo=receita">Cadastrar nova receita</a></li>
+                <li><a href="/pages/cadastro_transacao.php?tipo=despesa">Cadastrar nova despesa</a></li>
+                <li><a href="/views/view_relatorio.php">Relat&oacute;rio financeiro</a></li>
+            </ul>
+        </div>
 
+        <div class="home-card">
+            <header class="dashboard-card-header">
+                <div>
+                    <h2>Utilit&aacute;rios</h2>
+                    <p>Agenda e cadastro de pessoas.</p>
+                </div>
+            </header>
+            <ul class="home-links">
+                <li><a href="/pages/agendar_pacientes.php">Gerenciar agenda</a></li>
+                <li><a href="/views/visualizar_agendamentos.php">Visualizar agendamentos</a></li>
+                <li><a href="/pages/cadastrar_usuario.php">Cadastrar novo usu&aacute;rio</a></li>
+                <li><a href="/views/visualizar_pessoa.php">Visualizar pessoas</a></li>
+            </ul>
+        </div>
+    </section>
+</main>
 <?php
 // Inclui o rodapé
 include 'includes/footer.php';

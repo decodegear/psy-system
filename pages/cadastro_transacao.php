@@ -18,7 +18,7 @@ include '../includes/header.php';
 
 <div class="container mt-5 mb-5">
     <h1 class="mb-4">Cadastro de <?= ucfirst($tipo); ?></h1>
-    <form action="../actions/insert_transacao.php" method="post">
+    <form action="../actions/insert_transacao.php" method="post" class="form-grid">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()); ?>">
         <input type="hidden" name="tipo" value="<?= htmlspecialchars($tipo); ?>">
         <!-- Nome e Valor (Lado a Lado) -->

@@ -107,25 +107,37 @@ include '../includes/header.php';
 
 <h1>Gerenciar Categorias</h1>
 
-<form method="post" action="cadastrar_categoria.php">
-    <label for="nome">Nome da Categoria:</label>
-    <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome ?? ''); ?>" required>
+<form method="post" action="cadastrar_categoria.php" class="form-grid">
+    <div class="form-field">
+        <label for="nome">Nome da Categoria:</label>
+        <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome ?? ''); ?>" required>
+    </div>
 
-    <label for="tipo">Tipo:</label>
-    <select id="tipo" name="tipo">
-        <option value="receita" <?= $tipo == 'receita' ? 'selected' : ''; ?>>receita</option>
-        <option value="despesa" <?= $tipo == 'despesa' ? 'selected' : ''; ?>>despesa</option>
-    </select>
+    <div class="form-field">
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo">
+            <option value="receita" <?= $tipo == 'receita' ? 'selected' : ''; ?>>receita</option>
+            <option value="despesa" <?= $tipo == 'despesa' ? 'selected' : ''; ?>>despesa</option>
+        </select>
+    </div>
 
     <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? ''); ?>">
-    <input type="submit" value="Salvar Categoria">
+    <div class="form-field form-field--full">
+        <input type="submit" value="Salvar Categoria">
+    </div>
 </form>
 
 <h2>Filtrar Categorias</h2>
-<form method="post" action="cadastrar_categoria.php">
-    <label><input type="checkbox" name="filtro_receita" <?= $filtro_receita ? 'checked' : ''; ?>> Receitas</label>
-    <label><input type="checkbox" name="filtro_despesa" <?= $filtro_despesa ? 'checked' : ''; ?>> Despesas</label>
-    <input type="submit" value="Filtrar">
+<form method="post" action="cadastrar_categoria.php" class="form-grid">
+    <div class="form-field">
+        <label><input type="checkbox" name="filtro_receita" <?= $filtro_receita ? 'checked' : ''; ?>> Receitas</label>
+    </div>
+    <div class="form-field">
+        <label><input type="checkbox" name="filtro_despesa" <?= $filtro_despesa ? 'checked' : ''; ?>> Despesas</label>
+    </div>
+    <div class="form-field form-field--full">
+        <input type="submit" value="Filtrar">
+    </div>
 </form>
 
 <h2>Categorias Cadastradas</h2>

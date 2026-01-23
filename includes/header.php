@@ -28,64 +28,69 @@ include 'db_connect.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap" rel="stylesheet">
-    <script>
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("/service-worker.js")
-                .then(registration => {
-                    console.log("Service Worker registrado:", registration.scope);
-
-                    registration.addEventListener("updatefound", () => {
-                        const newSW = registration.installing;
-                        newSW.addEventListener("statechange", () => {
-                            if (newSW.state === "installed" && navigator.serviceWorker.controller) {
-                                let updateButton = document.createElement("button");
-                                updateButton.textContent = "Nova versão disponível! Clique para atualizar.";
-                                updateButton.style.position = "fixed";
-                                updateButton.style.bottom = "10px";
-                                updateButton.style.right = "10px";
-                                updateButton.style.backgroundColor = "#007bff";
-                                updateButton.style.color = "#fff";
-                                updateButton.style.padding = "10px";
-                                updateButton.style.border = "none";
-                                updateButton.style.cursor = "pointer";
-
-                                updateButton.addEventListener("click", () => {
-                                    location.reload();
-                                });
-
-                                document.body.appendChild(updateButton);
-                            }
-                        });
-                    });
-                })
-                .catch(error => console.error("Erro ao registrar o Service Worker:", error));
-        }
-    </script>
-
 </head>
+
 <body class="container">
-<header>
-    <nav class="navbar navbar-expand-lg bg">
-        <a class="montserrat-text navbar-brand" href="../index.php">Alexandre Batista</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Visualizar</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../views/visualizar_transacao.php?tipo=receita">Visualizar Receitas</a></li>
-                        <li><a class="dropdown-item" href="../views/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../admin/dashboard.php">
-                        <?php echo isset($_SESSION['admin_id']) ? 'Painel' : 'Login'; ?>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg">
+            <a class="montserrat-text navbar-brand" href="../index.php">Alexandre Batista</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Visualizar</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../views/visualizar_transacao.php?tipo=receita">Visualizar Receitas</a></li>
+                            <li><a class="dropdown-item" href="../views/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
+                            <?php if (isset($_SESSION['admin_id'])): ?>
+                                <li><a class="dropdown-item" href="../views/visualizar_agendamentos.php">Visualizar Agendamentos</a></li>
+                                <li><a class="dropdown-item" href="../views/visualizar_pessoa.php">Visualizar Pessoas</a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </li>
+                    <?php if (isset($_SESSION['admin_id'])): ?>
+                        <li class="nav-item"><a class="nav-link" href="../views/view_pessoa.php">Prontu&aacute;rio</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Novo</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../pages/cadastro_pessoa.php">Cadastrar Paciente</a></li>
+                                <li><a class="dropdown-item" href="../pages/cadastro_transacao.php?tipo=receita">Nova Receita</a></li>
+                                <li><a class="dropdown-item" href="../pages/cadastro_transacao.php?tipo=despesa">Nova Despesa</a></li>
+                                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                    <li><a class="dropdown-item" href="../pages/cadastrar_usuario.php">Cadastrar Usu&aacute;rio</a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Agenda</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../pages/agendar_pacientes.php">Agendar Paciente</a></li>
+                                <li><a class="dropdown-item" href="../views/visualizar_agendamentos.php">Visualizar Agendamentos</a></li>
+                                <li><a class="dropdown-item" href="../pages/agenda.php">Minha Agenda</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+                <?php
+                $authLabel = isset($_SESSION['admin_id']) ? 'Painel' : 'Login';
+                $authIcon = isset($_SESSION['admin_id']) ? 'bi bi-speedometer2' : 'bi bi-box-arrow-in-right';
+                ?>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-primary nav-cta" href="../admin/dashboard.php">
+                            <i class="<?php echo $authIcon; ?>"></i>
+                            <?php echo $authLabel; ?>
+                        </a>
+                    </li>
+                    <?php if (isset($_SESSION['admin_id'])): ?>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary nav-cta" href="../admin/logout.php">Sair</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </nav>
+    </header>

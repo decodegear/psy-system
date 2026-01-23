@@ -19,55 +19,62 @@ try {
 }
 include '../includes/header.php';
 ?>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<div class="container my-4">
-    <h1>Visualizar Usuários</h1>
-    <!-- Botão para adicionar novo usuário (somente visível para administradores) -->
-    <?php if ($isAdmin): ?>
-        <a href="../pages/cadastrar_usuario.php" class="btn btn-primary mb-3">Adicionar Novo Usuário</a><?php ?>
-    <?php endif; ?>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th class="col-cpf">CPF</th>
-                <th>Email</th>
-                <th class="col-permissoes">Permissões</th>
-                <!-- Exibir a coluna Ações somente para administradores -->
-                <?php if ($isAdmin): ?>
-                    <th>Ações</th>
-                <?php endif; ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($usuarios)): ?>
-                <?php foreach ($usuarios as $usuario): ?>
+<main class="transactions-page">
+    <section class="page-hero">
+        <div>
+            <p class="page-eyebrow">Equipe</p>
+            <h1>Visualizar Usu&aacute;rios</h1>
+            <p class="page-subtitle">Gerencie acessos e permiss&otilde;es da equipe.</p>
+        </div>
+        <?php if ($isAdmin): ?>
+            <a href="../pages/cadastrar_usuario.php" class="btn btn-primary page-cta">Adicionar Novo Usu&aacute;rio</a>
+        <?php endif; ?>
+    </section>
+
+    <section class="table-card">
+        <div class="table-wrapper">
+            <table class="table table-borderless">
+                <thead>
                     <tr>
-                        <td><?= htmlspecialchars($usuario['nome']) ?></td>
-                        <td><?= htmlspecialchars($usuario['telefone']) ?></td>
-                        <td class="col-cpf"><?= htmlspecialchars($usuario['cpf']) ?></td>
-                        <td><?= htmlspecialchars($usuario['email']) ?></td>
-                        <td class="col-permissoes"><?= htmlspecialchars($usuario['role']) ?></td>
-                        <!-- Exibir os botões de ação somente para administradores -->
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th class="col-cpf">CPF</th>
+                        <th>Email</th>
+                        <th class="col-permissoes">Permiss&otilde;es</th>
                         <?php if ($isAdmin): ?>
-                            <td>
-                                <a href="../actions/altera_usuario.php?id=<?= $usuario['id'] ?>" class="bi bi-pencil-square" style="color: orange;"></a><?php ?>
-                                <a href="../actions/excluir_usuario.php?id=<?= $usuario['id'] ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir este usuário?');"></a><?php ?>
-                            </td>
+                            <th>A&ccedil;&otilde;es</th>
                         <?php endif; ?>
                     </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="<?= $isAdmin ? 6 : 5 ?>" class="text-center">Nenhum usuário cadastrado.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</div>
+                </thead>
+                <tbody>
+                    <?php if (!empty($usuarios)): ?>
+                        <?php foreach ($usuarios as $usuario): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($usuario['nome']) ?></td>
+                                <td><?= htmlspecialchars($usuario['telefone']) ?></td>
+                                <td class="col-cpf"><?= htmlspecialchars($usuario['cpf']) ?></td>
+                                <td><?= htmlspecialchars($usuario['email']) ?></td>
+                                <td class="col-permissoes"><?= htmlspecialchars($usuario['role']) ?></td>
+                                <?php if ($isAdmin): ?>
+                                    <td>
+                                        <a href="../actions/altera_usuario.php?id=<?= $usuario['id'] ?>" class="bi bi-pencil-square" style="color: orange;"></a>
+                                        <a href="../actions/excluir_usuario.php?id=<?= $usuario['id'] ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir este usu&aacute;rio?');"></a>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="<?= $isAdmin ? 6 : 5 ?>" class="text-center">Nenhum usu&aacute;rio cadastrado.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
 
 <?php
-// Inclui o rodapé
 include '../includes/footer.php';
 ?>
+

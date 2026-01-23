@@ -1,18 +1,24 @@
 <?php
-// Configuração de banco de dados usando variáveis de ambiente ou valores padrão
-$servername = getenv('DB_SERVER') ?: 'localhost';
-$username = getenv('DB_USERNAME') ?: 'u599484558_psy';
-$password = getenv('DB_PASSWORD') ?: 'A1L9I6C0E@psy';
-$dbname = getenv('DB_NAME') ?: 'u599484558_psy';
+// Configuração de banco de dados SQLite local
+$db_file = __DIR__ . '/../database/psy_system.db';
+$db_dir = dirname($db_file);
+
+// Criar diretório do banco se não existir
+if (!is_dir($db_dir)) {
+    mkdir($db_dir, 0755, true);
+}
 
 try {
-    // Conexão usando PDO
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    // Conexão usando PDO SQLite
+    $conn = new PDO("sqlite:" . $db_file);
     // Configurar o modo de erro do PDO para exceções
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Habilitar chaves estrangeiras no SQLite
+    $conn->exec('PRAGMA foreign_keys = ON;');
+    // Melhorar performance
+    $conn->exec('PRAGMA journal_mode = WAL;');
 } catch (PDOException $e) {
     // Tratamento de erro mais seguro e flexível
     error_log("Erro de conexão com o banco de dados: " . $e->getMessage());
     die("Erro ao conectar-se ao banco de dados. Por favor, tente novamente mais tarde.");
 }
-?>

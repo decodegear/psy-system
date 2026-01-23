@@ -29,188 +29,147 @@ $_SESSION['last_activity'] = time();
 include '../includes/header.php';
 ?>
 
-<div class="container mt-5">
-    <h1 class="text-left montserrat-text">Olá, <?= htmlspecialchars($_SESSION['admin_nome']) ?></h1>
+<main class="dashboard-page">
+    <section class="dashboard-hero">
+        <div>
+            <p class="dashboard-eyebrow">Painel administrativo</p>
+            <h1 class="montserrat-text">Ol&aacute;, <?= htmlspecialchars($_SESSION['admin_nome']) ?></h1>
+            <p class="dashboard-subtitle">Vis&atilde;o clara das sess&otilde;es, agenda e finan&ccedil;as em um s&oacute; lugar.</p>
+        </div>
+        <div class="dashboard-actions">
+            <a class="btn btn-primary" href="../pages/agendar_pacientes.php">Novo agendamento</a>
+            <a class="btn btn-outline-primary" href="../pages/cadastro_transacao.php?tipo=receita">Nova receita</a>
+            <a class="btn btn-outline-primary" href="../pages/cadastro_transacao.php?tipo=despesa">Nova despesa</a>
+        </div>
+    </section>
 
-    <div class="row mt-4">
-        <!-- Coluna para os cadastros -->
-        <div class="col-md-4">
+    <div class="row g-4 dashboard-grid">
+        <div class="col-lg-6 col-xl-4">
+            <section class="dashboard-card">
+                <header class="dashboard-card-header">
+                    <div>
+                        <h2>Agenda</h2>
+                        <p>Resumo semanal de atendimentos.</p>
+                    </div>
+                    <a class="dashboard-link" href="../views/visualizar_agendamentos.php">Ver tudo</a>
+                </header>
+                <div class="dashboard-card-body">
+                    <div class="calendar-embed">
+                        <iframe src="https://calendar.google.com/calendar/embed?height=560&wkst=1&ctz=America%2FSao_Paulo&mode=WEEK&title=Alexandre%20Batista&showDate=0&showCalendars=0&showTz=0&src=OTg2ZWI1ZTc5YzFmNTU0ZTRkM2IyOGE4M2I0YzVjZWRmNTVjZDdlY2U0OGQzMWNiM2FjNDUzZDY3YTAzNjQ4ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=cHQuYnJhemlsaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23C0CA33&color=%230B8043" style="border-width:0" width="100%" height="560" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-            <ul class="dashboard-list">
-                <li><a href="../views/visualizar_agendamentos.php">Agendamentos</a></li>
-                <!-- <?php
+        <div class="col-lg-6 col-xl-4">
+            <section class="dashboard-card">
+                <header class="dashboard-card-header">
+                    <div>
+                        <h2>Despesas</h2>
+                        <p>Ultimos 5 vencimentos registrados.</p>
+                    </div>
+                    <a class="dashboard-link" href="../views/visualizar_transacao.php?tipo=despesa">Ver detalhes</a>
+                </header>
+                <div class="dashboard-card-body">
+                    <?php
 
-                        try {
-                            // Consultar todos os agendamentos
-                            $sql = "SELECT id, nome_paciente, data_agendamento, hora_agendamento, observacoes FROM agendamentos ORDER BY data_agendamento ASC, hora_agendamento ASC";
-                            $stmt = $conn->prepare($sql);
-                            $stmt->execute();
-                            $agendamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        } catch (PDOException $e) {
-                            echo "<p>Erro ao carregar agendamentos: " . htmlspecialchars($e->getMessage()) . "</p>";
-                            exit;
-                        }
-                        ?>
+                    // Obter total de despesas
+                    $totalStmt = $conn->prepare("SELECT SUM(valor) as total FROM transacoes WHERE tipo = 'despesa'");
+                    $totalStmt->execute();
+                    $totalDespesas = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
 
-                <?php if (count($agendamentos) > 0): ?>
-                    <div class="container my-4">
-                        <table class="table table-striped table-bordered">
-                            <thead class="table-item">
+                    // Obter as despesas mais recentes
+                    $recentStmt = $conn->prepare("SELECT nome, valor, data_vencimento FROM transacoes WHERE tipo = 'despesa' ORDER BY data_vencimento DESC LIMIT 5");
+                    $recentStmt->execute();
+                    $despesasRecentes = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+
+                    <div class="table-wrapper">
+                        <table class="table table-borderless">
+                            <thead>
                                 <tr>
-                                    <th>Data</th>
-                                    <th>Paciente</th>
-                                    <th>Hora</th>
+                                    <th>Vencimento</th>
+                                    <th>Nome</th>
+                                    <th>Valor</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($agendamentos as $agendamento): ?>
+                                <?php if (!empty($despesasRecentes)): ?>
+                                    <?php foreach ($despesasRecentes as $despesa): ?>
+                                        <tr>
+                                            <td><?php echo date('d/m/Y', htmlspecialchars(strtotime($despesa['data_vencimento']))); ?></td>
+                                            <td><?= htmlspecialchars($despesa['nome']) ?></td>
+                                            <td><?= htmlspecialchars(number_format($despesa['valor'], 2, ',', '.')) ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
                                     <tr>
-                                        <td><?php echo date('d/m/Y', strtotime($agendamento['data_agendamento'])); ?></td>
-                                        <td><?php echo htmlspecialchars($agendamento['nome_paciente']); ?></td>
-                                        <td><?php echo htmlspecialchars($agendamento['hora_agendamento']); ?></td>
-
+                                        <td colspan="3" class="text-center">Nenhuma despesa recente.</td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
-                    <?php else: ?>
-                        <p>Nenhum agendamento encontrado.</p>
-                    <?php endif; ?> -->
-                <table class="table table-striped table-bordered">
-                    <tbody>
-                        <iframe src="https://calendar.google.com/calendar/embed?height=560&wkst=1&ctz=America%2FSao_Paulo&mode=WEEK&title=Alexandre%20Batista&showDate=0&showCalendars=0&showTz=0&src=OTg2ZWI1ZTc5YzFmNTU0ZTRkM2IyOGE4M2I0YzVjZWRmNTVjZDdlY2U0OGQzMWNiM2FjNDUzZDY3YTAzNjQ4ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=cHQuYnJhemlsaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23C0CA33&color=%230B8043" style="border-width:0" width="100%" height="560" frameborder="0" scrolling="no"></iframe>
-                    </tbody>
-                </table>
+                    </div>
+                    <div class="table-total">Total do per&iacute;odo: R$ <?= number_format($totalDespesas, 2, ',', '.'); ?></div>
+                </div>
+            </section>
         </div>
-        </ul>
-    </div>
 
-    <!-- Coluna para Despesas -->
-    <div class="col-md-4">
+        <div class="col-lg-6 col-xl-4">
+            <section class="dashboard-card">
+                <header class="dashboard-card-header">
+                    <div>
+                        <h2>Receitas</h2>
+                        <p>Entradas mais recentes do consult&oacute;rio.</p>
+                    </div>
+                    <a class="dashboard-link" href="../views/visualizar_transacao.php?tipo=receita">Ver detalhes</a>
+                </header>
+                <div class="dashboard-card-body">
+                    <?php
 
-        <ul class="dashboard-list">
-            <li><a href="../views/visualizar_transacao.php?tipo=despesa">Despesas</a></li>
-            <?php
+                    // Obter total de despesas
+                    $totalStmt = $conn->prepare("SELECT SUM(valor) as total FROM transacoes WHERE tipo = 'receita'");
+                    $totalStmt->execute();
+                    $totalDespesas = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
 
-            // Obter total de despesas
-            $totalStmt = $conn->prepare("SELECT SUM(valor) as total FROM transacoes WHERE tipo = 'despesa'");
-            $totalStmt->execute();
-            $totalDespesas = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
+                    // Obter as despesas mais recentes
+                    $recentStmt = $conn->prepare("SELECT nome, valor, data_vencimento FROM transacoes WHERE tipo = 'receita' ORDER BY data_vencimento DESC LIMIT 5");
+                    $recentStmt->execute();
+                    $despesasRecentes = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
 
-            // Obter as despesas mais recentes
-            $recentStmt = $conn->prepare("SELECT nome, valor, data_vencimento FROM transacoes WHERE tipo = 'despesa' ORDER BY data_vencimento DESC LIMIT 5");
-            $recentStmt->execute();
-            $despesasRecentes = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
-            ?>
-
-            <div class="container my-4">
-                <table class="table ">
-                    <thead class="table-item">
-                        <tr>
-                            <th>Vencimento</th>
-                            <th>Nome</th>
-                            <th>Valor</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($despesasRecentes)): ?>
-                            <?php foreach ($despesasRecentes as $despesa): ?>
+                    <div class="table-wrapper">
+                        <table class="table table-borderless">
+                            <thead>
                                 <tr>
-                                    <td><?php echo date('d/m/Y', htmlspecialchars(strtotime($despesa['data_vencimento']))); ?></td>
-                                    <td><?= htmlspecialchars($despesa['nome']) ?></td>
-                                    <td><?= htmlspecialchars(number_format($despesa['valor'], 2, ',', '.')) ?></td>
-
+                                    <th>Vencimento</th>
+                                    <th>Nome</th>
+                                    <th>Valor</th>
                                 </tr>
-                            <?php endforeach; ?>
-                            <div class="mb-3">
-                                <td>
-                                    <h4>Total:
-                                </td>
-                                <td></td>
-                                <td>R$ <?= number_format($totalDespesas, 2, ',', '.'); ?></h4>
-
-                                </td>
-
-                            </div>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="3" class="text-center">Nenhuma despesa recente.</td>
-                            </tr>
-                        <?php endif; ?>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </ul>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($despesasRecentes)): ?>
+                                    <?php foreach ($despesasRecentes as $despesa): ?>
+                                        <tr>
+                                            <td><?php echo date('d/m/Y', htmlspecialchars(strtotime($despesa['data_vencimento']))); ?></td>
+                                            <td><?= htmlspecialchars($despesa['nome']) ?></td>
+                                            <td><?= htmlspecialchars(number_format($despesa['valor'], 2, ',', '.')) ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="3" class="text-center">Nenhuma receita recente.</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-total">Total do per&iacute;odo: R$ <?= number_format($totalDespesas, 2, ',', '.'); ?></div>
+                </div>
+            </section>
+        </div>
     </div>
-    <!-- Coluna para Despesas -->
-    <div class="col-md-4">
-
-        <ul class="dashboard-list">
-            <li><a href="../views/visualizar_transacao.php?tipo=receita">Receitas</a></li>
-            <?php
-
-            // Obter total de despesas
-            $totalStmt = $conn->prepare("SELECT SUM(valor) as total FROM transacoes WHERE tipo = 'receita'");
-            $totalStmt->execute();
-            $totalDespesas = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
-
-            // Obter as despesas mais recentes
-            $recentStmt = $conn->prepare("SELECT nome, valor, data_vencimento FROM transacoes WHERE tipo = 'receita' ORDER BY data_vencimento DESC LIMIT 5");
-            $recentStmt->execute();
-            $despesasRecentes = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
-            ?>
-
-            <div class="container my-4">
-
-                <table class="table table-striped table-bordered">
-                    <thead class="table-item">
-                        <tr>
-                            <th>Vencimento</th>
-                            <th>Nome</th>
-                            <th>Valor</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Mantive $despesas para aproveitar código -->
-                        <?php if (!empty($despesasRecentes)): ?>
-                            <?php foreach ($despesasRecentes as $despesa): ?>
-                                <tr>
-                                    <td><?php echo date('d/m/Y', htmlspecialchars(strtotime($despesa['data_vencimento']))); ?></td>
-                                    <td><?= htmlspecialchars($despesa['nome']) ?></td>
-                                    <td><?= htmlspecialchars(number_format($despesa['valor'], 2, ',', '.')) ?></td>
-
-                                </tr>
-                            <?php endforeach; ?>
-                            <div class="mb-3">
-                                <td>
-                                    <h4>Total:
-                                </td>
-                                <td></td>
-                                <td>R$ <?= number_format($totalDespesas, 2, ',', '.'); ?></h4>
-                                </td>
-                            </div>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="3" class="text-center">Nenhuma despesa recente.</td>
-                            </tr>
-                        <?php endif; ?>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </ul>
-    </div>
-</div>
-</div>
+</main>
 
 <?php
 include '../includes/footer.php';

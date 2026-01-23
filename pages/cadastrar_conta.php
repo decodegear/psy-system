@@ -69,16 +69,22 @@ include '../includes/header.php';
 
 <h1>Gerenciar Contas</h1>
 
-<!-- Formulário de Cadastro/Alteração de Conta -->
-<form method="post" action="cadastrar_conta.php">
-    <label for="nome">Nome da Conta:</label>
-    <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome); ?>" required>
+<!-- Formul&aacute;rio de Cadastro/Altera&ccedil;&atilde;o de Conta -->
+<form method="post" action="cadastrar_conta.php" class="form-grid">
+    <div class="form-field">
+        <label for="nome">Nome da Conta:</label>
+        <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome); ?>" required>
+    </div>
 
-    <label for="saldo_inicial">Saldo Inicial:</label>
-    <input type="number" id="saldo_inicial" name="saldo_inicial" step="0.01" value="<?= htmlspecialchars($saldo_inicial); ?>" required>
+    <div class="form-field">
+        <label for="saldo_inicial">Saldo Inicial:</label>
+        <input type="number" id="saldo_inicial" name="saldo_inicial" step="0.01" value="<?= htmlspecialchars($saldo_inicial); ?>" required>
+    </div>
 
     <input type="hidden" name="id" value="<?= $id; ?>">
-    <input type="submit" value="Salvar Conta">
+    <div class="form-field form-field--full">
+        <input type="submit" value="Salvar Conta">
+    </div>
 </form>
 
 <h2>Contas Cadastradas</h2>

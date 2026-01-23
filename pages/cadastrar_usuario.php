@@ -29,32 +29,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 include '../includes/header.php';
 ?>
 
-<h1>Cadastrar Usuário</h1>
-<form method="post" action="../actions/insert_usuario.php">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required>
+<h1>Cadastrar Usu&aacute;rio</h1>
+<form method="post" action="../actions/insert_usuario.php" class="form-grid">
+    <div class="form-field">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+    </div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+    <div class="form-field">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
 
-    <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf" required>
+    <div class="form-field">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
+    </div>
 
-    <label for="telefone">Telefone:</label>
-    <input type="text" id="telefone" name="telefone" required>
+    <div class="form-field">
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required>
+    </div>
 
-    <label for="senha">Senha:</label>
-    <input type="password" id="senha" name="senha" required>
+    <div class="form-field">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+    </div>
 
-    <label for="role">Função:</label>
-    <select id="role" name="role">
-        <option value="admin">Administrador</option>
-        <option value="user">Usuário Comum</option>
-    </select>
+    <div class="form-field">
+        <label for="role">Fun&ccedil;&atilde;o:</label>
+        <select id="role" name="role">
+            <option value="admin">Administrador</option>
+            <option value="user">Usu&aacute;rio Comum</option>
+        </select>
+    </div>
 
-    <input type="submit" value="Cadastrar Usuário">
+    <div class="form-field form-field--full">
+        <input type="submit" value="Cadastrar Usu&aacute;rio">
+    </div>
 </form>
 
 <?php 
 include '../includes/footer.php'; 
 ?>
+

@@ -4,7 +4,14 @@ client_secret_*.json
 .env
 vendor/
 node_modules/
+composer.phar
 callback.php
-composer.json
-composer.lock
-google_calendar/
+mysql-8.4/
+database/*.db
+database/*.db-*
+uploads/*
+!uploads/.gitkeep
+!uploads/default.png
+google_calendar/credentials.json
+google_calendar/credentials.json.old
+google_calendar/token.json

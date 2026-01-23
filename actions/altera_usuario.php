@@ -31,35 +31,38 @@ try {
 include '../includes/header.php';
 ?>
 
-<h1>Editar Usuário</h1>
+<h1>Editar Usu&aacute;rio</h1>
 
-<form action="/actions/update_usuario.php" method="post">
+<form action="/actions/update_usuario.php" method="post" class="form-grid">
     <input type="hidden" name="id" value="<?= $id ?>">
 
-    <!-- Nome -->
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($usuario['nome']) ?>" required>
-    
-    <!-- Telefone -->
-    <label for="telefone">Telefone:</label>
-    <input type="text" id="telefone" name="telefone" value="<?= htmlspecialchars($usuario['telefone']) ?>" required>
-    
-    <!-- CPF -->
-    <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($usuario['cpf']) ?>" required>
-    
-    <!-- Email -->
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<?= htmlspecialchars($usuario['email']) ?>" required>
-     <!--TODO Criar um form específico para alterar Senha -->
-    <!-- <label for="senha">Senha:</label>
-    <input type="password" id="senha" name="senha" value="<?= $usuario['senha'] ?>" required> -->
+    <div class="form-field">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($usuario['nome']) ?>" required>
+    </div>
 
-    <!-- Botão de Submissão -->
-    <input type="submit" value="Atualizar Usuário">
+    <div class="form-field">
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" value="<?= htmlspecialchars($usuario['telefone']) ?>" required>
+    </div>
+
+    <div class="form-field">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($usuario['cpf']) ?>" required>
+    </div>
+
+    <div class="form-field">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<?= htmlspecialchars($usuario['email']) ?>" required>
+    </div>
+
+    <div class="form-field form-field--full">
+        <input type="submit" value="Atualizar Usu&aacute;rio">
+    </div>
 </form>
 
 <?php 
 // Inclui o rodapé
 include '../includes/footer.php'; 
 ?>
+

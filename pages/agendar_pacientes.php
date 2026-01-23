@@ -9,8 +9,18 @@ if (!isset($_SESSION['admin_id'])) {
 include '../includes/header.php';
 ?>
 
+<?php if (isset($_GET['status'])): ?>
+    <?php if ($_GET['status'] === 'success'): ?>
+        <div class="alert-card">Agendamento criado com sucesso.</div>
+    <?php elseif ($_GET['status'] === 'calendar_error'): ?>
+        <div class="alert-card">Nao foi possivel criar o evento no Google Calendar. Reautorize e tente novamente.</div>
+    <?php elseif ($_GET['status'] === 'error'): ?>
+        <div class="alert-card">Erro ao salvar o agendamento. Tente novamente.</div>
+    <?php endif; ?>
+<?php endif; ?>
+
 <h1 class="form-title">Agendar Paciente</h1>
-<form action="../actions/agendar_paciente.php" method="post" class="standard-form">
+<form action="../actions/agendar_paciente.php" method="post" class="standard-form form-grid">
     <!-- Nome do Paciente -->
     <div class="form-group">
         <label for="nome_paciente">Nome do Paciente</label>

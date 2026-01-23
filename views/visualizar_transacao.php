@@ -7,6 +7,10 @@ include '../includes/db_connect.php';
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'despesa';
 
+if (!$conn) {
+    die("Erro: Falha na conexão com o banco de dados.");
+}
+
 $stmt = $conn->prepare("SELECT * FROM transacoes WHERE tipo = :tipo ORDER BY data_vencimento DESC");
 $stmt->execute([':tipo' => $tipo]);
 $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -14,21 +18,28 @@ $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 include '../includes/header.php';
 ?>
 
-<body>
-    <div class="montserrat-text main-content">
-        <h1>Visualizar <?= htmlspecialchars(ucwords($tipo)) ?></h1>
+<main class="transactions-page">
+    <section class="page-hero">
+        <div>
+            <p class="page-eyebrow">Finan&ccedil;as</p>
+            <h1>Visualizar <?= htmlspecialchars(ucwords($tipo)) ?></h1>
+            <p class="page-subtitle">Acompanhe suas <?= htmlspecialchars($tipo) ?> registradas no sistema.</p>
+        </div>
         <?php if ($isAdmin): ?>
-            <a href="../pages/cadastro_transacao.php?tipo=<?= htmlspecialchars($tipo); ?>" class="btn btn-primary mb-3">Nova <?= htmlspecialchars($tipo); ?></a>
+            <a href="../pages/cadastro_transacao.php?tipo=<?= htmlspecialchars($tipo); ?>" class="btn btn-primary page-cta">Nova <?= htmlspecialchars($tipo); ?></a>
         <?php endif; ?>
-        <div class="list-group mb-4">
-            <table class="table table-striped table-bordered">
+    </section>
+
+    <section class="table-card">
+        <div class="table-wrapper">
+            <table class="table table-borderless">
                 <thead>
                     <tr>
                         <th class="col-data-vencimento">Data de Vencimento</th>
                         <th class="col-nome">Nome</th>
-                        <th class="col-descricao">Descrição</th>
+                        <th class="col-descricao">Descri&ccedil;&atilde;o</th>
                         <th class="col-valor">Valor</th>
-                        <th class="col-situacao">Situação</th>
+                        <th class="col-situacao">Situa&ccedil;&atilde;o</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,19 +52,21 @@ include '../includes/header.php';
                                         <?= htmlspecialchars($item['nome']) ?>
                                     </a>
                                 </td>
-                                <td class="col-descricao"> <?= htmlspecialchars($item['descricao']) ?> </td>
-                                <td class="col-valor"> <?= htmlspecialchars(number_format($item['valor'], 2, ',', '.')) ?> </td>
-                                <td class="col-situacao"> <?= htmlspecialchars($item['situacao']) ?> </td>
-                                </tr>
+                                <td class="col-descricao"><?= htmlspecialchars($item['descricao']) ?></td>
+                                <td class="col-valor"><?= htmlspecialchars(number_format($item['valor'], 2, ',', '.')) ?></td>
+                                <td class="col-situacao"><?= htmlspecialchars($item['situacao']) ?></td>
+                            </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="10" class="text-center">Nenhum item cadastrado.</td>
+                            <td colspan="10" class="text-center">Nenhum item cadastrado. Clique em "Nova <?= htmlspecialchars($tipo); ?>" para adicionar.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
         </div>
-    </div>
-    <?php include '../includes/footer.php'; ?>
-</body>
+    </section>
+</main>
+
+<?php include '../includes/footer.php'; ?>
+

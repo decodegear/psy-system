@@ -96,62 +96,64 @@ include '../includes/header.php';
     <h1>Alterar <?= $tipo ?></h1>
     <?php if ($action === 'edit' && isset($transacao)): ?>
         <div class="registration-form form-group">
-            <form method="post" action="altera_transacao.php?action=update&id=<?= htmlspecialchars($id ?? ''); ?>">
-                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>">
+            <form method="post" action="altera_transacao.php?action=update&id=<?= htmlspecialchars($id ?? ''); ?>" class="form-grid">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>">
 
-                <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($transacao['nome'] ?? ''); ?>" class="" required>
+    <div class="form-field">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($transacao['nome'] ?? ''); ?>" required>
+    </div>
 
-                <label for="valor">Valor:</label>
-                <input type="number" name="valor" id="valor" value="<?= htmlspecialchars($transacao['valor'] ?? ''); ?>" class="" step="0.01" required>
+    <div class="form-field">
+        <label for="valor">Valor:</label>
+        <input type="number" name="valor" id="valor" value="<?= htmlspecialchars($transacao['valor'] ?? ''); ?>" step="0.01" required>
+    </div>
 
-                <label for="data_vencimento">Data de Vencimento:</label>
-                <input type="date" name="data_vencimento" id="data_vencimento" value="<?= htmlspecialchars($transacao['data_vencimento'] ?? ''); ?>" class="" required>
+    <div class="form-field">
+        <label for="data_vencimento">Data de Vencimento:</label>
+        <input type="date" name="data_vencimento" id="data_vencimento" value="<?= htmlspecialchars($transacao['data_vencimento'] ?? ''); ?>" required>
+    </div>
 
-                <label for="situacao">Situação:</label>
-                <select name="situacao" id="situacao" class="select " required>
-                    <option value="Pago" <?= ($transacao['situacao'] ?? '') === 'Pago' ? 'selected' : ''; ?>>Pago</option>
-                    <option value="A pagar" <?= ($transacao['situacao'] ?? '') === 'A pagar' ? 'selected' : ''; ?>>A pagar</option>
-                </select>
+    <div class="form-field">
+        <label for="situacao">Situa&ccedil;&atilde;o:</label>
+        <select name="situacao" id="situacao" required>
+            <option value="Pago" <?= ($transacao['situacao'] ?? '') === 'Pago' ? 'selected' : ''; ?>>Pago</option>
+            <option value="A pagar" <?= ($transacao['situacao'] ?? '') === 'A pagar' ? 'selected' : ''; ?>>A pagar</option>
+        </select>
+    </div>
 
-                <label for="categoria_id">Categoria:</label>
-                <select name="categoria_id" id="categoria_id" class="select " required>
-                    <?php foreach ($categorias as $categoria): ?>
-                        <option value="<?= htmlspecialchars($categoria['id']); ?>" <?= ($transacao['categoria_id'] ?? '') == $categoria['id'] ? 'selected' : ''; ?>>
-                            <?= htmlspecialchars($categoria['nome']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+    <div class="form-field">
+        <label for="categoria_id">Categoria:</label>
+        <select name="categoria_id" id="categoria_id" required>
+            <?php foreach ($categorias as $categoria): ?>
+                <option value="<?= htmlspecialchars($categoria['id']); ?>" <?= ($transacao['categoria_id'] ?? '') == $categoria['id'] ? 'selected' : ''; ?>>
+                    <?= htmlspecialchars($categoria['nome']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
-                <label for="conta_id">Conta:</label>
-                <select name="conta_id" id="conta_id" class="select " required>
-                    <?php foreach ($contas as $conta): ?>
-                        <option value="<?= htmlspecialchars($conta['id']); ?>" <?= ($transacao['conta_id'] ?? '') == $conta['id'] ? 'selected' : ''; ?>>
-                            <?= htmlspecialchars($conta['nome']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+    <div class="form-field">
+        <label for="conta_id">Conta:</label>
+        <select name="conta_id" id="conta_id" required>
+            <?php foreach ($contas as $conta): ?>
+                <option value="<?= htmlspecialchars($conta['id']); ?>" <?= ($transacao['conta_id'] ?? '') == $conta['id'] ? 'selected' : ''; ?>>
+                    <?= htmlspecialchars($conta['nome']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
-                <label for="descricao">Descrição:</label>
-                <textarea name="descricao" id="descricao" class=" full-width textarea-group"><?= htmlspecialchars($transacao['descricao'] ?? ''); ?></textarea>
+    <div class="form-field form-field--full">
+        <label for="descricao">Descri&ccedil;&atilde;o:</label>
+        <textarea name="descricao" id="descricao" class="textarea-group"><?= htmlspecialchars($transacao['descricao'] ?? ''); ?></textarea>
+    </div>
 
-                <!-- <label for="parcelado">Parcelado:</label>
-                <input type="checkbox" name="parcelado" id="parcelado" value="1" <?= ($transacao['parcelado'] ?? 0) ? 'checked' : ''; ?>>
-
-                <label for="qtd_parcelas">Quantidade de Parcelas:</label>
-                <input type="number" name="qtd_parcelas" id="qtd_parcelas" value="<?= htmlspecialchars($transacao['qtd_parcelas'] ?? '1'); ?>" class="form-control item ">
- -->
-                <table style="border:0">
-                    <tr>
-                        <td><button type="submit" class="btn-primary mt-3">Salvar Alteração</button></td>
-
-                        <td>
-                            <a style="text-decoration:none" href="excluir_transacao.php?id=<?= htmlspecialchars($id); ?>" type="button" class=" btn-primary mt-3" onclick=" return confirm('Tem certeza que deseja excluir esta transação?');">Excluir</a>
-                        </td>
-                    </tr>
-                </table>
-        </div>
-        </form>
+    <div class="form-field form-field--full">
+        <button type="submit" class="btn btn-primary mt-3">Salvar Altera&ccedil;&atilde;o</button>
+        <a href="excluir_transacao.php?id=<?= htmlspecialchars($id); ?>" class="btn btn-outline-primary mt-3" onclick=" return confirm('Tem certeza que deseja excluir esta transa&ccedil;&atilde;o?');">Excluir</a>
+    </div>
+</form>
 
     <?php else: ?>
         <p>Transação não encontrada ou ação inválida.</p>

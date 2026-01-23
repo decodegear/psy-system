@@ -31,73 +31,82 @@ try {
 include '../includes/header.php';
 ?>
 
-<div class="container my-4">
-    <h1>Visualizar Pessoas</h1>
-
-    <form method="get" class="mb-4">
-        <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Buscar por nome, email ou telefone" value="<?= $searchTerm ?>">
-            <button class="btn btn-primary" type="submit">Pesquisar</button>
+<main class="transactions-page">
+    <section class="page-hero">
+        <div>
+            <p class="page-eyebrow">Cadastro</p>
+            <h1>Visualizar Pessoas</h1>
+            <p class="page-subtitle">Consulte dados cadastrais e contatos.</p>
         </div>
-    </form>
+    </section>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Gênero</th>
-                <th>Idade</th>
-                <th>Peso (kg)</th>
-                <th>Altura (m)</th>
-                <th>Etnia</th>
-                <th>RG</th>
-                <th>CPF</th>
-                <th>CNH</th>
-                <th>Data de Nascimento</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <!-- Exibir a coluna Ações somente para administradores -->
-                <?php if ($isAdmin): ?>
-                    <th>Ações</th>
-                <?php endif; ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($pessoas)): ?>
-                <?php foreach ($pessoas as $pessoa): ?>
+    <section class="table-card">
+        <form method="get" class="page-toolbar">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Buscar por nome, email ou telefone" value="<?= $searchTerm ?>">
+                <button class="btn btn-primary" type="submit">Pesquisar</button>
+            </div>
+        </form>
+
+        <div class="table-wrapper">
+            <table class="table table-borderless">
+                <thead>
                     <tr>
-                        <td><?= htmlspecialchars($pessoa['id'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['nome'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['genero'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['idade'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['peso'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['altura'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['etnia'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['rg'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['cpf'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['cnh'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= !empty($pessoa['data_nasc']) ? htmlspecialchars((new DateTime($pessoa['data_nasc']))->format('d/m/Y')) : '' ?></td>
-                        <td><?= htmlspecialchars($pessoa['email'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($pessoa['telefone'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>G&ecirc;nero</th>
+                        <th>Idade</th>
+                        <th>Peso (kg)</th>
+                        <th>Altura (m)</th>
+                        <th>Etnia</th>
+                        <th>RG</th>
+                        <th>CPF</th>
+                        <th>CNH</th>
+                        <th>Data de Nascimento</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
                         <?php if ($isAdmin): ?>
-                            <td>
-                                <a href="../actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>" class="bi bi-pencil-square" style="color: orange;"></a>
-                                <a href="../actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir este usuário?');"></a>
-                            </td>
+                            <th>A&ccedil;&otilde;es</th>
                         <?php endif; ?>
                     </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="14" class="text-center">Nenhuma pessoa cadastrada.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</div>
+                </thead>
+                <tbody>
+                    <?php if (!empty($pessoas)): ?>
+                        <?php foreach ($pessoas as $pessoa): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($pessoa['id'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['nome'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['genero'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['idade'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['peso'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['altura'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['etnia'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['rg'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['cpf'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['cnh'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= !empty($pessoa['data_nasc']) ? htmlspecialchars((new DateTime($pessoa['data_nasc']))->format('d/m/Y')) : '' ?></td>
+                                <td><?= htmlspecialchars($pessoa['email'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($pessoa['telefone'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                                <?php if ($isAdmin): ?>
+                                    <td>
+                                        <a href="../actions/altera_pessoa.php?id=<?= $pessoa['id'] ?>" class="bi bi-pencil-square" style="color: orange;"></a>
+                                        <a href="../actions/excluir_pessoa.php?id=<?= $pessoa['id'] ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir este usu&aacute;rio?');"></a>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="14" class="text-center">Nenhuma pessoa cadastrada.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
 
 <?php
-// Inclui o rodapé
 include '../includes/footer.php';
 ?>
+

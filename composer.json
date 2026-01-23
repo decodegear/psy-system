@@ -1,0 +1,7 @@
+{
+  "name": "psy-system/google-calendar",
+  "type": "project",
+  "require": {
+    "google/apiclient": "^2.0"
+  }
+}

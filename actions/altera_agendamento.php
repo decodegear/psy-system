@@ -27,28 +27,34 @@ include '../includes/header.php';
 
 <h1>Editar Agendamento</h1>
 <div class="container mt-10 mb-4">
-    <form action="../actions/update_agendamento.php" method="post">
+    <form action="../actions/update_agendamento.php" method="post" class="form-grid">
         <input type="hidden" name="id" value="<?= $id ?>">
 
-        <!-- Nome do Paciente -->
-        <label for="nome_paciente">Nome do Paciente:</label>
-        <input type="text" id="nome_paciente" name="nome_paciente" value="<?= htmlspecialchars($agendamento['nome_paciente']) ?>" required>
+        <div class="form-field">
+            <label for="nome_paciente">Nome do Paciente:</label>
+            <input type="text" id="nome_paciente" name="nome_paciente" value="<?= htmlspecialchars($agendamento['nome_paciente']) ?>" required>
+        </div>
 
-        <!-- Data do Agendamento -->
-        <label for="data_agendamento">Data do Agendamento:</label>
-        <input type="date" id="data_agendamento" name="data_agendamento" value="<?= htmlspecialchars($agendamento['data_agendamento']) ?>" required>
+        <div class="form-field">
+            <label for="data_agendamento">Data do Agendamento:</label>
+            <input type="date" id="data_agendamento" name="data_agendamento" value="<?= htmlspecialchars($agendamento['data_agendamento']) ?>" required>
+        </div>
 
-        <!-- Hora do Agendamento -->
-        <label for="hora_agendamento">Hora do Agendamento:</label>
-        <input type="time" id="hora_agendamento" name="hora_agendamento" value="<?= htmlspecialchars($agendamento['hora_agendamento']) ?>" required>
+        <div class="form-field">
+            <label for="hora_agendamento">Hora do Agendamento:</label>
+            <input type="time" id="hora_agendamento" name="hora_agendamento" value="<?= htmlspecialchars($agendamento['hora_agendamento']) ?>" required>
+        </div>
 
-        <!-- Observações -->
-        <label for="observacoes">Observações:</label>
-        <textarea id="observacoes" name="observacoes"><?= htmlspecialchars($agendamento['observacoes']) ?></textarea>
+        <div class="form-field form-field--full">
+            <label for="observacoes">Observa&ccedil;&otilde;es:</label>
+            <textarea id="observacoes" name="observacoes"><?= htmlspecialchars($agendamento['observacoes']) ?></textarea>
+        </div>
 
-        <!-- Botão de Submissão -->
-        <input type="submit" value="Atualizar Agendamento">
+        <div class="form-field form-field--full">
+            <input type="submit" value="Atualizar Agendamento">
+        </div>
     </form>
+</div>
 </div>
 
 <?php

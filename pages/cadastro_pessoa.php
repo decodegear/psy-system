@@ -62,54 +62,83 @@ include '../includes/header.php'; // Incluindo cabeçalho
 ?>
 
 <h1>Cadastro de Paciente</h1>
-<form action="cadastro_pessoa.php" method="post" enctype="multipart/form-data" class="form-group">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" class="form-control" required>
+<form action="cadastro_pessoa.php" method="post" enctype="multipart/form-data" class="form-grid">
+    <div class="form-field">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" class="form-control" required>
+    </div>
 
-    <label for="telefone">Telefone:</label>
-    <input type="text" id="telefone" name="telefone" class="form-control">
+    <div class="form-field">
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" class="form-control">
+    </div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" class="form-control">
+    <div class="form-field">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="form-control">
+    </div>
 
-    <label for="genero">Gênero:</label>
-    <select id="genero" name="genero" class="form-control" required>
-        <option value="Masculino">Masculino</option>
-        <option value="Feminino">Feminino</option>
-        <option value="Outro">Outro</option>
-    </select>
+    <div class="form-field">
+        <label for="genero">G&ecirc;nero:</label>
+        <select id="genero" name="genero" class="form-control" required>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Outro">Outro</option>
+        </select>
+    </div>
 
-    <label for="idade">Idade:</label>
-    <input type="number" id="idade" name="idade" class="form-control">
+    <div class="form-field">
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" name="idade" class="form-control">
+    </div>
 
-    <label for="peso">Peso (kg):</label>
-    <input type="number" id="peso" name="peso" step="0.1" class="form-control">
+    <div class="form-field">
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" name="peso" step="0.1" class="form-control">
+    </div>
 
-    <label for="altura">Altura (cm):</label>
-    <input type="number" id="altura" name="altura" class="form-control">
+    <div class="form-field">
+        <label for="altura">Altura (cm):</label>
+        <input type="number" id="altura" name="altura" class="form-control">
+    </div>
 
-    <label for="etnia">Etnia:</label>
-    <input type="text" id="etnia" name="etnia" class="form-control">
+    <div class="form-field">
+        <label for="etnia">Etnia:</label>
+        <input type="text" id="etnia" name="etnia" class="form-control">
+    </div>
 
-    <label for="rg">RG:</label>
-    <input type="text" id="rg" name="rg" class="form-control">
+    <div class="form-field">
+        <label for="rg">RG:</label>
+        <input type="text" id="rg" name="rg" class="form-control">
+    </div>
 
-    <label for="cpf">CPF:</label>
-    <input type="text" id="cpf" name="cpf" class="form-control">
+    <div class="form-field">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" class="form-control">
+    </div>
 
-    <label for="cnh">CNH:</label>
-    <input type="text" id="cnh" name="cnh" class="form-control">
+    <div class="form-field">
+        <label for="cnh">CNH:</label>
+        <input type="text" id="cnh" name="cnh" class="form-control">
+    </div>
 
-    <label for="nasc">Data de Nascimento:</label>
-    <input type="date" id="nasc" name="nasc" class="form-control" required>
+    <div class="form-field">
+        <label for="nasc">Data de Nascimento:</label>
+        <input type="date" id="nasc" name="nasc" class="form-control" required>
+    </div>
 
-    <label for="foto">Foto:</label>
-    <input type="file" id="foto" name="foto" class="form-control-file" accept="image/jpeg, image/png">
-    
-    <button type="submit" class="btn btn-primary mt-3">Cadastrar</button>
+    <div class="form-field form-field--full">
+        <label for="foto">Foto:</label>
+        <input type="file" id="foto" name="foto" class="form-control-file" accept="image/jpeg, image/png">
+    </div>
+
+    <div class="form-field form-field--full">
+        <button type="submit" class="btn btn-primary mt-3">Cadastrar</button>
+    </div>
 </form>
 
 <?php 
 // Inclui o rodapé
 include '../includes/footer.php'; 
 ?>
+

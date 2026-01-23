@@ -1,6 +1,12 @@
-<?php 
+<?php
 session_start();
 include '../includes/db_connect.php';
+
+// Verificar se a conexão foi estabelecida
+if (!isset($conn) || $conn === null) {
+    die("Erro: Conexão com o banco de dados não estabelecida.");
+}
+
 // Verificar se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -14,34 +20,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificar se o usuário foi encontrado e se a senha está correta
     // Depuração no login.php
-if ($usuario && password_verify($senha, $usuario['senha'])) {
-    // Autenticação bem-sucedida
-    $_SESSION['admin_id'] = $usuario['id'];
-    $_SESSION['admin_nome'] = $usuario['nome'];
-    $_SESSION['role'] = $usuario['role']; // Adicionar o role na sessão
-    echo "Usuário logado com sucesso!";
-    header("Location: dashboard.php");
-    exit;
-} else {
-    // Definir mensagem de erro e redirecionar de volta para a página de login
-    $_SESSION['erro'] = "Email ou senha incorretos, ou você não tem permissão de administrador.";
-    header("Location: login.php");
-    exit;
-}
-
+    if ($usuario && password_verify($senha, $usuario['senha'])) {
+        // Autenticação bem-sucedida
+        $_SESSION['admin_id'] = $usuario['id'];
+        $_SESSION['admin_nome'] = $usuario['nome'];
+        $_SESSION['role'] = $usuario['role']; // Adicionar o role na sessão
+        echo "Usuário logado com sucesso!";
+        header("Location: dashboard.php");
+        exit;
+    } else {
+        // Definir mensagem de erro e redirecionar de volta para a página de login
+        $_SESSION['erro'] = "Email ou senha incorretos, ou você não tem permissão de administrador.";
+        header("Location: login.php");
+        exit;
+    }
 }
 include '../includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Administrador</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css"> 
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body style="background-color: #333; color: #fff;">
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -53,7 +60,8 @@ include '../includes/header.php';
                     <div class="alert alert-danger" role="alert">
                         <?= htmlspecialchars($_SESSION['erro']) ?>
                     </div>
-                    <?php unset($_SESSION['erro']); // Limpar a mensagem de erro após exibi-la ?>
+                    <?php unset($_SESSION['erro']); // Limpar a mensagem de erro após exibi-la 
+                    ?>
                 <?php endif; ?>
 
                 <!-- Formulário de Login -->
@@ -76,5 +84,6 @@ include '../includes/header.php';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 <?php include '../includes/footer.php'; ?>

@@ -2,6 +2,11 @@
 session_start();
 include '../includes/db_connect.php';
 
+// Verificar se a conexão foi estabelecida
+if (!isset($conn)) {
+    die("Erro: Conexão com o banco de dados não estabelecida.");
+}
+
 // Verificar se o administrador está logado
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../admin/login.php");
@@ -122,79 +127,100 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 include '../includes/header.php';
 ?>
-<div class="container my-4">
-    <h2 class="montserrat-text text-center mb-4">Editar Pessoa</h2>
-    <form action="altera_pessoa.php?id=<?= $pessoa['id'] ?>" method="post" enctype="multipart/form-data">
-        <div class="row g-4">
+<style>
+    .edit-pessoa-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 20px 0;
+    }
 
-            <!-- Foto e campo para alterar -->
+    .edit-pessoa-container {
+        width: 100%;
+        max-width: 1000px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+</style>
 
-            <div class="col-md-4 text-center">
-                <div class="position-relative">
-                    <img id="previewImage" src="<?= htmlspecialchars($pessoa['foto'] ?? '../uploads/default.png') ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>" class="img-thumbnail mb-3" style="width: 100%; max-width: 250px; height: auto; object-fit: cover;">
-                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="opacity: 0; transition: opacity 0.3s; background: rgba(0, 0, 0, 0.5);" id="alterar-overlay">
-                        <span class="text-white fw-bold">Alterar Foto</span>
+<div class="edit-pessoa-wrapper">
+    <div class="edit-pessoa-container">
+        <h2 class="montserrat-text text-center mb-4">Editar Pessoa</h2>
+        <form action="altera_pessoa.php?id=<?= $pessoa['id'] ?>" method="post" enctype="multipart/form-data">
+            <div class="row g-4">
+
+                <!-- Foto e campo para alterar -->
+
+                <div class="col-md-4 text-center">
+                    <div class="position-relative">
+                        <img id="previewImage" src="<?= htmlspecialchars($pessoa['foto'] ?? '../uploads/default.png') ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>" class="img-thumbnail mb-3" style="width: 100%; max-width: 250px; height: auto; object-fit: cover;">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="opacity: 0; transition: opacity 0.3s; background: rgba(0, 0, 0, 0.5);" id="alterar-overlay">
+                            <span class="text-white fw-bold">Alterar Foto</span>
+                        </div>
+                    </div>
+                    <input type="file" id="foto" name="foto" class="form-control mt-2" style="display: none;" accept="image/jpeg, image/png">
+                </div>
+
+                <!-- Campos do formulário -->
+                <div class="col-md-8">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" id="nome" name="nome" class="form-control" value="<?= htmlspecialchars($pessoa['nome'] ?? '') ?>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="genero" class="form-label">Gênero</label>
+                            <select id="genero" name="genero" class="form-select" required>
+                                <option value="Masculino" <?= ($pessoa['genero'] == 'Masculino') ? 'selected' : '' ?>>Masculino</option>
+                                <option value="Feminino" <?= ($pessoa['genero'] == 'Feminino') ? 'selected' : '' ?>>Feminino</option>
+                                <option value="Outro" <?= ($pessoa['genero'] == 'Outro') ? 'selected' : '' ?>>Outro</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="idade" class="form-label">Idade</label>
+                            <input type="number" id="idade" name="idade" class="form-control" value="<?= htmlspecialchars($pessoa['idade'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="peso" class="form-label">Peso (kg)</label>
+                            <input type="number" id="peso" name="peso" class="form-control" step="0.1" value="<?= htmlspecialchars($pessoa['peso'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="altura" class="form-label">Altura (cm)</label>
+                            <input type="number" id="altura" name="altura" class="form-control" value="<?= htmlspecialchars($pessoa['altura'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="etnia" class="form-label">Etnia</label>
+                            <input type="text" id="etnia" name="etnia" class="form-control" value="<?= htmlspecialchars($pessoa['etnia'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="text" id="telefone" name="telefone" class="form-control" value="<?= htmlspecialchars($pessoa['telefone'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($pessoa['email'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" id="cpf" name="cpf" class="form-control" value="<?= htmlspecialchars($pessoa['cpf'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nasc" class="form-label">Data de Nascimento</label>
+                            <input type="date" id="nasc" name="nasc" class="form-control" value="<?= htmlspecialchars($pessoa['data_nasc'] ?? '') ?>" required>
+                        </div>
                     </div>
                 </div>
-                <input type="file" id="foto" name="foto" class="form-control mt-2" style="display: none;" accept="image/jpeg, image/png">
             </div>
 
-            <!-- Campos do formulário -->
-            <div class="col-md-8">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="nome" class="form-label">Nome</label>
-                        <input type="text" id="nome" name="nome" class="form-control" value="<?= htmlspecialchars($pessoa['nome'] ?? '') ?>" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="genero" class="form-label">Gênero</label>
-                        <select id="genero" name="genero" class="form-select" required>
-                            <option value="Masculino" <?= ($pessoa['genero'] == 'Masculino') ? 'selected' : '' ?>>Masculino</option>
-                            <option value="Feminino" <?= ($pessoa['genero'] == 'Feminino') ? 'selected' : '' ?>>Feminino</option>
-                            <option value="Outro" <?= ($pessoa['genero'] == 'Outro') ? 'selected' : '' ?>>Outro</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="idade" class="form-label">Idade</label>
-                        <input type="number" id="idade" name="idade" class="form-control" value="<?= htmlspecialchars($pessoa['idade'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="peso" class="form-label">Peso (kg)</label>
-                        <input type="number" id="peso" name="peso" class="form-control" step="0.1" value="<?= htmlspecialchars($pessoa['peso'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="altura" class="form-label">Altura (cm)</label>
-                        <input type="number" id="altura" name="altura" class="form-control" value="<?= htmlspecialchars($pessoa['altura'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="etnia" class="form-label">Etnia</label>
-                        <input type="text" id="etnia" name="etnia" class="form-control" value="<?= htmlspecialchars($pessoa['etnia'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="telefone" class="form-label">Telefone</label>
-                        <input type="text" id="telefone" name="telefone" class="form-control" value="<?= htmlspecialchars($pessoa['telefone'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($pessoa['email'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" id="cpf" name="cpf" class="form-control" value="<?= htmlspecialchars($pessoa['cpf'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="nasc" class="form-label">Data de Nascimento</label>
-                        <input type="date" id="nasc" name="nasc" class="form-control" value="<?= htmlspecialchars($pessoa['data_nasc'] ?? '') ?>" required>
-                    </div>
-                </div>
+            <!-- Botão de submissão -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
             </div>
-        </div>
-
-        <!-- Botão de submissão -->
-        <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <script>
