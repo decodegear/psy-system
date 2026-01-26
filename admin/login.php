@@ -49,35 +49,49 @@ include '../includes/header.php';
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body style="background-color: #333; color: #fff;">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h2 class="text-center">Login Administrador</h2>
+<body class="login-page">
+    <div class="container login-wrapper">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 col-md-10 col-lg-6">
+                <div class="login-card">
+                    <div class="login-card__header">
+                        <div class="login-card__icon" aria-hidden="true">
+                            <span>Ψ</span>
+                        </div>
+                        <div>
+                            <h2 class="login-card__title">Login Administrador</h2>
+                            <p class="login-card__subtitle">Acesse o painel com sua conta</p>
+                        </div>
+                    </div>
 
-                <!-- Exibir a mensagem de erro, se existir -->
-                <?php if (isset($_SESSION['erro'])): ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?= htmlspecialchars($_SESSION['erro']) ?>
-                    </div>
-                    <?php unset($_SESSION['erro']); // Limpar a mensagem de erro após exibi-la 
-                    ?>
-                <?php endif; ?>
+                    <!-- Exibir a mensagem de erro, se existir -->
+                    <?php if (isset($_SESSION['erro'])): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?= htmlspecialchars($_SESSION['erro']) ?>
+                        </div>
+                        <?php unset($_SESSION['erro']); // Limpar a mensagem de erro após exibi-la 
+                        ?>
+                    <?php endif; ?>
 
-                <!-- Formulário de Login -->
-                <form method="post" action="login.php" class="bg-dark p-4 rounded">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="senha" class="form-label">Senha:</label>
-                        <input type="password" id="senha" name="senha" class="form-control" required>
-                    </div>
-                    <div class="d-grid">
-                        <input type="submit" value="Login" class="btn btn-primary">
-                    </div>
-                </form>
+                    <!-- Formulário de Login -->
+                    <form method="post" action="login.php" class="login-form">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senha" class="form-label">Senha</label>
+                            <input type="password" id="senha" name="senha" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        <div class="d-grid">
+                            <input type="submit" value="Entrar" class="btn btn-primary login-submit">
+                        </div>
+                        <div class="login-links">
+                            <a href="recuperar_senha.php" class="login-link">Esqueci minha senha</a>
+                            <a href="../index.php" class="login-link">Voltar ao site</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

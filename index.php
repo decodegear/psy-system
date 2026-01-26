@@ -26,7 +26,7 @@ if (isset($_SESSION['erro'])): ?>
         <div class="home-card">
             <header class="dashboard-card-header">
                 <div>
-                    <h2>Vis&atilde;o geral</h2>
+                    <h2><i class="bi bi-graph-up"></i> Vis&atilde;o geral</h2>
                     <p>Finan&ccedil;as e relat&oacute;rios.</p>
                 </div>
             </header>
@@ -42,7 +42,7 @@ if (isset($_SESSION['erro'])): ?>
         <div class="home-card">
             <header class="dashboard-card-header">
                 <div>
-                    <h2>Utilit&aacute;rios</h2>
+                    <h2><i class="bi bi-tools"></i> Utilit&aacute;rios</h2>
                     <p>Agenda e cadastro de pessoas.</p>
                 </div>
             </header>
@@ -50,7 +50,7 @@ if (isset($_SESSION['erro'])): ?>
                 <li><a href="/pages/agendar_pacientes.php">Gerenciar agenda</a></li>
                 <li><a href="/views/visualizar_agendamentos.php">Visualizar agendamentos</a></li>
                 <li><a href="/pages/cadastrar_usuario.php">Cadastrar novo usu&aacute;rio</a></li>
-                <li><a href="/views/visualizar_pessoa.php">Visualizar pessoas</a></li>
+                <li><a href="/views/view_pessoa.php">Visualizar pessoas</a></li>
             </ul>
         </div>
     </section>

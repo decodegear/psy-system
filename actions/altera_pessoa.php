@@ -127,124 +127,99 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 include '../includes/header.php';
 ?>
-<style>
-    .edit-pessoa-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: calc(100vh - 200px);
-        padding: 20px 0;
-    }
 
-    .edit-pessoa-container {
-        width: 100%;
-        max-width: 1000px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-    }
-</style>
+<main class="transactions-page">
+    <section class="page-hero">
+        <div>
+            <p class="page-eyebrow">Pacientes</p>
+            <h1>Editar Pessoa</h1>
+            <p class="page-subtitle">Atualize os dados e foto do paciente.</p>
+        </div>
+    </section>
 
-<div class="edit-pessoa-wrapper">
-    <div class="edit-pessoa-container">
-        <h2 class="montserrat-text text-center mb-4">Editar Pessoa</h2>
-        <form action="altera_pessoa.php?id=<?= $pessoa['id'] ?>" method="post" enctype="multipart/form-data">
-            <div class="row g-4">
-
-                <!-- Foto e campo para alterar -->
-
-                <div class="col-md-4 text-center">
-                    <div class="position-relative">
-                        <img id="previewImage" src="<?= htmlspecialchars($pessoa['foto'] ?? '../uploads/default.png') ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>" class="img-thumbnail mb-3" style="width: 100%; max-width: 250px; height: auto; object-fit: cover;">
-                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="opacity: 0; transition: opacity 0.3s; background: rgba(0, 0, 0, 0.5);" id="alterar-overlay">
-                            <span class="text-white fw-bold">Alterar Foto</span>
-                        </div>
+    <section class="table-card">
+        <h2>Dados do paciente</h2>
+        <form action="altera_pessoa.php?id=<?= $pessoa['id'] ?>" method="post" enctype="multipart/form-data" class="form-grid">
+            <div class="form-field form-field--full">
+                <div class="image-upload-card">
+                    <div class="image-upload-preview">
+                        <img id="previewImage" src="<?= htmlspecialchars($pessoa['foto'] ?? '../uploads/default.png') ?>" alt="Foto de <?= htmlspecialchars($pessoa['nome'] ?? '') ?>">
                     </div>
-                    <input type="file" id="foto" name="foto" class="form-control mt-2" style="display: none;" accept="image/jpeg, image/png">
-                </div>
-
-                <!-- Campos do formulário -->
-                <div class="col-md-8">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="nome" class="form-label">Nome</label>
-                            <input type="text" id="nome" name="nome" class="form-control" value="<?= htmlspecialchars($pessoa['nome'] ?? '') ?>" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="genero" class="form-label">Gênero</label>
-                            <select id="genero" name="genero" class="form-select" required>
-                                <option value="Masculino" <?= ($pessoa['genero'] == 'Masculino') ? 'selected' : '' ?>>Masculino</option>
-                                <option value="Feminino" <?= ($pessoa['genero'] == 'Feminino') ? 'selected' : '' ?>>Feminino</option>
-                                <option value="Outro" <?= ($pessoa['genero'] == 'Outro') ? 'selected' : '' ?>>Outro</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="idade" class="form-label">Idade</label>
-                            <input type="number" id="idade" name="idade" class="form-control" value="<?= htmlspecialchars($pessoa['idade'] ?? '') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="peso" class="form-label">Peso (kg)</label>
-                            <input type="number" id="peso" name="peso" class="form-control" step="0.1" value="<?= htmlspecialchars($pessoa['peso'] ?? '') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="altura" class="form-label">Altura (cm)</label>
-                            <input type="number" id="altura" name="altura" class="form-control" value="<?= htmlspecialchars($pessoa['altura'] ?? '') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="etnia" class="form-label">Etnia</label>
-                            <input type="text" id="etnia" name="etnia" class="form-control" value="<?= htmlspecialchars($pessoa['etnia'] ?? '') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="telefone" class="form-label">Telefone</label>
-                            <input type="text" id="telefone" name="telefone" class="form-control" value="<?= htmlspecialchars($pessoa['telefone'] ?? '') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($pessoa['email'] ?? '') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" id="cpf" name="cpf" class="form-control" value="<?= htmlspecialchars($pessoa['cpf'] ?? '') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="nasc" class="form-label">Data de Nascimento</label>
-                            <input type="date" id="nasc" name="nasc" class="form-control" value="<?= htmlspecialchars($pessoa['data_nasc'] ?? '') ?>" required>
-                        </div>
+                    <div class="image-upload-actions">
+                        <p class="image-upload-title">Foto do paciente</p>
+                        <p class="image-upload-text">Atualize a imagem quando necessário.</p>
+                        <label class="btn btn-outline-primary image-upload-button" for="foto">Alterar imagem</label>
+                        <input type="file" id="foto" name="foto" accept="image/jpeg, image/png" hidden>
                     </div>
                 </div>
             </div>
 
-            <!-- Botão de submissão -->
-            <div class="text-center mt-4">
+            <div class="form-field">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($pessoa['nome'] ?? '') ?>" required>
+            </div>
+            <div class="form-field">
+                <label for="genero" class="form-label">Gênero</label>
+                <select id="genero" name="genero" required>
+                    <option value="Masculino" <?= ($pessoa['genero'] == 'Masculino') ? 'selected' : '' ?>>Masculino</option>
+                    <option value="Feminino" <?= ($pessoa['genero'] == 'Feminino') ? 'selected' : '' ?>>Feminino</option>
+                    <option value="Outro" <?= ($pessoa['genero'] == 'Outro') ? 'selected' : '' ?>>Outro</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="idade" class="form-label">Idade</label>
+                <input type="number" id="idade" name="idade" value="<?= htmlspecialchars($pessoa['idade'] ?? '') ?>">
+            </div>
+            <div class="form-field">
+                <label for="peso" class="form-label">Peso (kg)</label>
+                <input type="number" id="peso" name="peso" step="0.1" value="<?= htmlspecialchars($pessoa['peso'] ?? '') ?>">
+            </div>
+            <div class="form-field">
+                <label for="altura" class="form-label">Altura (cm)</label>
+                <input type="number" id="altura" name="altura" value="<?= htmlspecialchars($pessoa['altura'] ?? '') ?>">
+            </div>
+            <div class="form-field">
+                <label for="etnia" class="form-label">Etnia</label>
+                <input type="text" id="etnia" name="etnia" value="<?= htmlspecialchars($pessoa['etnia'] ?? '') ?>">
+            </div>
+            <div class="form-field">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="text" id="telefone" name="telefone" value="<?= htmlspecialchars($pessoa['telefone'] ?? '') ?>">
+            </div>
+            <div class="form-field">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($pessoa['email'] ?? '') ?>">
+            </div>
+            <div class="form-field">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($pessoa['cpf'] ?? '') ?>">
+            </div>
+            <div class="form-field">
+                <label for="nasc" class="form-label">Data de Nascimento</label>
+                <input type="date" id="nasc" name="nasc" value="<?= htmlspecialchars($pessoa['data_nasc'] ?? '') ?>" required>
+            </div>
+
+            <div class="form-field form-field--full">
                 <button type="submit" class="btn btn-primary">Salvar Alterações</button>
             </div>
         </form>
-    </div>
-</div>
+    </section>
+</main>
 
 <script>
-    document.querySelector(".position-relative").addEventListener("mouseover", function() {
-        document.getElementById("alterar-overlay").style.opacity = "1";
-    });
+    const fotoInput = document.getElementById('foto');
+    const previewImage = document.getElementById('previewImage');
 
-    document.querySelector(".position-relative").addEventListener("mouseout", function() {
-        document.getElementById("alterar-overlay").style.opacity = "0";
-    });
-
-    document.getElementById("alterar-overlay").addEventListener("click", function() {
-        document.getElementById("foto").click();
-    });
-
-    // Pré-visualização da imagem ao selecionar um novo arquivo
-    document.getElementById("foto").addEventListener("change", function(event) {
-        if (event.target.files && event.target.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById("previewImage").src = e.target.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    });
+    if (fotoInput && previewImage) {
+        fotoInput.addEventListener('change', function(event) {
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+    }
 </script>
 <?php include '../includes/footer.php'; ?>

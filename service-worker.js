@@ -1,4 +1,4 @@
-const CACHE_NAME = "psy-cache-v5"; // Mudar sempre que houver atualização
+const CACHE_NAME = "psy-cache-v6"; // Mudar sempre que houver atualização
 const urlsToCache = [
     "/index.php",
     "/admin/dashboard.php",

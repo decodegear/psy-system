@@ -11,6 +11,7 @@ include '../includes/db_connect.php';
 $nome_paciente = filter_var($_POST['nome_paciente'], FILTER_SANITIZE_STRING);
 $data_agendamento = $_POST['data_agendamento'];
 $hora_agendamento = $_POST['hora_agendamento'];
+$timezoneOffset = isset($_POST['timezone_offset']) ? (int)$_POST['timezone_offset'] : null;
 $observacoes_raw = $_POST['descricao'] ?? $_POST['observacoes'] ?? '';
 $observacoes = filter_var($observacoes_raw, FILTER_SANITIZE_STRING);
 
@@ -49,22 +50,46 @@ try {
         }
     }
 
-    $service = new Google\Service\Calendar($client);
-    $calendarId = 'primary';
-    $timezone = date_default_timezone_get() ?: 'UTC';
-    $inicio = new DateTime($data_agendamento . ' ' . $hora_agendamento);
+    $calendarClass = 'Google_Service_Calendar';
+    $eventClass = 'Google_Service_Calendar_Event';
+    if (!class_exists($calendarClass) || !class_exists($eventClass)) {
+        throw new RuntimeException('Biblioteca do Google Calendar nao instalada.');
+    }
+
+    $service = new $calendarClass($client);
+    $calendarId = '986eb5e79c1f554e4d3b28a83b4c5cedf55cd7ece48d31cb3ac453d67a03648d@group.calendar.google.com';
+    $timezone = 'America/Sao_Paulo';
+    $tz = new DateTimeZone($timezone);
+
+    if ($timezoneOffset !== null) {
+        $localOffsetMinutes = -$timezoneOffset;
+        $sign = $localOffsetMinutes >= 0 ? '+' : '-';
+        $hours = intdiv(abs($localOffsetMinutes), 60);
+        $minutes = abs($localOffsetMinutes) % 60;
+        $offsetTz = new DateTimeZone(sprintf('%s%02d:%02d', $sign, $hours, $minutes));
+        $inicio = DateTime::createFromFormat('Y-m-d H:i', $data_agendamento . ' ' . $hora_agendamento, $offsetTz);
+        if ($inicio) {
+            $inicio->setTimezone($tz);
+            $data_agendamento = $inicio->format('Y-m-d');
+            $hora_agendamento = $inicio->format('H:i');
+        }
+    }
+
+    if (!isset($inicio) || !$inicio) {
+        $inicio = new DateTime($data_agendamento . ' ' . $hora_agendamento, $tz);
+    }
     $fim = clone $inicio;
     $fim->modify('+1 hour');
 
-    $evento = new Google\Service\Calendar\Event([
+    $evento = new $eventClass([
         'summary' => 'Consulta - ' . $nome_paciente,
         'description' => $observacoes,
         'start' => [
-            'dateTime' => $inicio->format(DateTime::RFC3339),
+            'dateTime' => $inicio->format('Y-m-d\TH:i:s'),
             'timeZone' => $timezone,
         ],
         'end' => [
-            'dateTime' => $fim->format(DateTime::RFC3339),
+            'dateTime' => $fim->format('Y-m-d\TH:i:s'),
             'timeZone' => $timezone,
         ],
     ]);
@@ -77,6 +102,10 @@ try {
 try {
     if ($calendarError) {
         throw new RuntimeException($calendarError);
+    }
+
+    if (!($conn instanceof PDO)) {
+        throw new RuntimeException('Conexao com o banco indisponivel.');
     }
 
     // Inserir agendamento
@@ -97,4 +126,3 @@ try {
     header("Location: ../pages/agendar_pacientes.php?status=calendar_error");
     exit;
 }
-?>

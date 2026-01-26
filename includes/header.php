@@ -47,7 +47,7 @@ include 'db_connect.php';
                             <li><a class="dropdown-item" href="../views/visualizar_transacao.php?tipo=despesa">Visualizar Despesas</a></li>
                             <?php if (isset($_SESSION['admin_id'])): ?>
                                 <li><a class="dropdown-item" href="../views/visualizar_agendamentos.php">Visualizar Agendamentos</a></li>
-                                <li><a class="dropdown-item" href="../views/visualizar_pessoa.php">Visualizar Pessoas</a></li>
+                                <li><a class="dropdown-item" href="../views/view_pessoa.php">Visualizar Pessoas</a></li>
                             <?php endif; ?>
                         </ul>
                     </li>

@@ -30,6 +30,21 @@ SET atualizado_em = CURRENT_TIMESTAMP
 WHERE id = NEW.id;
 END;
 -- ============================================
+-- Tabela: password_resets
+-- ============================================
+DROP TABLE IF EXISTS password_resets;
+CREATE TABLE password_resets (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    usuario_id INTEGER NOT NULL,
+    token_hash TEXT NOT NULL UNIQUE,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+CREATE INDEX idx_password_resets_usuario ON password_resets(usuario_id);
+CREATE INDEX idx_password_resets_token ON password_resets(token_hash);
+-- ============================================
 -- Tabela: pessoas (pacientes)
 -- ============================================
 DROP TABLE IF EXISTS pessoas;

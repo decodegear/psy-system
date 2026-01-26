@@ -1,11 +1,16 @@
 <?php
+ob_start();
 include '../includes/header.php';
 
 $messages = [];
 $calendarReady = true;
 $credentialsPath = __DIR__ . '/../google_calendar/credentials.json';
 $tokenPath = __DIR__ . '/../google_calendar/token.json';
-$authorizeUrl = '/psy-system/google_calendar/authorize.php';
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$scriptPath = $_SERVER['SCRIPT_NAME'] ?? '/pages/eventos.php';
+$basePath = rtrim(str_replace('/pages/eventos.php', '', $scriptPath), '/');
+$authorizeUrl = $scheme . '://' . $host . $basePath . '/google_calendar/authorize.php';
 
 if (!file_exists($credentialsPath)) {
     $calendarReady = false;
@@ -25,27 +30,57 @@ if ($calendarReady) {
     }
 
     if ($calendarReady && $client->isAccessTokenExpired()) {
-        $calendarReady = false;
-        $messages[] = 'Token expirado. Refaca a autenticacao para continuar.';
+        $refreshToken = $accessToken['refresh_token'] ?? $client->getRefreshToken();
+        if ($refreshToken) {
+            $newToken = $client->fetchAccessTokenWithRefreshToken($refreshToken);
+            if (!isset($newToken['error'])) {
+                $accessToken = array_merge($accessToken, $newToken, ['refresh_token' => $refreshToken]);
+                file_put_contents($tokenPath, json_encode($accessToken, JSON_PRETTY_PRINT));
+                $client->setAccessToken($accessToken);
+            } else {
+                $calendarReady = false;
+                $messages[] = 'Token expirado. Refaca a autenticacao para continuar.';
+            }
+        } else {
+            $calendarReady = false;
+            $messages[] = 'Token expirado. Refaca a autenticacao para continuar.';
+        }
     }
 }
 
 $eventos = [];
 if ($calendarReady) {
     $service = new Google\Service\Calendar($client);
-    $calendarId = 'primary';
+    $calendarId = '986eb5e79c1f554e4d3b28a83b4c5cedf55cd7ece48d31cb3ac453d67a03648d@group.calendar.google.com';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['criar'])) {
-        $evento = new Google\Service\Calendar\Event([
-            'summary'     => $_POST['titulo'],
-            'description' => $_POST['descricao'],
-            'start'       => ['dateTime' => $_POST['data_inicio']],
-            'end'         => ['dateTime' => $_POST['data_fim']],
-        ]);
+        $timezone = 'America/Sao_Paulo';
+        $inicioInput = $_POST['data_inicio'] ?? '';
+        $fimInput = $_POST['data_fim'] ?? '';
 
-        $service->events->insert($calendarId, $evento);
-        header('Location: eventos.php');
-        exit();
+        $inicio = DateTime::createFromFormat('Y-m-d\TH:i', $inicioInput, new DateTimeZone($timezone));
+        $fim = DateTime::createFromFormat('Y-m-d\TH:i', $fimInput, new DateTimeZone($timezone));
+
+        if (!$inicio || !$fim) {
+            $messages[] = 'Datas invalidas. Verifique data e hora do evento.';
+        } else {
+            $evento = new Google\Service\Calendar\Event([
+                'summary'     => $_POST['titulo'],
+                'description' => $_POST['descricao'],
+                'start'       => [
+                    'dateTime' => $inicio->format('Y-m-d\TH:i:s'),
+                    'timeZone' => $timezone,
+                ],
+                'end'         => [
+                    'dateTime' => $fim->format('Y-m-d\TH:i:s'),
+                    'timeZone' => $timezone,
+                ],
+            ]);
+
+            $service->events->insert($calendarId, $evento);
+            header('Location: eventos.php');
+            exit();
+        }
     }
 
     if (isset($_GET['excluir'])) {
@@ -55,7 +90,8 @@ if ($calendarReady) {
     }
 
     $filtro = $_GET['filtro'] ?? 'dia';
-    $hoje = new DateTime();
+    $timezone = 'America/Sao_Paulo';
+    $hoje = new DateTime('now', new DateTimeZone($timezone));
     $inicio = clone $hoje;
     $fim = clone $hoje;
 
@@ -67,9 +103,13 @@ if ($calendarReady) {
         $fim->modify('last day of this month');
     }
 
+    $inicio->setTime(0, 0, 0);
+    $fim->setTime(23, 59, 59);
+
     $parametros = [
-        'timeMin' => $inicio->format('Y-m-d\T00:00:00\Z'),
-        'timeMax' => $fim->format('Y-m-d\T23:59:59\Z'),
+        'timeMin' => $inicio->format(DateTime::RFC3339),
+        'timeMax' => $fim->format(DateTime::RFC3339),
+        'timeZone' => $timezone,
         'orderBy' => 'startTime',
         'singleEvents' => true,
     ];
@@ -163,3 +203,4 @@ if ($calendarReady) {
 </main>
 
 <?php include '../includes/footer.php'; ?>
+<?php ob_end_flush(); ?>

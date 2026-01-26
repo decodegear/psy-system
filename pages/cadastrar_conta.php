@@ -67,48 +67,62 @@ $result = $conn->query($sql);
 include '../includes/header.php';
 ?>
 
-<h1>Gerenciar Contas</h1>
+<main class="transactions-page">
+    <section class="page-hero">
+        <div>
+            <p class="page-eyebrow">Financeiro</p>
+            <h1>Gerenciar Contas</h1>
+            <p class="page-subtitle">Crie e acompanhe contas financeiras do sistema.</p>
+        </div>
+    </section>
 
-<!-- Formul&aacute;rio de Cadastro/Altera&ccedil;&atilde;o de Conta -->
-<form method="post" action="cadastrar_conta.php" class="form-grid">
-    <div class="form-field">
-        <label for="nome">Nome da Conta:</label>
-        <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome); ?>" required>
-    </div>
+    <section class="table-card">
+        <h2><?= $id ? 'Editar conta' : 'Nova conta'; ?></h2>
+        <form method="post" action="cadastrar_conta.php" class="form-grid">
+            <div class="form-field">
+                <label for="nome">Nome da Conta:</label>
+                <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome); ?>" required>
+            </div>
 
-    <div class="form-field">
-        <label for="saldo_inicial">Saldo Inicial:</label>
-        <input type="number" id="saldo_inicial" name="saldo_inicial" step="0.01" value="<?= htmlspecialchars($saldo_inicial); ?>" required>
-    </div>
+            <div class="form-field">
+                <label for="saldo_inicial">Saldo Inicial:</label>
+                <input type="number" id="saldo_inicial" name="saldo_inicial" step="0.01" value="<?= htmlspecialchars($saldo_inicial); ?>" required>
+            </div>
 
-    <input type="hidden" name="id" value="<?= $id; ?>">
-    <div class="form-field form-field--full">
-        <input type="submit" value="Salvar Conta">
-    </div>
-</form>
+            <input type="hidden" name="id" value="<?= $id; ?>">
+            <div class="form-field form-field--full">
+                <button type="submit" class="btn btn-primary">Salvar Conta</button>
+            </div>
+        </form>
+    </section>
 
-<h2>Contas Cadastradas</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Saldo Inicial</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)) : ?>
-            <tr>
-                <td><?= htmlspecialchars($row['nome']); ?></td>
-                <td><?= htmlspecialchars($row['saldo_inicial']); ?></td>
-                <td>
-                    <a href="cadastrar_conta.php?edit=<?= $row['id']; ?>" class="bi bi-pencil-square" style="color: orange;"></a>
-                    <a href="cadastrar_conta.php?delete=<?= $row['id']; ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir esta conta?');"></a>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-    </tbody>
-</table>
+    <section class="table-card">
+        <h2>Contas cadastradas</h2>
+        <div class="table-wrapper">
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Saldo Inicial</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)) : ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['nome']); ?></td>
+                            <td><?= htmlspecialchars($row['saldo_inicial']); ?></td>
+                            <td>
+                                <a href="cadastrar_conta.php?edit=<?= $row['id']; ?>" class="bi bi-pencil-square" style="color: orange;"></a>
+                                <a href="cadastrar_conta.php?delete=<?= $row['id']; ?>" class="bi bi-trash3" style="color: red" onclick="return confirm('Tem certeza que deseja excluir esta conta?');"></a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
 
 <?php
 include '../includes/footer.php';

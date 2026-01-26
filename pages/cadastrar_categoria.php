@@ -105,67 +105,84 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 include '../includes/header.php';
 ?>
 
-<h1>Gerenciar Categorias</h1>
+<main class="transactions-page">
+    <section class="page-hero">
+        <div>
+            <p class="page-eyebrow">Financeiro</p>
+            <h1>Gerenciar Categorias</h1>
+            <p class="page-subtitle">Organize tipos de receitas e despesas.</p>
+        </div>
+    </section>
 
-<form method="post" action="cadastrar_categoria.php" class="form-grid">
-    <div class="form-field">
-        <label for="nome">Nome da Categoria:</label>
-        <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome ?? ''); ?>" required>
-    </div>
+    <section class="table-card">
+        <h2><?= $id ? 'Editar categoria' : 'Nova categoria'; ?></h2>
+        <form method="post" action="cadastrar_categoria.php" class="form-grid">
+            <div class="form-field">
+                <label for="nome">Nome da Categoria:</label>
+                <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($nome ?? ''); ?>" required>
+            </div>
 
-    <div class="form-field">
-        <label for="tipo">Tipo:</label>
-        <select id="tipo" name="tipo">
-            <option value="receita" <?= $tipo == 'receita' ? 'selected' : ''; ?>>receita</option>
-            <option value="despesa" <?= $tipo == 'despesa' ? 'selected' : ''; ?>>despesa</option>
-        </select>
-    </div>
+            <div class="form-field">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo">
+                    <option value="receita" <?= $tipo == 'receita' ? 'selected' : ''; ?>>receita</option>
+                    <option value="despesa" <?= $tipo == 'despesa' ? 'selected' : ''; ?>>despesa</option>
+                </select>
+            </div>
 
-    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? ''); ?>">
-    <div class="form-field form-field--full">
-        <input type="submit" value="Salvar Categoria">
-    </div>
-</form>
+            <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? ''); ?>">
+            <div class="form-field form-field--full">
+                <button type="submit" class="btn btn-primary">Salvar Categoria</button>
+            </div>
+        </form>
+    </section>
 
-<h2>Filtrar Categorias</h2>
-<form method="post" action="cadastrar_categoria.php" class="form-grid">
-    <div class="form-field">
-        <label><input type="checkbox" name="filtro_receita" <?= $filtro_receita ? 'checked' : ''; ?>> Receitas</label>
-    </div>
-    <div class="form-field">
-        <label><input type="checkbox" name="filtro_despesa" <?= $filtro_despesa ? 'checked' : ''; ?>> Despesas</label>
-    </div>
-    <div class="form-field form-field--full">
-        <input type="submit" value="Filtrar">
-    </div>
-</form>
+    <section class="table-card">
+        <h2>Filtrar categorias</h2>
+        <form method="post" action="cadastrar_categoria.php" class="form-grid">
+            <div class="form-field">
+                <label><input type="checkbox" name="filtro_receita" <?= $filtro_receita ? 'checked' : ''; ?>> Receitas</label>
+            </div>
+            <div class="form-field">
+                <label><input type="checkbox" name="filtro_despesa" <?= $filtro_despesa ? 'checked' : ''; ?>> Despesas</label>
+            </div>
+            <div class="form-field form-field--full">
+                <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+            </div>
+        </form>
+    </section>
 
-<h2>Categorias Cadastradas</h2>
-<?php if (!empty($result)): ?>
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($result as $row): ?>
-                <tr>
-                    <td><?= htmlspecialchars($row['nome']); ?></td>
-                    <td><?= htmlspecialchars($row['tipo']); ?></td>
-                    <td>
-                        <a class="bi bi-pencil-square" style="color: orange" href="cadastrar_categoria.php?edit=<?= $row['id']; ?>"></a>
-                        <a class="bi bi-trash3" style="color: red;" href="cadastrar_categoria.php?delete=<?= $row['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');"></a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else: ?>
-    <p>Nenhuma categoria encontrada.</p>
-<?php endif; ?>
+    <section class="table-card">
+        <h2>Categorias cadastradas</h2>
+        <?php if (!empty($result)): ?>
+            <div class="table-wrapper">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($result as $row): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($row['nome']); ?></td>
+                                <td><?= htmlspecialchars($row['tipo']); ?></td>
+                                <td>
+                                    <a class="bi bi-pencil-square" style="color: orange" href="cadastrar_categoria.php?edit=<?= $row['id']; ?>"></a>
+                                    <a class="bi bi-trash3" style="color: red;" href="cadastrar_categoria.php?delete=<?= $row['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');"></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <p>Nenhuma categoria encontrada.</p>
+        <?php endif; ?>
+    </section>
+</main>
 
 <?php if ($mensagem): ?>
     <script>

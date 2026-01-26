@@ -4,6 +4,12 @@
     "editor.formatOnPaste": true,
     "editor.formatOnType": true,
     "chat.tools.terminal.autoApprove": {
-        "&": true
+        "&": true,
+        "/^php -r '\\$dbFile=\"c:\\\\\\\\Projects\\\\\\\\Psy\\\\\\\\psy-system\\\\\\\\database\\\\\\\\psy_system\\.db\"; if \\(file_exists\\(\\$dbFile\\)\\) \\{ unlink\\(\\$dbFile\\); \\} \\$sql=file_get_contents\\(\"c:\\\\\\\\Projects\\\\\\\\Psy\\\\\\\\psy-system\\\\\\\\database_sqlite\\.sql\"\\); \\$pdo=new PDO\\(\"sqlite:\"\\.\\$dbFile\\); \\$pdo->setAttribute\\(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION\\); \\$pdo->exec\\(\"PRAGMA foreign_keys = ON;\"\\); \\$pdo->exec\\(\"PRAGMA journal_mode = WAL;\"\\); function parseSQLCommands\\(\\$sql\\)\\{ \\$commands=\\[\\]; \\$current=\"\"; \\$inTrigger=false; \\$lines=explode\\(\"\\\\n\",\\$sql\\); foreach\\(\\$lines as \\$line\\)\\{ \\$trimmed=trim\\(\\$line\\); if \\(stripos\\(\\$trimmed,\"CREATE TRIGGER\"\\)===0\\)\\{ \\$inTrigger=true; \\} \\$current\\.=\\$line\\.\"\\\\n\"; if \\(substr\\(\\$trimmed,-1\\)===\";\"\\)\\{ if \\(\\$inTrigger\\)\\{ if \\(stripos\\(\\$trimmed,\"END;\"\\)===0 \\|\\| preg_match\\(\"/END\\\\s\\*;/i\",\\$trimmed\\)\\)\\{ \\$commands\\[\\]=trim\\(\\$current\\); \\$current=\"\"; \\$inTrigger=false; \\} \\} else \\{ \\$commands\\[\\]=trim\\(\\$current\\); \\$current=\"\"; \\} \\} \\} if \\(!empty\\(trim\\(\\$current\\)\\)\\)\\{ \\$commands\\[\\]=trim\\(\\$current\\); \\} return \\$commands; \\} \\$commands=parseSQLCommands\\(\\$sql\\); \\$success=0; \\$errors=0; foreach\\(\\$commands as \\$command\\)\\{ \\$command=trim\\(\\$command\\); if \\(\\$command===\"\" \\|\\| strpos\\(\\$command,\"--\"\\)===0 \\|\\| strpos\\(\\$command,\"PRAGMA\"\\)===0\\)\\{ continue; \\} try \\{ \\$pdo->exec\\(\\$command\\); \\$success\\+\\+; \\} catch \\(PDOException \\$e\\)\\{ if \\(strpos\\(\\$e->getMessage\\(\\),\"already exists\"\\)===false\\)\\{ \\$errors\\+\\+; \\} \\} \\} echo \"OK: \\$success comandos, erros: \\$errors\\\\n\";'$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "sqlite3": true,
+        "composer": true
     }
 }

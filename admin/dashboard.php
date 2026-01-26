@@ -44,11 +44,11 @@ include '../includes/header.php';
     </section>
 
     <div class="row g-4 dashboard-grid">
-        <div class="col-lg-6 col-xl-4">
+        <div class="col-12">
             <section class="dashboard-card">
                 <header class="dashboard-card-header">
                     <div>
-                        <h2>Agenda</h2>
+                        <h2><i class="bi bi-calendar-week"></i> Agenda</h2>
                         <p>Resumo semanal de atendimentos.</p>
                     </div>
                     <a class="dashboard-link" href="../views/visualizar_agendamentos.php">Ver tudo</a>
@@ -61,27 +61,32 @@ include '../includes/header.php';
             </section>
         </div>
 
-        <div class="col-lg-6 col-xl-4">
+        <div class="col-lg-6">
             <section class="dashboard-card">
                 <header class="dashboard-card-header">
                     <div>
-                        <h2>Despesas</h2>
+                        <h2><i class="bi bi-arrow-down-circle"></i> Despesas</h2>
                         <p>Ultimos 5 vencimentos registrados.</p>
                     </div>
                     <a class="dashboard-link" href="../views/visualizar_transacao.php?tipo=despesa">Ver detalhes</a>
                 </header>
                 <div class="dashboard-card-body">
                     <?php
+                    $totalDespesas = 0.0;
+                    $despesasRecentes = [];
 
-                    // Obter total de despesas
-                    $totalStmt = $conn->prepare("SELECT SUM(valor) as total FROM transacoes WHERE tipo = 'despesa'");
-                    $totalStmt->execute();
-                    $totalDespesas = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
+                    if ($conn instanceof PDO) {
+                        // Obter total de despesas
+                        $totalStmt = $conn->prepare("SELECT SUM(valor) as total FROM transacoes WHERE tipo = 'despesa'");
+                        $totalStmt->execute();
+                        $totalRow = $totalStmt->fetch(PDO::FETCH_ASSOC);
+                        $totalDespesas = (float)($totalRow['total'] ?? 0);
 
-                    // Obter as despesas mais recentes
-                    $recentStmt = $conn->prepare("SELECT nome, valor, data_vencimento FROM transacoes WHERE tipo = 'despesa' ORDER BY data_vencimento DESC LIMIT 5");
-                    $recentStmt->execute();
-                    $despesasRecentes = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
+                        // Obter as despesas mais recentes
+                        $recentStmt = $conn->prepare("SELECT nome, valor, data_vencimento FROM transacoes WHERE tipo = 'despesa' ORDER BY data_vencimento DESC LIMIT 5");
+                        $recentStmt->execute();
+                        $despesasRecentes = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
+                    }
                     ?>
 
                     <div class="table-wrapper">
@@ -97,7 +102,7 @@ include '../includes/header.php';
                                 <?php if (!empty($despesasRecentes)): ?>
                                     <?php foreach ($despesasRecentes as $despesa): ?>
                                         <tr>
-                                            <td><?php echo date('d/m/Y', htmlspecialchars(strtotime($despesa['data_vencimento']))); ?></td>
+                                            <td><?php echo date('d/m/Y', strtotime($despesa['data_vencimento'])); ?></td>
                                             <td><?= htmlspecialchars($despesa['nome']) ?></td>
                                             <td><?= htmlspecialchars(number_format($despesa['valor'], 2, ',', '.')) ?></td>
                                         </tr>
@@ -115,27 +120,32 @@ include '../includes/header.php';
             </section>
         </div>
 
-        <div class="col-lg-6 col-xl-4">
+        <div class="col-lg-6">
             <section class="dashboard-card">
                 <header class="dashboard-card-header">
                     <div>
-                        <h2>Receitas</h2>
+                        <h2><i class="bi bi-arrow-up-circle"></i> Receitas</h2>
                         <p>Entradas mais recentes do consult&oacute;rio.</p>
                     </div>
                     <a class="dashboard-link" href="../views/visualizar_transacao.php?tipo=receita">Ver detalhes</a>
                 </header>
                 <div class="dashboard-card-body">
                     <?php
+                    $totalReceitas = 0.0;
+                    $despesasRecentes = [];
 
-                    // Obter total de despesas
-                    $totalStmt = $conn->prepare("SELECT SUM(valor) as total FROM transacoes WHERE tipo = 'receita'");
-                    $totalStmt->execute();
-                    $totalDespesas = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
+                    if ($conn instanceof PDO) {
+                        // Obter total de receitas
+                        $totalStmt = $conn->prepare("SELECT SUM(valor) as total FROM transacoes WHERE tipo = 'receita'");
+                        $totalStmt->execute();
+                        $totalRow = $totalStmt->fetch(PDO::FETCH_ASSOC);
+                        $totalReceitas = (float)($totalRow['total'] ?? 0);
 
-                    // Obter as despesas mais recentes
-                    $recentStmt = $conn->prepare("SELECT nome, valor, data_vencimento FROM transacoes WHERE tipo = 'receita' ORDER BY data_vencimento DESC LIMIT 5");
-                    $recentStmt->execute();
-                    $despesasRecentes = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
+                        // Obter as receitas mais recentes
+                        $recentStmt = $conn->prepare("SELECT nome, valor, data_vencimento FROM transacoes WHERE tipo = 'receita' ORDER BY data_vencimento DESC LIMIT 5");
+                        $recentStmt->execute();
+                        $despesasRecentes = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
+                    }
                     ?>
 
                     <div class="table-wrapper">
@@ -151,7 +161,7 @@ include '../includes/header.php';
                                 <?php if (!empty($despesasRecentes)): ?>
                                     <?php foreach ($despesasRecentes as $despesa): ?>
                                         <tr>
-                                            <td><?php echo date('d/m/Y', htmlspecialchars(strtotime($despesa['data_vencimento']))); ?></td>
+                                            <td><?php echo date('d/m/Y', strtotime($despesa['data_vencimento'])); ?></td>
                                             <td><?= htmlspecialchars($despesa['nome']) ?></td>
                                             <td><?= htmlspecialchars(number_format($despesa['valor'], 2, ',', '.')) ?></td>
                                         </tr>
@@ -164,7 +174,7 @@ include '../includes/header.php';
                             </tbody>
                         </table>
                     </div>
-                    <div class="table-total">Total do per&iacute;odo: R$ <?= number_format($totalDespesas, 2, ',', '.'); ?></div>
+                    <div class="table-total">Total do per&iacute;odo: R$ <?= number_format($totalReceitas, 2, ',', '.'); ?></div>
                 </div>
             </section>
         </div>
